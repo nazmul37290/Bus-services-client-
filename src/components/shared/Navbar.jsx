@@ -9,7 +9,7 @@ const Navbar = () => {
     { text: "Conditions", href: "/conditions" },
   ];
   return (
-    <div className="bg-teal-600 ">
+    <div className="  bg-gradient-to-br from-teal-800 to-teal-300">
       <div className="navbar  max-w-screen-xl mx-auto">
         <div className="navbar-start">
           <div className="dropdown">
