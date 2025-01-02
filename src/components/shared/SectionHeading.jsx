@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 const SectionHeading = ({ title }) => {
   return (
     <div>
@@ -9,3 +10,7 @@ const SectionHeading = ({ title }) => {
 };
 
 export default SectionHeading;
+
+SectionHeading.propTypes = {
+  title: PropTypes.string.isRequired,
+};

@@ -19,7 +19,7 @@ const Banner = () => {
             comfortable bus services. Book now for an on-time arrival and a
             worry-free journey!
           </p>
-          <button className="btn bg-teal-400 border-teal-400 text-teal-950 uppercase">
+          <button className="btn text-white border-none bg-gradient-to-tr from-teal-600 to-teal-400 uppercase">
             Book Your Seat now
           </button>
         </div>

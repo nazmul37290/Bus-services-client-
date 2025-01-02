@@ -1,25 +1,39 @@
+import { useEffect, useState } from "react";
 import SectionHeading from "./shared/SectionHeading";
+import axios from "axios";
+import BusRouteCard from "./BusRouteCard";
+import Modal from "./Modal";
 
 const Locations = () => {
+  const [busRoutes, setBusRoutes] = useState([]);
+  const [activeModalRoute, setActiveModalRoute] = useState();
+
+  const setActiveRoute = (route) => {
+    setActiveModalRoute(route);
+    document.getElementById("my_modal_1").showModal();
+    console.log(route);
+  };
+  useEffect(() => {
+    axios.get(`${import.meta.env.VITE_BASE_URL}/bus-routes`).then((result) => {
+      setBusRoutes(result.data.data);
+    });
+  }, []);
   return (
     <>
       <SectionHeading title={"Available Exams"}></SectionHeading>
       <div className="max-w-screen-xl mx-auto">
-        <div className="card card-compact bg-base-100 w-96 shadow-xl">
-          <figure>
-            <img
-              src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-              alt="Shoes"
-            />
-          </figure>
-          <div className="card-body">
-            <h2 className="card-title">Shoes!</h2>
-            <p>If a dog chews shoes whose shoes does he choose?</p>
-            <div className="card-actions justify-end">
-              <button className="btn btn-primary">Buy Now</button>
-            </div>
-          </div>
+        <div className="flex gap-10">
+          {busRoutes.map((route, index) => {
+            return (
+              <BusRouteCard
+                key={index}
+                setActiveRoute={setActiveRoute}
+                route={route}
+              ></BusRouteCard>
+            );
+          })}
         </div>
+        <Modal route={activeModalRoute}></Modal>
       </div>
     </>
   );
