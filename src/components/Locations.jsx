@@ -11,7 +11,6 @@ const Locations = () => {
   const setActiveRoute = (route) => {
     setActiveModalRoute(route);
     document.getElementById("my_modal_1").showModal();
-    console.log(route);
   };
   useEffect(() => {
     axios.get(`${import.meta.env.VITE_BASE_URL}/bus-routes`).then((result) => {

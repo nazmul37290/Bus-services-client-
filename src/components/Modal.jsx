@@ -1,8 +1,8 @@
 import axios from "axios";
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
-import { BsCalendarDate } from "react-icons/bs";
 import { Link } from "react-router";
+import UnitCard from "./UnitCard";
 const Modal = ({ route }) => {
   const [units, setUnits] = useState([]);
   const [error, setError] = useState("");
@@ -38,15 +38,8 @@ const Modal = ({ route }) => {
               {units &&
                 units.map((unit, index) => {
                   return (
-                    <Link to={""} key={index}>
-                      <div className="p-5 text-center bg-teal-800 text-white h-28 w-56 rounded-lg">
-                        <h4 className="font-bold text-lg">{unit?.groupName}</h4>
-                        <p className="flex items-center justify-center mt-2 gap-2">
-                          <BsCalendarDate></BsCalendarDate>
-
-                          {unit?.dateOfExam}
-                        </p>
-                      </div>
+                    <Link to={`/bus-lists/${unit?.id}`} key={index}>
+                      <UnitCard unit={unit}></UnitCard>
                     </Link>
                   );
                 })}
