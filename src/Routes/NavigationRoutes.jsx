@@ -4,6 +4,7 @@ import { Route, Routes } from "react-router";
 import Tickets from "../pages/Tickets";
 import BusLists from "../pages/BusLists";
 import SelectBusSeats from "../pages/SelectBusSeats";
+import CheckOutPage from "../pages/CheckOutPage";
 const NavigationRoutes = () => {
   return (
     <Routes>
@@ -13,6 +14,10 @@ const NavigationRoutes = () => {
         <Route
           path="/select-seats/:busId"
           element={<SelectBusSeats></SelectBusSeats>}
+        ></Route>
+        <Route
+          path="/checkout-page"
+          element={<CheckOutPage></CheckOutPage>}
         ></Route>
         <Route path="/tickets" element={<Tickets></Tickets>}></Route>
       </Route>

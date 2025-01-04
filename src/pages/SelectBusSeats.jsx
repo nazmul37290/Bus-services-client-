@@ -1,15 +1,16 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { generateSeatNumbers } from "../utils/generateSeats";
 import { GiSteeringWheel } from "react-icons/gi";
 import { PiEngineBold } from "react-icons/pi";
 import { LuArrowRightLeft } from "react-icons/lu";
+import { toast } from "react-toastify";
 
 const SelectBusSeats = () => {
   const [bus, setBus] = useState();
   const [bookedSeats, setBookedSeats] = useState([]);
-  console.log(bookedSeats);
+  const [totalPrice, setTotalPrice] = useState(0);
   const { busId } = useParams();
   const seats = generateSeatNumbers(40);
   useEffect(() => {
@@ -34,13 +35,21 @@ const SelectBusSeats = () => {
       seatNumber.classList.add("bg-teal-600");
       seatNumber.classList.remove("bg-white");
       setBookedSeats([...bookedSeats, seat]);
+      setTotalPrice(totalPrice + bus?.seatPrice);
     } else {
-      alert("You can only book 6 seats");
+      toast.error("Cannot select more than 6 seats");
     }
   };
+  const navigate = useNavigate();
+  const handleCheckOut = () => {
+    navigate("/checkout-page", { state: { totalPrice, bookedSeats } });
+  };
+
   return (
     <div className="max-w-screen-xl mx-auto">
-      <p className="text-xl font-semibold my-5">{bus?.tripName}</p>
+      <p className="text-2xl font-semibold my-4 text-teal-600 ">
+        {bus?.tripName}
+      </p>
       <p className="text-lg font-semibold my-1">
         Bus name: <span className="font-normal">{bus?.busName}</span>
       </p>
@@ -52,7 +61,7 @@ const SelectBusSeats = () => {
         Ticket Price: {bus?.seatPrice}
         <span className="font-normal">/- Per seat</span>
       </p>
-      <div className="border flex border-teal-600 mt-10">
+      <div className="border flex justify-center gap-10 rounded border-teal-600 mt-10">
         <div className="w-fit">
           <div className="pt-8 flex justify-between px-10">
             <span>
@@ -83,7 +92,56 @@ const SelectBusSeats = () => {
             })}
           </div>
         </div>
-        <div className="w-1/3"></div>
+        <div className="w-1/3 flex flex-col">
+          <h3 className="text-white bg-teal-600 rounded-md p-2 flex items-center justify-center gap-2 text-center mt-8 text-lg font-semibold">
+            Selected Seats <span>{bookedSeats?.length}</span>
+          </h3>
+          <div className="overflow-x-auto">
+            <table className="table table-zebra">
+              {/* head */}
+              <thead>
+                <tr>
+                  <th>Serial no</th>
+                  <th>Seat </th>
+                  <th>Price</th>
+                </tr>
+              </thead>
+              <tbody>
+                {bookedSeats?.map((bookedSeat, index) => {
+                  return (
+                    <tr key={index}>
+                      <td>{index + 1}</td>
+                      <td className="font-semibold">{bookedSeat}</td>
+                      <td className="font-semibold">{bus?.seatPrice}</td>
+                    </tr>
+                  );
+                })}
+                {bookedSeats?.length === 0 ? (
+                  <tr>
+                    <td colSpan="3" className="text-center">
+                      No seats selected
+                    </td>
+                  </tr>
+                ) : (
+                  <tr>
+                    <td></td>
+                    <td className="font-bold">Total Price</td>
+                    <td className="font-bold">{totalPrice}</td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <button
+              onClick={handleCheckOut}
+              disabled={bookedSeats?.length === 0}
+              className="btn bg-teal-100 text-base disabled:bg-gray-300 mt-10 uppercase text-teal-900 w-full"
+            >
+              Continue
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );
