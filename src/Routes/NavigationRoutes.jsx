@@ -5,6 +5,7 @@ import Tickets from "../pages/Tickets";
 import BusLists from "../pages/BusLists";
 import SelectBusSeats from "../pages/SelectBusSeats";
 import CheckOutPage from "../pages/CheckOutPage";
+import Dashboard from "../pages/admin pages/Dashboard";
 const NavigationRoutes = () => {
   return (
     <Routes>
@@ -21,6 +22,7 @@ const NavigationRoutes = () => {
         ></Route>
         <Route path="/tickets" element={<Tickets></Tickets>}></Route>
       </Route>
+      <Route path="/admin" element={<Dashboard></Dashboard>}></Route>
     </Routes>
   );
 };

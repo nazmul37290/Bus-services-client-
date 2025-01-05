@@ -33,7 +33,9 @@ const BusCard = ({ bus }) => {
                   <span className=" font-medium">{bus?.departureTime} </span>
                 </td>
                 <td>
-                  <span className=" font-medium">{bus?.totalSeats} </span>
+                  <span className=" font-medium">
+                    {bus?.totalSeats - Number(bus?.bookedSeats.length)}
+                  </span>
                 </td>
                 <td>
                   <span className=" font-medium">{bus?.endingPoint} </span>

@@ -1,4 +1,4 @@
-import { NavLink } from "react-router";
+import { Link, NavLink } from "react-router";
 
 const Navbar = () => {
   const navlinks = [
@@ -74,9 +74,12 @@ const Navbar = () => {
           </ul>
         </div>
         <div className="navbar-end">
-          <a className="btn btn-md btn-outline text-white border-teal-800 bg-teal-800">
+          <Link
+            to={"/admin"}
+            className="btn btn-md btn-outline text-white border-teal-800 bg-teal-800"
+          >
             Admin
-          </a>
+          </Link>
         </div>
       </div>
     </div>
