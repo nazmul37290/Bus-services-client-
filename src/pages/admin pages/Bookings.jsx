@@ -5,19 +5,18 @@ import { FaRegEdit } from "react-icons/fa";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import { IoTrashBin } from "react-icons/io5";
 import { Link } from "react-router";
-
-const Buses = () => {
-  const [buses, setBuses] = useState([]);
+const Bookings = () => {
+  const [bookings, setBookings] = useState([]);
   useEffect(() => {
-    axios.get(`${import.meta.env.VITE_BASE_URL}/buses`).then((result) => {
-      setBuses(result.data.data);
+    axios.get(`${import.meta.env.VITE_BASE_URL}/bookings`).then((result) => {
+      setBookings(result.data.data);
     });
   }, []);
   return (
     <div>
       <div className="flex justify-between items-center">
         <h3 className="text-teal-600 font-semibold text-2xl uppercase">
-          All Buses
+          All Bookings
         </h3>
         <div className="flex items-center gap-5">
           <button className="btn bg-teal-600 text-base text-white ">
@@ -49,55 +48,48 @@ const Buses = () => {
             <thead>
               <tr>
                 <th>SL</th>
+                <th>NAME</th>
+                <th>CONTACT NUMBER</th>
+                <th>EMAIL</th>
+                <th>GENDER</th>
                 <th>TRIP NAME</th>
                 <th>BUS NAME</th>
-                <th>BUS TYPE</th>
-                <th>TOTAL SEATS</th>
-                <th>AVAILABLE SEATS</th>
-                <th>EXAM NAME</th>
-                <th>UNIT NAME</th>
-                <th>BOARDING POINT</th>
-                <th>ENDING POINT</th>
-                <th>DEPARTURE DATE</th>
-                <th>DEPARTURE TIME</th>
-                <th>SEAT PRICE</th>
+                <th>SEATS</th>
+                <th>TOTAL AMOUNT</th>
+                <th>TRANSACTION ID</th>
+                <th>PNR NUMBER</th>
                 <th>STATUS</th>
                 <th>ACTIONS</th>
               </tr>
             </thead>
             <tbody>
-              {buses?.map((bus, index) => {
+              {bookings?.map((booking, index) => {
                 return (
                   <tr key={index}>
                     <td>{index + 1}</td>
-                    <td>{bus?.tripName}</td>
-                    <td>{bus?.busName}</td>
-                    <td>{bus?.busType}</td>
-                    <td>{bus?.totalSeats}</td>
-                    <td>
-                      {Number(bus?.totalSeats) -
-                        Number(bus?.bookedSeats?.length)}
+                    <td className="font-semibold">{booking?.name}</td>
+                    <td className="font-semibold">{booking?.contactNumber}</td>
+                    <td className="font-semibold">{booking?.email}</td>
+                    <td className="font-medium">{booking?.gender}</td>
+                    <td className="font-medium">
+                      {booking?.busDetails?.tripName}
                     </td>
-                    <td className="font-semibold">
-                      {bus?.routeDetails?.examName}
+                    <td className="font-medium">
+                      {booking?.busDetails?.busName}
                     </td>
-                    <td className="font-semibold">
-                      {bus?.unitDetails?.groupName}
-                    </td>
-                    <td className="font-semibold">{bus?.startingPoint}</td>
-                    <td className="font-semibold">{bus?.endingPoint}</td>
-                    <td className="font-semibold">{bus?.departureDate}</td>
-                    <td className="font-semibold">{bus?.departureTime}</td>
-                    <td className="font-semibold">{bus?.seatPrice}</td>
+                    <td className="font-medium">{booking?.seats.join(",")}</td>
+                    <td className="font-medium">{booking?.totalPrice}</td>
+                    <td className="font-medium">{booking?.transactionId}</td>
+                    <td className="font-medium">{booking?.transactionId}</td>
                     <td>
                       <span
                         className={`${
-                          bus?.status === "active"
+                          booking?.status === "active"
                             ? " bg-teal-600 font-semibold"
                             : "bg-red-600"
                         } badge text-white uppercase text-xs`}
                       >
-                        {bus?.status}
+                        {booking?.status}
                       </span>
                     </td>
                     <td>
@@ -121,4 +113,4 @@ const Buses = () => {
   );
 };
 
-export default Buses;
+export default Bookings;

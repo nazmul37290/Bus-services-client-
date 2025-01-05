@@ -10,6 +10,7 @@ import BusRoutes from "../pages/admin pages/BusRoutes";
 import DashboardContent from "../pages/admin pages/DashboardContent";
 import Units from "../pages/admin pages/Units";
 import Buses from "../pages/admin pages/Buses";
+import Bookings from "../pages/admin pages/Bookings";
 const NavigationRoutes = () => {
   return (
     <Routes>
@@ -31,6 +32,7 @@ const NavigationRoutes = () => {
         <Route path="bus-routes" element={<BusRoutes></BusRoutes>}></Route>
         <Route path="units" element={<Units></Units>}></Route>
         <Route path="buses" element={<Buses></Buses>}></Route>
+        <Route path="bookings" element={<Bookings></Bookings>}></Route>
       </Route>
     </Routes>
   );
