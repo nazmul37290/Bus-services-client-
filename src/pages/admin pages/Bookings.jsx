@@ -5,12 +5,16 @@ import { FaRegEdit } from "react-icons/fa";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import { IoTrashBin } from "react-icons/io5";
 import { Link } from "react-router";
+import handleDelete from "../../utils/delete";
 const Bookings = () => {
   const [bookings, setBookings] = useState([]);
-  useEffect(() => {
+  const fetchBookings = async () => {
     axios.get(`${import.meta.env.VITE_BASE_URL}/bookings`).then((result) => {
       setBookings(result.data.data);
     });
+  };
+  useEffect(() => {
+    fetchBookings();
   }, []);
   return (
     <div>
@@ -97,9 +101,17 @@ const Bookings = () => {
                         <Link to={""}>
                           <FaRegEdit color="teal" size={20} />
                         </Link>
-                        <Link to={""}>
+                        <button
+                          onClick={() =>
+                            handleDelete(
+                              "/bookings",
+                              booking?.id,
+                              fetchBookings
+                            )
+                          }
+                        >
                           <IoTrashBin color="red" size={20} />
-                        </Link>
+                        </button>
                       </div>
                     </td>
                   </tr>
