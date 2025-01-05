@@ -11,6 +11,9 @@ import DashboardContent from "../pages/admin pages/DashboardContent";
 import Units from "../pages/admin pages/Units";
 import Buses from "../pages/admin pages/Buses";
 import Bookings from "../pages/admin pages/Bookings";
+import Users from "../pages/admin pages/Users";
+import CreateUser from "../pages/admin pages/CreateUser";
+import UpdateUser from "../pages/admin pages/UpdateUser";
 const NavigationRoutes = () => {
   return (
     <Routes>
@@ -33,6 +36,15 @@ const NavigationRoutes = () => {
         <Route path="units" element={<Units></Units>}></Route>
         <Route path="buses" element={<Buses></Buses>}></Route>
         <Route path="bookings" element={<Bookings></Bookings>}></Route>
+        <Route path="users" element={<Users></Users>}></Route>
+        <Route
+          path="users/create-user"
+          element={<CreateUser></CreateUser>}
+        ></Route>
+        <Route
+          path="users/:id/update-user"
+          element={<UpdateUser></UpdateUser>}
+        ></Route>
       </Route>
     </Routes>
   );
