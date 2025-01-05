@@ -25,7 +25,7 @@ const CheckOutPage = () => {
     details.busId = id;
     details.seats = bookedSeats;
     details.totalPrice = totalPayableAmount;
-    details.transactionId = "afshiooiths1546hys1";
+    details.transactionId = "afshioo546hy4545s1345";
     axios
       .post(`${import.meta.env.VITE_BASE_URL}/bookings/create-booking`, details)
       .then((res) => {

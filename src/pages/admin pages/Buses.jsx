@@ -5,13 +5,17 @@ import { FaRegEdit } from "react-icons/fa";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import { IoTrashBin } from "react-icons/io5";
 import { Link } from "react-router";
+import handleDelete from "../../utils/delete";
 
 const Buses = () => {
   const [buses, setBuses] = useState([]);
-  useEffect(() => {
+  const fetchBuses = async () => {
     axios.get(`${import.meta.env.VITE_BASE_URL}/buses`).then((result) => {
       setBuses(result.data.data);
     });
+  };
+  useEffect(() => {
+    fetchBuses();
   }, []);
   return (
     <div>
@@ -105,9 +109,13 @@ const Buses = () => {
                         <Link to={""}>
                           <FaRegEdit color="teal" size={20} />
                         </Link>
-                        <Link to={""}>
+                        <button
+                          onClick={() =>
+                            handleDelete("/buses", bus?.id, fetchBuses)
+                          }
+                        >
                           <IoTrashBin color="red" size={20} />
-                        </Link>
+                        </button>
                       </div>
                     </td>
                   </tr>
