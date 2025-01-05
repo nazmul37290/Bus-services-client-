@@ -1,6 +1,14 @@
 import { GiHamburgerMenu } from "react-icons/gi";
-import { Link } from "react-router";
+import { Link, NavLink, Outlet } from "react-router";
 
+const dashboardLinks = [
+  { text: "Dashboard", href: "/admin" },
+  { text: "Bus Routes", href: "/admin/bus-routes" },
+  { text: "Units", href: "/admin/units" },
+  { text: "Buses", href: "/admin/buses" },
+  { text: "Bookings", href: "/admin/bookings" },
+  { text: "Users", href: "/admin/users" },
+];
 const Dashboard = () => {
   return (
     <>
@@ -57,9 +65,9 @@ const Dashboard = () => {
       <div>
         <div className="drawer  lg:drawer-open">
           <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-          <div className="drawer-content flex flex-col items-center justify-center">
+          <div className="drawer-content p-10">
             {/* Page content here */}
-            <h3>This is the content</h3>
+            <Outlet></Outlet>
           </div>
           <div className="drawer-side">
             <label
@@ -67,14 +75,27 @@ const Dashboard = () => {
               aria-label="close sidebar"
               className="drawer-overlay"
             ></label>
-            <ul className="menu bg-teal-600 text-white font-medium text-base min-h-full w-80 p-4">
+            <ul className="menu bg-teal-600 text-white font-medium text-base min-h-full uppercase w-80 p-4">
               {/* Sidebar content here */}
-              <li>
-                <a>Sidebar Item 1</a>
-              </li>
-              <li>
-                <a>Sidebar Item 2</a>
-              </li>
+              {dashboardLinks.map((link, index) => {
+                return (
+                  <NavLink
+                    key={index}
+                    to={link?.href}
+                    end
+                    className={({ isActive }) =>
+                      `${
+                        isActive
+                          ? "font-bold  text-white p-1 bg-teal-900 rounded-sm"
+                          : ""
+                      } p-2
+                    `
+                    }
+                  >
+                    {link?.text}
+                  </NavLink>
+                );
+              })}
             </ul>
           </div>
         </div>
