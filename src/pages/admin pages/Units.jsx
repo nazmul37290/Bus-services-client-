@@ -87,7 +87,7 @@ const Units = () => {
                     </td>
                     <td>
                       <div className="flex gap-3">
-                        <Link to={""}>
+                        <Link to={`${unit?.id}/update-unit`}>
                           <FaRegEdit color="teal" size={20} />
                         </Link>
                         <button

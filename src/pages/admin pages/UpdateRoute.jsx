@@ -24,7 +24,7 @@ const UpdateRoute = () => {
         setError("Error fetching route details");
       });
   }, [id, busRoute?.status]);
-  const handleCreateRoute = (e) => {
+  const handleUpdateRoute = (e) => {
     e.preventDefault();
     setLoading(true);
     const form = e.target;
@@ -56,9 +56,9 @@ const UpdateRoute = () => {
   return (
     <div>
       <h3 className="text-2xl font-semibold text-teal-600 uppercase">
-        Create Route
+        Update Route
       </h3>
-      <form onSubmit={handleCreateRoute} className="mt-5 ">
+      <form onSubmit={handleUpdateRoute} className="mt-5 ">
         <div className="md:w-[700px]">
           <div className="flex flex-wrap items-center">
             <label

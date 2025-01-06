@@ -17,6 +17,7 @@ import UpdateUser from "../pages/admin pages/UpdateUser";
 import CreateRoute from "../pages/admin pages/CreateRoute";
 import UpdateRoute from "../pages/admin pages/UpdateRoute";
 import CreateUnit from "../pages/admin pages/CreateUnit";
+import UpdateUnit from "../pages/admin pages/UpdateUnit";
 const NavigationRoutes = () => {
   return (
     <Routes>
@@ -59,6 +60,10 @@ const NavigationRoutes = () => {
         <Route
           path="units/create-unit"
           element={<CreateUnit></CreateUnit>}
+        ></Route>
+        <Route
+          path="units/:id/update-unit"
+          element={<UpdateUnit></UpdateUnit>}
         ></Route>
       </Route>
     </Routes>
