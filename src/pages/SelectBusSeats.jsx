@@ -12,7 +12,7 @@ const SelectBusSeats = () => {
   const [bookedSeats, setBookedSeats] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const { busId } = useParams();
-  const seats = generateSeatNumbers(40);
+  const seats = generateSeatNumbers(Number(bus?.totalSeats));
   useEffect(() => {
     axios
       .get(`${import.meta.env.VITE_BASE_URL}/buses/${busId}`)

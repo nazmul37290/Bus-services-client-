@@ -11,7 +11,7 @@ const Modal = ({ route }) => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`${import.meta.env.VITE_BASE_URL}/units?route=${route?.id || 1}`)
+      .get(`${import.meta.env.VITE_BASE_URL}/units?route=${route?._id || 1}`)
       .then((result) => {
         if (result.data.success === true) {
           setUnits(result.data.data);
@@ -24,7 +24,7 @@ const Modal = ({ route }) => {
         setUnits(null);
         setLoading(false);
       });
-  }, [route?.id, route]);
+  }, [route?._id, route]);
 
   return (
     <div>
@@ -61,7 +61,7 @@ export default Modal;
 
 Modal.propTypes = {
   route: PropTypes.shape({
-    id: PropTypes.string,
+    _id: PropTypes.string,
     examName: PropTypes.string,
   }),
 };

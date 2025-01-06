@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { toast } from "react-toastify";
+import { formatShowDate } from "../../utils/formatShowDate";
 
 const UpdateUnit = () => {
   const [unit, setUnit] = useState();
@@ -34,14 +35,7 @@ const UpdateUnit = () => {
         setError(err?.response?.data?.errorSources[0]?.message);
       });
   }, [id, unit?.status, unit?.routeId._id]);
-  const formatShowDate = (date) => {
-    if (!date) {
-      return "";
-    }
-    const [day, month, year] = date.split("-");
-    const showableDate = `${year}-${month}-${day}`;
-    return showableDate;
-  };
+
   const handleUpdateUnit = (e) => {
     e.preventDefault();
     setLoading(true);

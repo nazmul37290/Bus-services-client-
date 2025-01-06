@@ -18,6 +18,8 @@ import CreateRoute from "../pages/admin pages/CreateRoute";
 import UpdateRoute from "../pages/admin pages/UpdateRoute";
 import CreateUnit from "../pages/admin pages/CreateUnit";
 import UpdateUnit from "../pages/admin pages/UpdateUnit";
+import CreateBus from "../pages/admin pages/CreateBus";
+import UpdateBus from "../pages/admin pages/UpdateBus";
 const NavigationRoutes = () => {
   return (
     <Routes>
@@ -64,6 +66,14 @@ const NavigationRoutes = () => {
         <Route
           path="units/:id/update-unit"
           element={<UpdateUnit></UpdateUnit>}
+        ></Route>
+        <Route
+          path="buses/create-bus"
+          element={<CreateBus></CreateBus>}
+        ></Route>
+        <Route
+          path="buses/:id/update-bus"
+          element={<UpdateBus></UpdateBus>}
         ></Route>
       </Route>
     </Routes>

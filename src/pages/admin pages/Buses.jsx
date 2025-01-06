@@ -25,7 +25,7 @@ const Buses = () => {
         </h3>
         <div className="flex items-center gap-5">
           <button className="btn bg-teal-600 text-base text-white ">
-            <Link className="flex items-center gap-2">
+            <Link to={"create-bus"} className="flex items-center gap-2">
               Create New{" "}
               <span>
                 <CiCirclePlus size={25} />
@@ -106,7 +106,7 @@ const Buses = () => {
                     </td>
                     <td>
                       <div className="flex gap-3">
-                        <Link to={""}>
+                        <Link to={`${bus?.id}/update-bus`}>
                           <FaRegEdit color="teal" size={20} />
                         </Link>
                         <button

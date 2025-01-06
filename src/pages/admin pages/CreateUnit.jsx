@@ -86,7 +86,7 @@ const CreateUnit = () => {
           <div className="flex flex-wrap items-center mt-4">
             <label
               className=" flex-1 text-base font-semibold uppercase"
-              htmlFor="image"
+              htmlFor="routeId"
             >
               Select Route
             </label>
