@@ -5,13 +5,17 @@ import { FaRegEdit } from "react-icons/fa";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import { IoTrashBin } from "react-icons/io5";
 import { Link } from "react-router";
+import handleDelete from "../../utils/delete";
 
 const BusRoutes = () => {
   const [routes, setRoutes] = useState([]);
-  useEffect(() => {
+  const fetchRoutes = () => {
     axios.get(`${import.meta.env.VITE_BASE_URL}/bus-routes`).then((result) => {
       setRoutes(result.data.data);
     });
+  };
+  useEffect(() => {
+    fetchRoutes();
   }, []);
   return (
     <div>
@@ -21,7 +25,7 @@ const BusRoutes = () => {
         </h3>
         <div className="flex items-center gap-5">
           <button className="btn bg-teal-600 text-base text-white ">
-            <Link className="flex items-center gap-2">
+            <Link to={"create-route"} className="flex items-center gap-2">
               Create New{" "}
               <span>
                 <CiCirclePlus size={25} />
@@ -75,12 +79,16 @@ const BusRoutes = () => {
                     </td>
                     <td>
                       <div className="flex gap-3">
-                        <Link to={""}>
+                        <Link to={`${route?.id}/update-route`}>
                           <FaRegEdit color="teal" size={20} />
                         </Link>
-                        <Link to={""}>
+                        <button
+                          onClick={() =>
+                            handleDelete("/bus-routes", route?.id, fetchRoutes)
+                          }
+                        >
                           <IoTrashBin color="red" size={20} />
-                        </Link>
+                        </button>
                       </div>
                     </td>
                   </tr>

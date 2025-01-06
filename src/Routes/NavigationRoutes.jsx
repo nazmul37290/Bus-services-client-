@@ -14,6 +14,9 @@ import Bookings from "../pages/admin pages/Bookings";
 import Users from "../pages/admin pages/Users";
 import CreateUser from "../pages/admin pages/CreateUser";
 import UpdateUser from "../pages/admin pages/UpdateUser";
+import CreateRoute from "../pages/admin pages/CreateRoute";
+import UpdateRoute from "../pages/admin pages/UpdateRoute";
+import CreateUnit from "../pages/admin pages/CreateUnit";
 const NavigationRoutes = () => {
   return (
     <Routes>
@@ -44,6 +47,18 @@ const NavigationRoutes = () => {
         <Route
           path="users/:id/update-user"
           element={<UpdateUser></UpdateUser>}
+        ></Route>
+        <Route
+          path="bus-routes/create-route"
+          element={<CreateRoute></CreateRoute>}
+        ></Route>
+        <Route
+          path="bus-routes/:id/update-route"
+          element={<UpdateRoute></UpdateRoute>}
+        ></Route>
+        <Route
+          path="units/create-unit"
+          element={<CreateUnit></CreateUnit>}
         ></Route>
       </Route>
     </Routes>

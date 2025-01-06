@@ -5,13 +5,17 @@ import { FaRegEdit } from "react-icons/fa";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import { IoTrashBin } from "react-icons/io5";
 import { Link } from "react-router";
+import handleDelete from "../../utils/delete";
 
 const Units = () => {
   const [units, setUnits] = useState([]);
-  useEffect(() => {
+  const fetchUnits = async () => {
     axios.get(`${import.meta.env.VITE_BASE_URL}/units`).then((result) => {
       setUnits(result.data.data);
     });
+  };
+  useEffect(() => {
+    fetchUnits();
   }, []);
   return (
     <div>
@@ -21,7 +25,7 @@ const Units = () => {
         </h3>
         <div className="flex items-center gap-5">
           <button className="btn bg-teal-600 text-base text-white ">
-            <Link className="flex items-center gap-2">
+            <Link to={"create-unit"} className="flex items-center gap-2">
               Create New{" "}
               <span>
                 <CiCirclePlus size={25} />
@@ -86,9 +90,13 @@ const Units = () => {
                         <Link to={""}>
                           <FaRegEdit color="teal" size={20} />
                         </Link>
-                        <Link to={""}>
+                        <button
+                          onClick={() =>
+                            handleDelete("/units", unit?.id, fetchUnits)
+                          }
+                        >
                           <IoTrashBin color="red" size={20} />
-                        </Link>
+                        </button>
                       </div>
                     </td>
                   </tr>
