@@ -1,3 +1,25 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+* {
+  scrollbar-color: rgba(0, 0, 0, 0.35) transparent !important;
+}
+
+:root,
+[data-theme] {
+  background-color: var(
+    --fallback-b1,
+    #ffffff
+  ); /* Replace with your preferred color */
+  color: var(--fallback-bc, #000000);
+}
+.ticket {
+  /* background: url("../assets/bus.png");
+  background-color: rgba(0, 207, 173, 0.5);
+  background-blend-mode: overlay; */
+  border-radius: 15px;
+  background-size: 450px;
+  background-repeat: no-repeat;
+  background-position: center center;
+}

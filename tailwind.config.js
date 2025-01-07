@@ -5,4 +5,7 @@ export default {
     extend: {},
   },
   plugins: [require("daisyui")],
+  experimental: {
+    optimizeUniversalDefaults: true, // Try enabling optimization to avoid `oklch()`
+  },
 };

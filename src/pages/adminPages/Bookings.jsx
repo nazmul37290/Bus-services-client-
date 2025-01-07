@@ -84,7 +84,7 @@ const Bookings = () => {
                     <td className="font-medium">{booking?.seats.join(",")}</td>
                     <td className="font-medium">{booking?.totalPrice}</td>
                     <td className="font-medium">{booking?.transactionId}</td>
-                    <td className="font-medium">{booking?.transactionId}</td>
+                    <td className="font-medium">{booking?.pnrNumber}</td>
                     <td>
                       <span
                         className={`${

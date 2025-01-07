@@ -1,5 +1,8 @@
+import { useContext } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { Link, NavLink, Outlet } from "react-router";
+import { Link, NavLink, Outlet, useNavigate } from "react-router";
+import { UserContext } from "../../provider/AuthProvider";
+import { toast } from "react-toastify";
 
 const dashboardLinks = [
   { text: "Dashboard", href: "/admin" },
@@ -10,6 +13,14 @@ const dashboardLinks = [
   { text: "Users", href: "/admin/users" },
 ];
 const Dashboard = () => {
+  const navigate = useNavigate();
+  const { user, setUser } = useContext(UserContext);
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    toast.success("Logged out successfully");
+    setUser(null);
+    navigate("/");
+  };
   return (
     <>
       <div className="navbar bg-gradient-to-br from-teal-800 to-teal-300">
@@ -28,6 +39,10 @@ const Dashboard = () => {
               placeholder="Search"
               className="input input-bordered w-24 md:w-auto"
             />
+          </div>
+          <div className="text-end">
+            <p className="text-teal-900 font-semibold">{user?.userName}</p>
+            <p className="text-teal-900 font-semibold text-sm">{user?.email}</p>
           </div>
           <div className="dropdown dropdown-end">
             <div
@@ -56,7 +71,7 @@ const Dashboard = () => {
                 <a>Settings</a>
               </li>
               <li>
-                <a>Logout</a>
+                <button onClick={handleLogout}>Logout</button>
               </li>
             </ul>
           </div>

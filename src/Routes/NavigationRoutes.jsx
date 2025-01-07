@@ -5,21 +5,25 @@ import Tickets from "../pages/Tickets";
 import BusLists from "../pages/BusLists";
 import SelectBusSeats from "../pages/SelectBusSeats";
 import CheckOutPage from "../pages/CheckOutPage";
-import Dashboard from "../pages/admin pages/Dashboard";
-import BusRoutes from "../pages/admin pages/BusRoutes";
-import DashboardContent from "../pages/admin pages/DashboardContent";
-import Units from "../pages/admin pages/Units";
-import Buses from "../pages/admin pages/Buses";
-import Bookings from "../pages/admin pages/Bookings";
-import Users from "../pages/admin pages/Users";
-import CreateUser from "../pages/admin pages/CreateUser";
-import UpdateUser from "../pages/admin pages/UpdateUser";
-import CreateRoute from "../pages/admin pages/CreateRoute";
-import UpdateRoute from "../pages/admin pages/UpdateRoute";
-import CreateUnit from "../pages/admin pages/CreateUnit";
-import UpdateUnit from "../pages/admin pages/UpdateUnit";
-import CreateBus from "../pages/admin pages/CreateBus";
-import UpdateBus from "../pages/admin pages/UpdateBus";
+import Dashboard from "../pages/adminPages/Dashboard";
+import BusRoutes from "../pages/adminPages/BusRoutes";
+import DashboardContent from "../pages/adminPages/DashboardContent";
+import Units from "../pages/adminPages/Units";
+import Buses from "../pages/adminPages/Buses";
+import Bookings from "../pages/adminPages/Bookings";
+import Users from "../pages/adminPages/Users";
+import CreateUser from "../pages/adminPages/CreateUser";
+import UpdateUser from "../pages/adminPages/UpdateUser";
+import CreateRoute from "../pages/adminPages/CreateRoute";
+import UpdateRoute from "../pages/adminPages/UpdateRoute";
+import CreateUnit from "../pages/adminPages/CreateUnit";
+import UpdateUnit from "../pages/adminPages/UpdateUnit";
+import CreateBus from "../pages/adminPages/CreateBus";
+import UpdateBus from "../pages/adminPages/UpdateBus";
+import Error from "../pages/Error";
+// import Login from "../pages/auth/Login";
+import PrivateRoutes from "./PrivateRoutes";
+import Login from "../pages/auth/Login";
 const NavigationRoutes = () => {
   return (
     <Routes>
@@ -35,8 +39,17 @@ const NavigationRoutes = () => {
           element={<CheckOutPage></CheckOutPage>}
         ></Route>
         <Route path="/tickets" element={<Tickets></Tickets>}></Route>
+        <Route path="*" element={<Error></Error>} />
       </Route>
-      <Route path="/admin" element={<Dashboard></Dashboard>}>
+      <Route path="/login" element={<Login></Login>}></Route>
+      <Route
+        path="/admin"
+        element={
+          <PrivateRoutes>
+            <Dashboard></Dashboard>
+          </PrivateRoutes>
+        }
+      >
         <Route index element={<DashboardContent></DashboardContent>}></Route>
         <Route path="bus-routes" element={<BusRoutes></BusRoutes>}></Route>
         <Route path="units" element={<Units></Units>}></Route>

@@ -1,10 +1,11 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import Swal from "sweetalert2";
 
 const CheckOutPage = () => {
   const [bus, setBus] = useState();
+  const navigate = useNavigate();
 
   const { totalPrice, bookedSeats, busId, id } = useLocation().state;
   useEffect(() => {
@@ -25,7 +26,7 @@ const CheckOutPage = () => {
     details.busId = id;
     details.seats = bookedSeats;
     details.totalPrice = totalPayableAmount;
-    details.transactionId = "afshioo546hy4545s71345";
+    details.transactionId = "7134514fsfs41tt5";
     axios
       .post(`${import.meta.env.VITE_BASE_URL}/bookings/create-booking`, details)
       .then((res) => {
@@ -33,11 +34,20 @@ const CheckOutPage = () => {
         if (res.data.success === true) {
           Swal.fire({
             title: "Seats booked successfully",
+            text: `copy the pnr number ( ${res?.data?.data[0]?.pnrNumber} ) and get ticket from "get ticket section" `,
             icon: "success",
           });
+          navigate("/tickets");
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        Swal.fire({
+          title: "Cannot book seat",
+          text: `${err.message}`,
+          icon: "error",
+        });
+        navigate("/");
+      });
   };
   return (
     <div className="max-w-screen-xl mx-auto">

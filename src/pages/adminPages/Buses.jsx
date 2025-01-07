@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { CiCirclePlus } from "react-icons/ci";
 import { FaRegEdit } from "react-icons/fa";
@@ -6,26 +5,31 @@ import { FaMagnifyingGlass } from "react-icons/fa6";
 import { IoTrashBin } from "react-icons/io5";
 import { Link } from "react-router";
 import handleDelete from "../../utils/delete";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
-const Units = () => {
-  const [units, setUnits] = useState([]);
-  const fetchUnits = async () => {
-    axios.get(`${import.meta.env.VITE_BASE_URL}/units`).then((result) => {
-      setUnits(result.data.data);
-    });
+const Buses = () => {
+  const axiosSecure = useAxiosSecure();
+  const [buses, setBuses] = useState([]);
+  const fetchBuses = async () => {
+    try {
+      const result = await axiosSecure.get(`/buses`);
+      setBuses(result.data.data);
+    } catch (error) {
+      console.error("Error fetching buses:", error);
+    }
   };
   useEffect(() => {
-    fetchUnits();
+    fetchBuses();
   }, []);
   return (
     <div>
       <div className="flex justify-between items-center">
         <h3 className="text-teal-600 font-semibold text-2xl uppercase">
-          All Units
+          All Buses
         </h3>
         <div className="flex items-center gap-5">
           <button className="btn bg-teal-600 text-base text-white ">
-            <Link to={"create-unit"} className="flex items-center gap-2">
+            <Link to={"create-bus"} className="flex items-center gap-2">
               Create New{" "}
               <span>
                 <CiCirclePlus size={25} />
@@ -48,51 +52,70 @@ const Units = () => {
       </div>
       <div className="mt-10">
         <div className="overflow-x-auto">
-          <table className="table table-zebra">
+          <table className="table table-xs table-zebra">
             {/* head */}
             <thead>
               <tr>
                 <th>SL</th>
-                <th>UNIT NAME</th>
-                <th>DATE OF EXAM</th>
+                <th>TRIP NAME</th>
+                <th>BUS NAME</th>
+                <th>BUS TYPE</th>
+                <th>TOTAL SEATS</th>
+                <th>AVAILABLE SEATS</th>
                 <th>EXAM NAME</th>
-                <th>EXAM CENTER NAME</th>
+                <th>UNIT NAME</th>
+                <th>BOARDING POINT</th>
+                <th>ENDING POINT</th>
+                <th>DEPARTURE DATE</th>
+                <th>DEPARTURE TIME</th>
+                <th>SEAT PRICE</th>
                 <th>STATUS</th>
                 <th>ACTIONS</th>
               </tr>
             </thead>
             <tbody>
-              {units?.map((unit, index) => {
+              {buses?.map((bus, index) => {
                 return (
                   <tr key={index}>
                     <td>{index + 1}</td>
-                    <td className="font-semibold">{unit?.groupName}</td>
-                    <td className="font-semibold">{unit?.dateOfExam}</td>
+                    <td>{bus?.tripName}</td>
+                    <td>{bus?.busName}</td>
+                    <td>{bus?.busType}</td>
+                    <td>{bus?.totalSeats}</td>
+                    <td>
+                      {Number(bus?.totalSeats) -
+                        Number(bus?.bookedSeats?.length)}
+                    </td>
                     <td className="font-semibold">
-                      {unit?.routeDetails?.examName}
+                      {bus?.routeDetails?.examName}
                     </td>
-                    <td className="font-medium">
-                      {unit?.routeDetails?.examCenterName}
+                    <td className="font-semibold">
+                      {bus?.unitDetails?.groupName}
                     </td>
+                    <td className="font-semibold">{bus?.startingPoint}</td>
+                    <td className="font-semibold">{bus?.endingPoint}</td>
+                    <td className="font-semibold">{bus?.departureDate}</td>
+                    <td className="font-semibold">{bus?.departureTime}</td>
+                    <td className="font-semibold">{bus?.seatPrice}</td>
                     <td>
                       <span
                         className={`${
-                          unit?.status === "active"
+                          bus?.status === "active"
                             ? " bg-teal-600 font-semibold"
                             : "bg-red-600"
                         } badge text-white uppercase text-xs`}
                       >
-                        {unit?.status}
+                        {bus?.status}
                       </span>
                     </td>
                     <td>
                       <div className="flex gap-3">
-                        <Link to={`${unit?.id}/update-unit`}>
+                        <Link to={`${bus?.id}/update-bus`}>
                           <FaRegEdit color="teal" size={20} />
                         </Link>
                         <button
                           onClick={() =>
-                            handleDelete("/units", unit?.id, fetchUnits)
+                            handleDelete("/buses", bus?.id, fetchBuses)
                           }
                         >
                           <IoTrashBin color="red" size={20} />
@@ -110,4 +133,4 @@ const Units = () => {
   );
 };
 
-export default Units;
+export default Buses;
