@@ -21,13 +21,21 @@ import UpdateUnit from "../pages/adminPages/UpdateUnit";
 import CreateBus from "../pages/adminPages/CreateBus";
 import UpdateBus from "../pages/adminPages/UpdateBus";
 import Error from "../pages/Error";
-// import Login from "../pages/auth/Login";
 import PrivateRoutes from "./PrivateRoutes";
 import Login from "../pages/auth/Login";
+import SuccessPage from "../pages/SuccessPage";
 const NavigationRoutes = () => {
   return (
     <Routes>
       <Route path="/" element={<Layout></Layout>}>
+        <Route
+          path="/payment/success"
+          element={<SuccessPage></SuccessPage>}
+        ></Route>
+        <Route
+          path="/payment/error"
+          element={<SuccessPage></SuccessPage>}
+        ></Route>
         <Route path="/" element={<Home></Home>}></Route>
         <Route path="/bus-lists/:id" element={<BusLists></BusLists>}></Route>
         <Route

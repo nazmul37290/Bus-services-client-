@@ -26,28 +26,44 @@ const CheckOutPage = () => {
     details.busId = id;
     details.seats = bookedSeats;
     details.totalPrice = totalPayableAmount;
-    details.transactionId = "7134514fsfs41tt5";
-    axios
-      .post(`${import.meta.env.VITE_BASE_URL}/bookings/create-booking`, details)
-      .then((res) => {
-        console.log(res);
-        if (res.data.success === true) {
-          Swal.fire({
-            title: "Seats booked successfully",
-            text: `copy the pnr number ( ${res?.data?.data[0]?.pnrNumber} ) and get ticket from "get ticket section" `,
-            icon: "success",
-          });
-          navigate("/tickets");
-        }
-      })
-      .catch((err) => {
-        Swal.fire({
-          title: "Cannot book seat",
-          text: `${err.message}`,
-          icon: "error",
-        });
-        navigate("/");
-      });
+    details.transactionId = "7134514fsfsfss41tt5";
+    //   axios
+
+    //     .post(`${import.meta.env.VITE_BASE_URL}/bookings/create-booking`, details)
+    //     .then((res) => {
+    //       console.log(res);
+    //       if (res.data.success === true) {
+    //         Swal.fire({
+    //           title: "Seats booked successfully",
+    //           text: `copy the pnr number ( ${res?.data?.data[0]?.pnrNumber} ) and get ticket from "get ticket section" `,
+    //           icon: "success",
+    //         });
+    //         navigate("/tickets");
+    //       }
+    //     })
+    //     .catch((err) => {
+    //       Swal.fire({
+    //         title: "Cannot book seat",
+    //         text: `${err.message}`,
+    //         icon: "error",
+    //       });
+    //       navigate("/");
+    //     });
+    try {
+      const paymentRes = await axios.post(
+        `${import.meta.env.VITE_BASE_URL}/payment/bkash/create`,
+        { amount: totalPrice }
+      );
+      console.log(paymentRes.data);
+      if (
+        paymentRes?.data?.success === true &&
+        paymentRes?.data?.data?.bkashURL
+      ) {
+        window.location.href = paymentRes?.data?.data?.bkashURL;
+      }
+    } catch (error) {
+      console.log(error, "payment error");
+    }
   };
   return (
     <div className="max-w-screen-xl mx-auto">
