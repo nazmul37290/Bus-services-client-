@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useContext, useState } from "react";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { UserContext } from "../../provider/AuthProvider";
 
 const Login = () => {
@@ -75,7 +75,10 @@ const Login = () => {
               </div>
               <p className=" text-red-400">{error}</p>
               <div className="form-control mt-6">
-                <button className="btn bg-teal-500 border-none text-white">
+                <button
+                  type="submit"
+                  className="btn bg-teal-500 border-none text-white"
+                >
                   {loading ? (
                     <span className="loading loading-dots loading-sm"></span>
                   ) : (
@@ -83,6 +86,12 @@ const Login = () => {
                   )}
                 </button>
               </div>
+
+              <Link to={"/"}>
+                <button className="btn w-full mt-4 bg-transparent font-semibold text-white">
+                  Cancel
+                </button>
+              </Link>
             </form>
           </div>
         </div>
