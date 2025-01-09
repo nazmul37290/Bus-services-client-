@@ -7,8 +7,8 @@ const BusCard = ({ bus }) => {
         {bus?.tripName}
       </h5>
       <div>
-        <div className="overflow-x-auto">
-          <table className="table">
+        <div className="overflow-x-auto hidden sm:block">
+          <table className=" table">
             {/* head */}
             <thead>
               <tr>
@@ -49,6 +49,34 @@ const BusCard = ({ bus }) => {
         </div>
         <div className="flex items-end p-4">
           <div className="flex-1 flex flex-col gap-1">
+            <div className="sm:hidden flex flex-col gap-1">
+              <p className="text-sm font-semibold">
+                Bus Name :
+                <span className="ml-2 font-normal">{bus?.busName} </span>
+              </p>
+              <p className="text-sm font-semibold">
+                Departure Date :
+                <span className="ml-2 font-normal">{bus?.departureDate} </span>
+              </p>
+              <p className="text-sm font-semibold">
+                Departure Time :
+                <span className="ml-2 font-normal">{bus?.departureTime} </span>
+              </p>
+              <p className="text-sm font-semibold">
+                Seats Available :
+                <span className="ml-2 font-normal">
+                  {bus?.totalSeats - Number(bus?.bookedSeats.length)}{" "}
+                </span>
+              </p>
+              <p className="text-sm font-semibold">
+                Destination :
+                <span className="ml-2 font-normal">{bus?.endingPoint} </span>
+              </p>
+              <p className="text-sm font-semibold">
+                Ticket Fare :
+                <span className="ml-2 font-normal">{bus?.seatPrice} </span>
+              </p>
+            </div>
             <p className="text-sm font-semibold">
               Bus Type :
               <span className="ml-2 font-normal">{bus?.busType} </span>

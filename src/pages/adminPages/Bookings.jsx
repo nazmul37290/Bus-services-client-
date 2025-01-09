@@ -18,11 +18,11 @@ const Bookings = () => {
   }, []);
   return (
     <div>
-      <div className="flex justify-between items-center">
-        <h3 className="text-teal-600 font-semibold text-2xl uppercase">
+      <div className="flex flex-col md:flex-row justify-between items-center">
+        <h3 className="text-teal-600 font-semibold mb-5 md:mb-0 text-2xl uppercase">
           All Bookings
         </h3>
-        <div className="flex items-center gap-5">
+        <div className="flex flex-col sm:flex-row items-center gap-5">
           <button className="btn bg-teal-600 text-base text-white ">
             <Link className="flex items-center gap-2">
               Create New{" "}

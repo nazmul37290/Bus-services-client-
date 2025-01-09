@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { IoLocationOutline } from "react-icons/io5";
 const BusRouteCard = ({ route, setActiveRoute }) => {
   return (
-    <div className="card card-compact bg-base-100 w-96 shadow-xl">
+    <div className="card card-compact bg-base-100  sm:w-72 md:w-80 lg:w-96 shadow-xl">
       <figure>
         <img src="/assets/ru.png" alt="Shoes" />
       </figure>

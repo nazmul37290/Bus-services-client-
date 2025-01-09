@@ -26,7 +26,7 @@ const Tickets = () => {
   console.log(ticket);
   return (
     <div className="max-w-screen-xl min-h-[calc(100vh-420px)] mx-auto my-10">
-      <div className="flex gap-16">
+      <div className="flex flex-col lg:flex-row px-4 gap-16">
         <form onSubmit={handleGetTicket} className="w-full lg:w-1/3 mt-5">
           <h3 className="text-teal-600 font-semibold text-2xl mb-4 uppercase">
             Get Your Ticket
@@ -65,9 +65,12 @@ const Tickets = () => {
             Get Ticket
           </button>
         </form>
-        <div className=" bg-teal-50 rounded-lg h-96 w-full">
+        <div className=" bg-teal-50 rounded-lg  lg:h-96 w-full">
           {ticket && (
-            <div id="ticket" className="p-10 ticket bg-teal-50">
+            <div
+              id="ticket"
+              className="overflow-hidden p-10  ticket bg-teal-50"
+            >
               <h3 className="text-teal-600 font-semibold text-2xl mb-4 uppercase">
                 Ticket Details
               </h3>

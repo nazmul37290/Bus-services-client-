@@ -24,7 +24,7 @@ const BusLists = () => {
       });
   }, [id, error]);
   return (
-    <div className="max-w-screen-xl mx-auto">
+    <div className="max-w-screen-xl min-h-[calc(100vh-380px)] mx-auto">
       {loading ? (
         <span className="loading loading-dots loading-md"></span>
       ) : error ? (

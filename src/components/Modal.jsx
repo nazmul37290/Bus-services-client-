@@ -30,11 +30,13 @@ const Modal = ({ route }) => {
     <div>
       <dialog id="my_modal_1" className="modal ">
         <div className="modal-box max-w-4xl">
-          <h3 className="font-bold text-2xl mb-4">{route?.examName}</h3>
+          <h3 className="font-bold text-xl sm:text-2xl mb-4">
+            {route?.examName}
+          </h3>
           {loading ? (
             <span className="loading loading-dots loading-md"></span>
           ) : (
-            <div className="flex flex-wrap gap-10">
+            <div className="flex flex-wrap justify-center gap-4 sm:gap-10">
               {units &&
                 units.map((unit, index) => {
                   return (

@@ -22,11 +22,11 @@ const Units = () => {
   console.log(user);
   return (
     <div>
-      <div className="flex justify-between items-center">
-        <h3 className="text-teal-600 font-semibold text-2xl uppercase">
+      <div className="flex flex-col md:flex-row justify-between items-center">
+        <h3 className="text-teal-600 font-semibold text-2xl mb-5 md:mb-0 uppercase">
           All Units
         </h3>
-        <div className="flex items-center gap-5">
+        <div className="flex flex-col sm:flex-row items-center gap-5">
           <button className="btn bg-teal-600 text-base text-white ">
             <Link to={"create-unit"} className="flex items-center gap-2">
               Create New{" "}

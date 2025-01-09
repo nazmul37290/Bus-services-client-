@@ -1,11 +1,9 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router";
-import Swal from "sweetalert2";
+import { useLocation } from "react-router";
 
 const CheckOutPage = () => {
   const [bus, setBus] = useState();
-  const navigate = useNavigate();
 
   const { totalPrice, bookedSeats, busId, id } = useLocation().state;
   useEffect(() => {
@@ -18,37 +16,15 @@ const CheckOutPage = () => {
   const handleData = async (e) => {
     e.preventDefault();
     const form = e.target;
-    let details = {};
-    details.name = form.name.value;
-    details.contactNumber = form.contactNumber.value;
-    details.email = form.email.value;
-    details.gender = form.gender.value;
-    details.busId = id;
-    details.seats = bookedSeats;
-    details.totalPrice = totalPayableAmount;
-    details.transactionId = "7134514fsfsfss41tt5";
-    //   axios
+    let bookinDetails = {};
+    bookinDetails.name = form.name.value;
+    bookinDetails.contactNumber = form.contactNumber.value;
+    bookinDetails.email = form.email.value;
+    bookinDetails.gender = form.gender.value;
+    bookinDetails.busId = id;
+    bookinDetails.seats = bookedSeats;
+    bookinDetails.totalPrice = totalPayableAmount;
 
-    //     .post(`${import.meta.env.VITE_BASE_URL}/bookings/create-booking`, details)
-    //     .then((res) => {
-    //       console.log(res);
-    //       if (res.data.success === true) {
-    //         Swal.fire({
-    //           title: "Seats booked successfully",
-    //           text: `copy the pnr number ( ${res?.data?.data[0]?.pnrNumber} ) and get ticket from "get ticket section" `,
-    //           icon: "success",
-    //         });
-    //         navigate("/tickets");
-    //       }
-    //     })
-    //     .catch((err) => {
-    //       Swal.fire({
-    //         title: "Cannot book seat",
-    //         text: `${err.message}`,
-    //         icon: "error",
-    //       });
-    //       navigate("/");
-    //     });
     try {
       const paymentRes = await axios.post(
         `${import.meta.env.VITE_BASE_URL}/payment/bkash/create`,
@@ -59,6 +35,7 @@ const CheckOutPage = () => {
         paymentRes?.data?.success === true &&
         paymentRes?.data?.data?.bkashURL
       ) {
+        localStorage.setItem("bookingData", JSON.stringify(bookinDetails));
         window.location.href = paymentRes?.data?.data?.bkashURL;
       }
     } catch (error) {
@@ -67,8 +44,8 @@ const CheckOutPage = () => {
   };
   return (
     <div className="max-w-screen-xl mx-auto">
-      <div className="flex justify-between mt-4 bg-teal-50">
-        <form onSubmit={handleData} className=" w-1/2 p-10">
+      <div className="flex flex-col-reverse sm:flex-row justify-center items-center sm:items-start sm:justify-between mt-4 bg-teal-50">
+        <form onSubmit={handleData} className="w-full sm:w-1/2 p-10">
           <label className=" text-base font-medium" htmlFor="name">
             Name: <span className="text-red-500">*</span>
           </label>
@@ -132,7 +109,7 @@ const CheckOutPage = () => {
             <img src="/assets/bkash.png" className="w-14" alt="bkash-logo" />
           </button>
         </form>
-        <div className="w-1/2 mt-4">
+        <div className="w-full px-4 sm:w-1/2 mt-4">
           <h3 className="text-white bg-teal-600 rounded-md p-2 flex items-center px-10 mr-10 gap-2  text-lg font-semibold">
             Booking Details
           </h3>

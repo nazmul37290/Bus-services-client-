@@ -24,6 +24,7 @@ import Error from "../pages/Error";
 import PrivateRoutes from "./PrivateRoutes";
 import Login from "../pages/auth/Login";
 import SuccessPage from "../pages/SuccessPage";
+import PaymentErrorPage from "../pages/PaymentErrorPage";
 const NavigationRoutes = () => {
   return (
     <Routes>
@@ -34,7 +35,7 @@ const NavigationRoutes = () => {
         ></Route>
         <Route
           path="/payment/error"
-          element={<SuccessPage></SuccessPage>}
+          element={<PaymentErrorPage></PaymentErrorPage>}
         ></Route>
         <Route path="/" element={<Home></Home>}></Route>
         <Route path="/bus-lists/:id" element={<BusLists></BusLists>}></Route>

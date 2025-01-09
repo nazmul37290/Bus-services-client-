@@ -49,23 +49,25 @@ const SelectBusSeats = () => {
   };
 
   return (
-    <div className="max-w-screen-xl mx-auto">
-      <p className="text-2xl font-semibold my-4 text-teal-600 ">
-        {bus?.tripName}
-      </p>
-      <p className="text-lg font-semibold my-1">
-        Bus name: <span className="font-normal">{bus?.busName}</span>
-      </p>
-      <p className="text-lg font-semibold my-1">
-        Departure Date:{" "}
-        <span className="font-normal">{bus?.departureDate}</span>
-      </p>
-      <p className="text-lg font-semibold my-1">
-        Ticket Price: {bus?.seatPrice}
-        <span className="font-normal">/- Per seat</span>
-      </p>
-      <div className="border flex justify-center gap-10 rounded border-teal-600 mt-10">
-        <div className="w-fit">
+    <div className="max-w-screen-xl min-h-[calc(100vh-380px)] mx-auto">
+      <div className="px-10">
+        <p className="text-2xl font-semibold my-4 text-teal-600 ">
+          {bus?.tripName}
+        </p>
+        <p className="text-lg font-semibold my-1">
+          Bus name: <span className="font-normal">{bus?.busName}</span>
+        </p>
+        <p className="text-lg font-semibold my-1">
+          Departure Date:{" "}
+          <span className="font-normal">{bus?.departureDate}</span>
+        </p>
+        <p className="text-lg font-semibold my-1">
+          Ticket Price: {bus?.seatPrice}
+          <span className="font-normal">/- Per seat</span>
+        </p>
+      </div>
+      <div className="border flex flex-col md:flex-row justify-center gap-5 lg:gap-10 rounded border-teal-600 mt-10">
+        <div className="max-w-80 md:max-w-full lg:w-fit mx-auto px-5">
           <div className="pt-8 flex justify-between px-10">
             <span>
               <LuArrowRightLeft size={40} />
@@ -77,13 +79,13 @@ const SelectBusSeats = () => {
               <GiSteeringWheel size={45} />
             </span>
           </div>
-          <div className="grid grid-cols-4 gap-5 w-fit p-10 pt-6">
+          <div className="grid grid-cols-4 gap-5 max-w-80 md:max-w-full  lg:w-fit md:p-10 pt-6">
             {seats.map((seat, index) => {
               return (
                 <div
                   key={index}
                   onClick={(e) => selectSeats(e, seat)}
-                  className={`p-1 h-10 w-16 border border-teal-600 flex items-center  justify-center rounded-md ${
+                  className={`p-1 md:h-10 w-14 md:w-16 border border-teal-600 flex items-center  justify-center rounded-md ${
                     bus?.bookedSeats.includes(seat)
                       ? "bg-zinc-400 cursor-not-allowed pointer-events-none"
                       : "bg-white"
@@ -95,7 +97,7 @@ const SelectBusSeats = () => {
             })}
           </div>
         </div>
-        <div className="w-1/3 flex flex-col">
+        <div className="md:w-2/5 lg:w-2/3 flex flex-col px-2">
           <h3 className="text-white bg-teal-600 rounded-md p-2 flex items-center justify-center gap-2 text-center mt-8 text-lg font-semibold">
             Selected Seats <span>{bookedSeats?.length}</span>
           </h3>
@@ -139,7 +141,7 @@ const SelectBusSeats = () => {
             <button
               onClick={handleCheckOut}
               disabled={bookedSeats?.length === 0}
-              className="btn bg-teal-100 text-base disabled:bg-gray-300 mt-10 uppercase text-teal-900 w-full"
+              className="btn bg-teal-100 text-base disabled:bg-gray-300 my-10  uppercase text-teal-900 w-full"
             >
               Continue
             </button>

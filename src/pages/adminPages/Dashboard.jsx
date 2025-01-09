@@ -33,7 +33,7 @@ const Dashboard = () => {
           </Link>
         </div>
         <div className="flex-none gap-2">
-          <div className="form-control">
+          <div className="hidden md:block form-control">
             <input
               type="text"
               placeholder="Search"
@@ -80,7 +80,7 @@ const Dashboard = () => {
       <div>
         <div className="drawer  lg:drawer-open">
           <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-          <div className="drawer-content p-10">
+          <div className="drawer-content p-4 lg:p-10">
             {/* Page content here */}
             <Outlet></Outlet>
           </div>

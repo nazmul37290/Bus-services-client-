@@ -20,8 +20,8 @@ const Locations = () => {
   return (
     <>
       <SectionHeading title={"Available Exams"}></SectionHeading>
-      <div className="max-w-screen-xl mx-auto">
-        <div className="flex gap-10">
+      <div className="max-w-screen-xl mx-auto px-4">
+        <div className="flex flex-wrap justify-center lg:gap-10 gap-5">
           {busRoutes.map((route, index) => {
             return (
               <BusRouteCard

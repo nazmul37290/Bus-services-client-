@@ -3,8 +3,8 @@ import { BsCalendarDate } from "react-icons/bs";
 
 const UnitCard = ({ unit }) => {
   return (
-    <div className="p-5 text-center bg-teal-800 text-white h-28 w-56 rounded-lg">
-      <h4 className="font-bold text-lg">{unit?.groupName}</h4>
+    <div className="p-5 text-center bg-teal-800 text-white h-28 w-40 sm:w-56 rounded-lg">
+      <h4 className="font-bold text-base sm:text-lg">{unit?.groupName}</h4>
       <p className="flex items-center justify-center mt-2 gap-2">
         <BsCalendarDate></BsCalendarDate>
 
