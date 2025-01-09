@@ -30,7 +30,7 @@ const PrivateRoutes = ({ children }) => {
         localStorage.removeItem("token");
         navigate("/login");
       });
-  }, [axiosSecure]);
+  }, [axiosSecure, isLoggedIn, navigate]);
   if (loading) {
     return <span className="loading loading-dots loading-sm"></span>;
   }

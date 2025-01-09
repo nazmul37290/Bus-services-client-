@@ -27,7 +27,7 @@ const Login = () => {
         console.log(res.data);
       })
       .catch((err) => {
-        setError(err.response.data.message);
+        setError(err.response);
         setLoading(false);
       });
   };
