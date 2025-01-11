@@ -11,7 +11,7 @@ const Modal = ({ route }) => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`${import.meta.env.VITE_BASE_URL}/units?route=${route?._id || 1}`)
+      .get(`${import.meta.env.VITE_BASE_URL}/units?route=${route?._id}`)
       .then((result) => {
         if (result.data.success === true) {
           setUnits(result.data.data);
