@@ -20,6 +20,7 @@ const Login = () => {
     axios
       .post(`${import.meta.env.VITE_BASE_URL}/auth/login`, userData, {
         withCredentials: true,
+        timeout: 5000,
       })
       .then((res) => {
         setLoading(false);
