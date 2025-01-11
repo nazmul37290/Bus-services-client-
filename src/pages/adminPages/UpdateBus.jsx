@@ -33,7 +33,7 @@ const UpdateBus = () => {
         setLoading(false);
         setError(err?.response?.data?.errorSources[0]?.message);
       });
-  }, [id, bus?.status, bus?.routeId, bus?.busType]);
+  }, [id, bus?.status, bus?.routeId, bus?.busType, bus?.unitId?._id]);
 
   useEffect(() => {
     axios
