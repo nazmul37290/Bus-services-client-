@@ -24,14 +24,14 @@ const BusRoutes = () => {
           All Bus Routes
         </h3>
         <div className="flex flex-col sm:flex-row items-center gap-5">
-          <button className="btn bg-teal-600 text-base text-white ">
-            <Link to={"create-route"} className="flex items-center gap-2">
+          <Link to={"create-route"}>
+            <button className="btn bg-teal-600 text-base text-white flex items-center gap-2">
               Create New{" "}
               <span>
                 <CiCirclePlus size={25} />
               </span>
-            </Link>
-          </button>
+            </button>
+          </Link>
           <div className="flex">
             <input
               type="search"

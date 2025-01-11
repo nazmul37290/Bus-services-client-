@@ -67,9 +67,11 @@ const SuccessPage = () => {
           and grab your ticket now..
         </p>
         <div className="text-center">
-          <button className="btn bg-teal-600 my-5 text-white uppercase">
-            <Link to={"/tickets"}>Get Ticket</Link>
-          </button>
+          <Link to={"/tickets"}>
+            <button className="btn bg-teal-600 my-5 text-white uppercase">
+              Get Ticket
+            </button>
+          </Link>
         </div>
       </div>
     )
