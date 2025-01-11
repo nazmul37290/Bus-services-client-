@@ -16,7 +16,7 @@ const Login = () => {
     const password = e.target.password.value;
     const userData = { email, password };
     console.log(userData);
-
+    console.log("API URL:");
     axios
       .post(`${import.meta.env.VITE_BASE_URL}/auth/login`, userData, {
         withCredentials: true,
