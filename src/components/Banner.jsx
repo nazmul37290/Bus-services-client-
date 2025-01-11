@@ -1,5 +1,3 @@
-import { Link } from "react-router";
-
 const Banner = () => {
   return (
     <div
@@ -21,9 +19,11 @@ const Banner = () => {
             comfortable bus services. Book now for an on-time arrival and a
             worry-free journey!
           </p>
-          <button className="btn text-white border-none bg-gradient-to-tr from-teal-600 to-teal-400 uppercase">
-            <Link to={"#select-route"}>Book Your Seat now</Link>
-          </button>
+          <a href="#select-route">
+            <button className="btn text-white border-none bg-gradient-to-tr from-teal-600 to-teal-400 uppercase">
+              Book Your Seat now
+            </button>
+          </a>
         </div>
       </div>
     </div>
