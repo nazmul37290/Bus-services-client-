@@ -24,6 +24,7 @@ const Modal = ({ route }) => {
         }
       })
       .catch((error) => {
+        console.log(error);
         setError(error?.response?.data?.message);
         setUnits(null);
         setLoading(false);

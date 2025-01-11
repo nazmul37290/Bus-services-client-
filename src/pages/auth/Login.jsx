@@ -30,6 +30,7 @@ const Login = () => {
         console.log(res.data);
       })
       .catch((err) => {
+        console.log(err);
         if (err.code === "ECONNABORTED") {
           setError("Request timed out. Please try again.");
         } else {
