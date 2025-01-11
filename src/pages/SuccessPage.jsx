@@ -34,6 +34,7 @@ const SuccessPage = () => {
         .then((res) => {
           if (res.data.success === true) {
             setPnrNumber(res.data.data[0].pnrNumber);
+            localStorage.setItem("pnr", res.data.data[0].pnrNumber);
             localStorage.removeItem("bookingData");
           }
         })

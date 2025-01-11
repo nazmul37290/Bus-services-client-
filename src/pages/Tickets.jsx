@@ -1,11 +1,16 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { generatePDF } from "../utils/generatePdf";
 
 const Tickets = () => {
   const [error, setError] = useState("");
   const [ticket, setTicket] = useState();
+  const [recentPnr, setRecentPnr] = useState("");
+
+  useEffect(() => {
+    setRecentPnr(localStorage.getItem("pnr"));
+  }, []);
   const handleGetTicket = async (e) => {
     e.preventDefault();
     setError("");
@@ -31,6 +36,15 @@ const Tickets = () => {
           <h3 className="text-teal-600 font-semibold text-2xl mb-4 uppercase">
             Get Your Ticket
           </h3>
+          {recentPnr ? (
+            <p className="text-teal-700 mb-3">
+              Your recent PNR no: <b>{recentPnr}</b>
+            </p>
+          ) : (
+            <p className="text-red-600 mb-3">
+              You don&apos;t have any recent PNR number yet
+            </p>
+          )}
           <label
             className="text-base font-medium uppercase"
             htmlFor="pnrNumber"
