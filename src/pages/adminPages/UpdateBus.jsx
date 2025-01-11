@@ -39,18 +39,19 @@ const UpdateBus = () => {
     axios
       .get(`${import.meta.env.VITE_BASE_URL}/bus-routes`)
       .then((result) => {
+        setError("");
         setRoutes(result.data.data);
       })
       .catch((err) => setError(err?.response?.data?.errorSources[0]?.message));
   }, []);
   useEffect(() => {
-    setError("");
     axios
       .get(`${import.meta.env.VITE_BASE_URL}/units?route=${routeId}`)
       .then((result) => {
+        setError("");
         setUnits(result.data.data);
       })
-      .catch((err) => setError(err.message));
+      .catch((err) => setError(err?.response?.data?.errorSources[0]?.message));
   }, [routeId]);
   const handleUpdateBus = (e) => {
     e.preventDefault();
