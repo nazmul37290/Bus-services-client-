@@ -33,7 +33,7 @@ const Modal = ({ route }) => {
   return (
     <div>
       <dialog id="my_modal_1" className="modal ">
-        <div className="modal-box max-w-4xl">
+        <div className="modal-box dark:bg-white max-w-4xl">
           <h3 className="font-bold text-xl sm:text-2xl mb-4">
             {route?.examName}
           </h3>

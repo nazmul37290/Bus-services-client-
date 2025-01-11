@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { IoLocationOutline } from "react-icons/io5";
 const BusRouteCard = ({ route, setActiveRoute }) => {
   return (
-    <div className="card card-compact bg-base-100  sm:w-72 md:w-80 lg:w-96 shadow-xl">
+    <div className="card card-compact   sm:w-72 md:w-80 lg:w-96 shadow-xl">
       <figure>
         <img src="/assets/ru.png" alt="Shoes" />
       </figure>
@@ -17,7 +17,7 @@ const BusRouteCard = ({ route, setActiveRoute }) => {
         <div className="card-actions justify-end">
           <button
             onClick={() => setActiveRoute(route)}
-            className="btn text-white bg-gradient-to-tr from-teal-600 to-teal-400"
+            className="btn text-white border-none bg-gradient-to-tr from-teal-600 to-teal-400"
           >
             Select
           </button>
