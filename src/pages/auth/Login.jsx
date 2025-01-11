@@ -18,7 +18,9 @@ const Login = () => {
     console.log(userData);
 
     axios
-      .post(`${import.meta.env.VITE_BASE_URL}/auth/login`, userData)
+      .post(`${import.meta.env.VITE_BASE_URL}/auth/login`, userData, {
+        withCredentials: true,
+      })
       .then((res) => {
         setLoading(false);
         localStorage.setItem("token", res.data.data.token);
