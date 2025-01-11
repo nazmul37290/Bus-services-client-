@@ -24,6 +24,7 @@ const Login = () => {
           "Content-Type": "application/json",
           Accept: "application/json",
         },
+        timeout: 15000, // 15 seconds timeout
       })
       .then((res) => {
         setLoading(false);
@@ -33,7 +34,14 @@ const Login = () => {
         console.log(res.data);
       })
       .catch((err) => {
-        setError(err.response);
+        if (err.code === "ECONNABORTED") {
+          setError("Request timed out. Please try again.");
+        } else {
+          setError(
+            err.response?.data?.message ||
+              "An error occurred. Please try again."
+          );
+        }
         setLoading(false);
       });
   };
