@@ -4,6 +4,7 @@ import { useLocation } from "react-router";
 
 const CheckOutPage = () => {
   const [bus, setBus] = useState();
+  const [error, setError] = useState("");
 
   const { totalPrice, bookedSeats, busId, id } = useLocation().state;
   useEffect(() => {
@@ -12,7 +13,6 @@ const CheckOutPage = () => {
       .then((res) => setBus(res.data.data));
   }, [busId]);
   let totalPayableAmount = Number(totalPrice) + (Number(totalPrice) * 2) / 100;
-  console.log(totalPrice, bookedSeats, busId);
   const handleData = async (e) => {
     e.preventDefault();
     const form = e.target;
@@ -30,7 +30,7 @@ const CheckOutPage = () => {
         `${import.meta.env.VITE_BASE_URL}/payment/bkash/create`,
         { amount: totalPrice }
       );
-      console.log(paymentRes.data);
+
       if (
         paymentRes?.data?.success === true &&
         paymentRes?.data?.data?.bkashURL
@@ -39,7 +39,7 @@ const CheckOutPage = () => {
         window.location.href = paymentRes?.data?.data?.bkashURL;
       }
     } catch (error) {
-      console.log(error, "payment error");
+      setError(error?.message);
     }
   };
   return (
@@ -101,6 +101,7 @@ const CheckOutPage = () => {
             className="input input-bordered w-full max-w-xs my-2"
           />
           <br />
+          <p className="text-red-600">{error}</p>
           <button
             type="submit"
             className="btn btn-lg mt-10 bg-white text-teal-600"

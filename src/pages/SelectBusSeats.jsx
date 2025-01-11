@@ -42,7 +42,6 @@ const SelectBusSeats = () => {
   };
   const navigate = useNavigate();
   const handleCheckOut = () => {
-    console.log(bus.id);
     navigate("/checkout-page", {
       state: { totalPrice, bookedSeats, busId: bus?.id, id: bus._id },
     });

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router";
@@ -25,17 +26,15 @@ const CreateUser = () => {
       email,
       password,
     };
-    console.log(userData);
+
     axios
       .post(`${import.meta.env.VITE_BASE_URL}/users/create-user`, userData)
       .then((res) => {
         toast.success("user created successfully");
         navigate("/admin/users");
         setLoading(false);
-        console.log(res);
       })
       .catch((err) => {
-        console.log(err);
         setLoading(false);
         setError(err?.response?.data?.errorSources[0].message);
       });

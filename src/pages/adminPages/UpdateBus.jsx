@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { formatDate } from "../../utils/formatDate";
@@ -48,7 +49,7 @@ const UpdateBus = () => {
       .then((result) => {
         setUnits(result.data.data);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => setError(err.message));
   }, [routeId]);
   const handleUpdateBus = (e) => {
     e.preventDefault();
@@ -85,17 +86,15 @@ const UpdateBus = () => {
       returnTime,
       status,
     };
-    console.log(busDetails);
+
     axios
       .patch(`${import.meta.env.VITE_BASE_URL}/buses/${id}`, busDetails)
       .then((res) => {
         toast.success("Bus updated successfully");
         navigate("/admin/buses");
         setLoading(false);
-        console.log(res);
       })
       .catch((err) => {
-        console.log(err);
         setLoading(false);
         setError(err?.response?.data?.errorSources[0].message);
       });

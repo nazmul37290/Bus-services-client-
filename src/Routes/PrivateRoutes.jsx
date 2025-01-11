@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { Navigate, useNavigate } from "react-router";
@@ -9,9 +10,8 @@ const PrivateRoutes = ({ children }) => {
   const navigate = useNavigate();
   useEffect(() => {
     const token = localStorage.getItem("token");
-    console.log(token);
+
     if (!token) {
-      console.log("no token");
       setIsLoggedIn(false);
       setLoading(false);
       return;
@@ -19,10 +19,8 @@ const PrivateRoutes = ({ children }) => {
     axiosSecure
       .post("/auth/check")
       .then((res) => {
-        console.log(res);
         setIsLoggedIn(true);
         setLoading(false);
-        console.log(isLoggedIn);
       })
       .catch(() => {
         setIsLoggedIn(false);

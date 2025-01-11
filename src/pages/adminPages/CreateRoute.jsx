@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router";
@@ -29,10 +30,8 @@ const CreateRoute = () => {
         toast.success("Route created successfully");
         navigate("/admin/bus-routes");
         setLoading(false);
-        console.log(res);
       })
       .catch((err) => {
-        console.log(err);
         setLoading(false);
         setError(err?.response?.data?.errorSources[0].message);
       });

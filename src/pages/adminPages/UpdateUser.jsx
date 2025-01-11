@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
@@ -9,14 +10,13 @@ const UpdateUser = () => {
   const [selectedStatus, setSelectedStatus] = useState(
     userData && userData?.status
   );
-  console.log(selectedStatus);
+
   const [loading, setLoading] = useState(false);
   const { id } = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
     axios.get(`${import.meta.env.VITE_BASE_URL}/users/${id}`).then((res) => {
-      console.log(res);
       setUserData(res.data.data);
       setSelectedStatus(userData?.status);
     });
@@ -51,17 +51,15 @@ const UpdateUser = () => {
         status,
       };
     }
-    console.log(updateUserData);
+
     axios
       .patch(`${import.meta.env.VITE_BASE_URL}/users/${id}`, updateUserData)
       .then((res) => {
         toast.success("user updated successfully");
         navigate("/admin/users");
         setLoading(false);
-        console.log(res);
       })
       .catch((err) => {
-        console.log(err);
         setLoading(false);
         setError(err?.response?.data?.errorSources[0].message);
       });
@@ -122,7 +120,6 @@ const UpdateUser = () => {
               <select
                 onChange={(e) => {
                   setSelectedStatus(e.target.value);
-                  console.log("hello");
                 }}
                 name="status"
                 className="select select-bordered w-[500px] "

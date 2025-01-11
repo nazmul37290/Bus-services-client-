@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
@@ -19,9 +20,8 @@ const UpdateRoute = () => {
         setSelectedStatus(busRoute?.status);
       })
       .catch((err) => {
-        console.log(err);
         setLoading(false);
-        setError("Error fetching route details");
+        setError(err.message);
       });
   }, [id, busRoute?.status]);
   const handleUpdateRoute = (e) => {
@@ -45,10 +45,8 @@ const UpdateRoute = () => {
         toast.success("Route updated successfully");
         navigate("/admin/bus-routes");
         setLoading(false);
-        console.log(res);
       })
       .catch((err) => {
-        console.log(err);
         setLoading(false);
         setError(err?.response?.data?.errorSources[0].message);
       });

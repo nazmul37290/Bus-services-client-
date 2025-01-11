@@ -13,13 +13,12 @@ const BusLists = () => {
     axios
       .get(`${import.meta.env.VITE_BASE_URL}/buses?unit=${id}`)
       .then((res) => {
-        console.log(res.data.data);
         setBuses(res?.data?.data);
         setLoading(false);
       })
       .catch((err) => {
         setError(err?.response?.data?.message);
-        console.log(error);
+
         setLoading(false);
       });
   }, [id, error]);

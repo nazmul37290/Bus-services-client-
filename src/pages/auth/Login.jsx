@@ -15,8 +15,6 @@ const Login = () => {
     const email = e.target.email.value;
     const password = e.target.password.value;
     const userData = { email, password };
-    console.log(userData);
-    console.log("API URL:");
     axios
       .post(`${import.meta.env.VITE_BASE_URL}/auth/login`, userData, {
         withCredentials: true,
@@ -27,10 +25,8 @@ const Login = () => {
         localStorage.setItem("token", res.data.data.token);
         setUser(res.data.data.user);
         navigate("/admin");
-        console.log(res.data);
       })
       .catch((err) => {
-        console.log(err);
         if (err.code === "ECONNABORTED") {
           setError("Request timed out. Please try again.");
         } else {

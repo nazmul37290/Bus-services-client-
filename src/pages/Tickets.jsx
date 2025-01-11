@@ -11,7 +11,7 @@ const Tickets = () => {
     setError("");
     const pnr = e.target.pnrNumber.value;
     const phone = e.target.phone.value;
-    console.log(pnr);
+
     axios
       .get(`${import.meta.env.VITE_BASE_URL}/ticket?pnr=${pnr}&phone=${phone}`)
       .then((res) => {
@@ -23,7 +23,7 @@ const Tickets = () => {
         toast.error(err?.response?.data?.message);
       });
   };
-  console.log(ticket);
+
   return (
     <div className="max-w-screen-xl min-h-[calc(100vh-420px)] mx-auto my-10">
       <div className="flex flex-col lg:flex-row px-4 gap-16">

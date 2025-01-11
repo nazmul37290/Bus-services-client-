@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import axios from "axios";
 import Swal from "sweetalert2";
 
@@ -20,12 +21,10 @@ const handleDelete = (url, id, func) => {
             text: "Your file has been deleted.",
             icon: "success",
           });
-          console.log(res);
+
           func();
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        .catch((err) => {});
     }
   });
 };

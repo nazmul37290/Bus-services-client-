@@ -1,16 +1,15 @@
 import axios from "axios";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { CiCirclePlus } from "react-icons/ci";
 import { FaRegEdit } from "react-icons/fa";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import { IoTrashBin } from "react-icons/io5";
 import { Link } from "react-router";
 import handleDelete from "../../utils/delete";
-import { UserContext } from "../../provider/AuthProvider";
 
 const Units = () => {
   const [units, setUnits] = useState([]);
-  const { user } = useContext(UserContext);
+
   const fetchUnits = async () => {
     axios.get(`${import.meta.env.VITE_BASE_URL}/units`).then((result) => {
       setUnits(result.data.data);
@@ -19,7 +18,7 @@ const Units = () => {
   useEffect(() => {
     fetchUnits();
   }, []);
-  console.log(user);
+
   return (
     <div>
       <div className="flex flex-col md:flex-row justify-between items-center">

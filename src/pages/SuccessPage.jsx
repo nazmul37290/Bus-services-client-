@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
@@ -31,14 +32,12 @@ const SuccessPage = () => {
           bookingData
         )
         .then((res) => {
-          console.log(res);
           if (res.data.success === true) {
             setPnrNumber(res.data.data[0].pnrNumber);
             localStorage.removeItem("bookingData");
           }
         })
         .catch((err) => {
-          console.log(err);
           navigate("/");
         })
         .finally(() => setLoading(false));

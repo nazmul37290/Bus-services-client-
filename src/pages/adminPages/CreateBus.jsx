@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
@@ -17,7 +18,7 @@ const CreateBus = () => {
       .then((result) => {
         setRoutes(result.data.data);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => setError(err.message));
   }, []);
   useEffect(() => {
     axios
@@ -25,7 +26,7 @@ const CreateBus = () => {
       .then((result) => {
         setUnits(result.data.data);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => setError(err.message));
   }, [routeId]);
   const handleCreateBus = (e) => {
     e.preventDefault();
@@ -60,17 +61,15 @@ const CreateBus = () => {
       returnDate,
       returnTime,
     };
-    console.log(busDetails);
+
     axios
       .post(`${import.meta.env.VITE_BASE_URL}/buses/create-bus`, busDetails)
       .then((res) => {
         toast.success("Bus created successfully");
         navigate("/admin/buses");
         setLoading(false);
-        console.log(res);
       })
       .catch((err) => {
-        console.log(err);
         setLoading(false);
         setError(err?.response?.data?.errorSources[0].message);
       });

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
@@ -15,7 +16,7 @@ const CreateUnit = () => {
       .then((result) => {
         setRoutes(result.data.data);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => setError(err.message));
   }, []);
   const handleCreateUnit = (e) => {
     e.preventDefault();
@@ -37,10 +38,8 @@ const CreateUnit = () => {
         toast.success("Unit created successfully");
         navigate("/admin/units");
         setLoading(false);
-        console.log(res);
       })
       .catch((err) => {
-        console.log(err);
         setLoading(false);
         setError(err?.response?.data?.errorSources[0].message);
       });
