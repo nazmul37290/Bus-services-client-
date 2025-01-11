@@ -44,6 +44,7 @@ const UpdateBus = () => {
       .catch((err) => setError(err?.response?.data?.errorSources[0]?.message));
   }, []);
   useEffect(() => {
+    setError("");
     axios
       .get(`${import.meta.env.VITE_BASE_URL}/units?route=${routeId}`)
       .then((result) => {
