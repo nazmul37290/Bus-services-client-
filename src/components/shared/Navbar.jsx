@@ -58,7 +58,11 @@ const Navbar = () => {
             to={"/"}
             className="btn btn-ghost text-xl flex flex-col items-center justify-center text-white "
           >
-            <img src="/assets/logo.png" className="w-[70%] " alt="bus-logo" />
+            <img
+              src="/assets/logo.png"
+              className=" max-w-[160px]"
+              alt="bus-logo"
+            />
           </Link>
         </div>
         <div className="navbar-center hidden lg:flex">

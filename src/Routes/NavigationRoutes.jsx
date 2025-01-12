@@ -25,6 +25,8 @@ import PrivateRoutes from "./PrivateRoutes";
 import Login from "../pages/auth/Login";
 import SuccessPage from "../pages/SuccessPage";
 import PaymentErrorPage from "../pages/PaymentErrorPage";
+import Gallery from "../pages/Gallery";
+import Blog from "../pages/Blog";
 const NavigationRoutes = () => {
   return (
     <Routes>
@@ -48,6 +50,8 @@ const NavigationRoutes = () => {
           element={<CheckOutPage></CheckOutPage>}
         ></Route>
         <Route path="/tickets" element={<Tickets></Tickets>}></Route>
+        <Route path="/gallery" element={<Gallery></Gallery>}></Route>
+        <Route path="/blogs" element={<Blog></Blog>}></Route>
         <Route path="*" element={<Error></Error>} />
       </Route>
       <Route path="/login" element={<Login></Login>}></Route>
