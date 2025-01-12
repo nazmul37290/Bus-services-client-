@@ -57,7 +57,7 @@ const Login = () => {
                   type="email"
                   placeholder="email"
                   name="email"
-                  className="input input-bordered"
+                  className="input input-bordered dark:bg-zinc-100"
                   required
                 />
               </div>
@@ -69,7 +69,7 @@ const Login = () => {
                   type="password"
                   placeholder="password"
                   name="password"
-                  className="input input-bordered"
+                  className="input input-bordered dark:bg-zinc-100"
                   required
                 />
                 {/* <label className="label">
@@ -96,7 +96,7 @@ const Login = () => {
               </div>
 
               <Link to={"/"}>
-                <button className="btn w-full mt-4 bg-transparent font-semibold text-white">
+                <button className="btn w-full mt-4 bg-transparent font-semibold text-white dark:border-white">
                   Cancel
                 </button>
               </Link>

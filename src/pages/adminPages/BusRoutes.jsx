@@ -28,7 +28,7 @@ const BusRoutes = () => {
     fetchRoutes();
   }, []);
   return (
-    <div>
+    <div data-theme="light">
       <div className="flex flex-col md:flex-row justify-between items-center">
         <h3 className="text-teal-600 font-semibold mb-5 md:mb-0 text-2xl uppercase">
           All Bus Routes

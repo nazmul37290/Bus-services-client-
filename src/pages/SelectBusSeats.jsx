@@ -101,10 +101,10 @@ const SelectBusSeats = () => {
             Selected Seats <span>{bookedSeats?.length}</span>
           </h3>
           <div className="overflow-x-auto">
-            <table className="table table-zebra">
+            <table data-theme="light" className="table dark:table-zebra">
               {/* head */}
               <thead>
-                <tr>
+                <tr className="dark:text-black">
                   <th>Serial no</th>
                   <th>Seat </th>
                   <th>Price</th>
@@ -113,7 +113,7 @@ const SelectBusSeats = () => {
               <tbody>
                 {bookedSeats?.map((bookedSeat, index) => {
                   return (
-                    <tr key={index}>
+                    <tr key={index} className="">
                       <td>{index + 1}</td>
                       <td className="font-semibold">{bookedSeat}</td>
                       <td className="font-semibold">{bus?.seatPrice}</td>

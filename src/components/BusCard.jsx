@@ -11,7 +11,7 @@ const BusCard = ({ bus }) => {
           <table className=" table">
             {/* head */}
             <thead>
-              <tr>
+              <tr className="dark:text-black">
                 <th>Bus Name</th>
                 <th>Departure Date</th>
                 <th>Departure Time</th>
@@ -112,7 +112,7 @@ const BusCard = ({ bus }) => {
           </div>
           <div>
             <Link to={`/select-seats/${bus?.id}`}>
-              <button className="btn btn-outline border-teal-600 hover:bg-teal-600 hover:border-teal-600">
+              <button className="btn btn-outline dark:text-black hover:text-white border-teal-600 hover:bg-teal-600 hover:border-teal-600">
                 Select seats
               </button>
             </Link>

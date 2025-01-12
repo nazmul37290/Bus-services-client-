@@ -23,7 +23,10 @@ const Dashboard = () => {
   };
   return (
     <>
-      <div className="navbar bg-gradient-to-br from-teal-800 to-teal-300">
+      <div
+        data-theme="light"
+        className="navbar bg-gradient-to-br from-teal-800 to-teal-300"
+      >
         <div className="flex-1">
           <label htmlFor="my-drawer-2" className=" text-white lg:hidden">
             <GiHamburgerMenu size={20} />
