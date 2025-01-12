@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { CiCirclePlus } from "react-icons/ci";
@@ -9,10 +10,19 @@ import handleDelete from "../../utils/delete";
 
 const BusRoutes = () => {
   const [routes, setRoutes] = useState([]);
+  const [error, setError] = useState();
+  const [loading, setLoading] = useState(true);
   const fetchRoutes = () => {
-    axios.get(`${import.meta.env.VITE_BASE_URL}/bus-routes`).then((result) => {
-      setRoutes(result.data.data);
-    });
+    axios
+      .get(`${import.meta.env.VITE_BASE_URL}/bus-routes`)
+      .then((result) => {
+        setRoutes(result.data.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        setError(err.message);
+        setLoading(false);
+      });
   };
   useEffect(() => {
     fetchRoutes();
@@ -60,40 +70,60 @@ const BusRoutes = () => {
               </tr>
             </thead>
             <tbody>
-              {routes?.map((route, index) => {
-                return (
-                  <tr key={index}>
-                    <td>{index + 1}</td>
-                    <td className="font-semibold">{route?.examName}</td>
-                    <td className="font-medium">{route?.examCenterName}</td>
-                    <td>
-                      <span
-                        className={`${
-                          route?.status === "active"
-                            ? " bg-teal-600 font-semibold"
-                            : "bg-red-600"
-                        } badge text-white uppercase text-xs`}
-                      >
-                        {route?.status}
-                      </span>
-                    </td>
-                    <td>
-                      <div className="flex gap-3">
-                        <Link to={`${route?.id}/update-route`}>
-                          <FaRegEdit color="teal" size={20} />
-                        </Link>
-                        <button
-                          onClick={() =>
-                            handleDelete("/bus-routes", route?.id, fetchRoutes)
-                          }
+              {loading ? (
+                <tr>
+                  <td colSpan={5} className="text-center">
+                    <span className="loading loading-dots loading-md"></span>
+                  </td>
+                </tr>
+              ) : routes?.length ? (
+                routes?.map((route, index) => {
+                  return (
+                    <tr key={index}>
+                      <td>{index + 1}</td>
+                      <td className="font-semibold">{route?.examName}</td>
+                      <td className="font-medium">{route?.examCenterName}</td>
+                      <td>
+                        <span
+                          className={`${
+                            route?.status === "active"
+                              ? " bg-teal-600 font-semibold"
+                              : "bg-red-600"
+                          } badge text-white uppercase text-xs`}
                         >
-                          <IoTrashBin color="red" size={20} />
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                );
-              })}
+                          {route?.status}
+                        </span>
+                      </td>
+                      <td>
+                        <div className="flex gap-3">
+                          <Link to={`${route?.id}/update-route`}>
+                            <FaRegEdit color="teal" size={20} />
+                          </Link>
+                          <button
+                            onClick={() =>
+                              handleDelete(
+                                "/bus-routes",
+                                route?.id,
+                                fetchRoutes
+                              )
+                            }
+                          >
+                            <IoTrashBin color="red" size={20} />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })
+              ) : (
+                <tr>
+                  <td>
+                    <span className="text-lg text-center">
+                      There is no data
+                    </span>
+                  </td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>
