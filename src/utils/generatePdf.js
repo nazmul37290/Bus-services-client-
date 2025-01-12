@@ -13,7 +13,7 @@ export const generatePDF = () => {
     const pdf = new jsPDF({
       orientation: "portrait",
       unit: "mm",
-      format: "a4", // Match desktop dimensions
+      format: "a4",
     }); // Portrait, millimeters, A4 size
     const margin = 10;
     const imgWidth = 210 - margin * 2; // A4 width in mm

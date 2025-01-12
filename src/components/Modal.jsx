@@ -10,24 +10,25 @@ const Modal = ({ route }) => {
 
   useEffect(() => {
     setLoading(true);
-    axios
-      .get(
-        `${import.meta.env.VITE_BASE_URL}/units?route=${
-          route?._id && route?._id
-        }`
-      )
-      .then((result) => {
-        if (result.data.success === true) {
-          setUnits(result.data.data);
+    route?.id &&
+      axios
+        .get(
+          `${import.meta.env.VITE_BASE_URL}/units?route=${
+            route?._id && route?._id
+          }`
+        )
+        .then((result) => {
+          if (result.data.success === true) {
+            setUnits(result.data.data);
+            setLoading(false);
+            setError("");
+          }
+        })
+        .catch((error) => {
+          setError(error?.response?.data?.message);
+          setUnits(null);
           setLoading(false);
-          setError("");
-        }
-      })
-      .catch((error) => {
-        setError(error?.response?.data?.message);
-        setUnits(null);
-        setLoading(false);
-      });
+        });
   }, [route?._id, route]);
 
   return (
@@ -69,5 +70,6 @@ Modal.propTypes = {
   route: PropTypes.shape({
     _id: PropTypes.string,
     examName: PropTypes.string,
+    id: PropTypes.string,
   }),
 };
