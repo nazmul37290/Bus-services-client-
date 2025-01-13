@@ -26,12 +26,14 @@ const SuccessPage = () => {
     bookingData.transactionId = trxId;
     setTransactionID(trxId);
     if (transactionID) {
+      console.log("create booking hit");
       axios
         .post(
           `${import.meta.env.VITE_BASE_URL}/bookings/create-booking`,
           bookingData
         )
         .then((res) => {
+          console.log(res);
           if (res.data.success === true) {
             setPnrNumber(res.data.data[0].pnrNumber);
             localStorage.setItem("pnr", res.data.data[0].pnrNumber);
@@ -39,6 +41,7 @@ const SuccessPage = () => {
           }
         })
         .catch((err) => {
+          console.log(err);
           navigate("/");
         })
         .finally(() => setLoading(false));
