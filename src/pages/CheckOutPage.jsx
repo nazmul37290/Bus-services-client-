@@ -29,7 +29,7 @@ const CheckOutPage = () => {
     try {
       const paymentRes = await axios.post(
         `${import.meta.env.VITE_BASE_URL}/payment/bkash/create`,
-        { amount: totalPrice }
+        { amount: totalPayableAmount }
       );
 
       if (
