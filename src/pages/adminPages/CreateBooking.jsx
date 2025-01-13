@@ -89,8 +89,14 @@ const CreateBooking = () => {
       setLoading(false);
       return;
     }
+    let payableAmount;
+    if (paymentMethod === "bkash") {
+      console.log("bkash");
+      payableAmount = totalPrice + (totalPrice * 2) / 100;
+    } else {
+      payableAmount = totalPrice;
+    }
     const transactionId = form?.transactionId?.value || "";
-
     const bookingData = {
       name,
       contactNumber,
@@ -98,10 +104,11 @@ const CreateBooking = () => {
       gender,
       busId,
       seats,
-      totalPrice,
+      totalPrice: payableAmount,
       transactionId,
       paymentMethod,
     };
+    console.log(bookingData);
     axios
       .post(
         `${import.meta.env.VITE_BASE_URL}/bookings/create-booking`,
@@ -172,7 +179,7 @@ const CreateBooking = () => {
               type="email"
               name="email"
               id="email"
-              placeholder="Enter contact number here"
+              placeholder="Enter email address here"
             />
           </div>
           <div className="flex flex-wrap items-center mt-4">
