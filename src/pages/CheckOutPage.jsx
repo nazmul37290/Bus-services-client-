@@ -24,6 +24,7 @@ const CheckOutPage = () => {
     bookinDetails.busId = id;
     bookinDetails.seats = bookedSeats;
     bookinDetails.totalPrice = totalPayableAmount;
+    bookinDetails.paymentMethod = "bkash";
 
     try {
       const paymentRes = await axios.post(

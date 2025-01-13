@@ -60,6 +60,7 @@ const Bookings = () => {
                 <th>BUS NAME</th>
                 <th>SEATS</th>
                 <th>TOTAL AMOUNT</th>
+                <th>PAYMENT BY</th>
                 <th>TRANSACTION ID</th>
                 <th>PNR NUMBER</th>
                 <th>STATUS</th>
@@ -83,6 +84,9 @@ const Bookings = () => {
                     </td>
                     <td className="font-medium">{booking?.seats.join(",")}</td>
                     <td className="font-medium">{booking?.totalPrice}</td>
+                    <td className="font-medium uppercase">
+                      {booking?.paymentMethod}
+                    </td>
                     <td className="font-medium">{booking?.transactionId}</td>
                     <td className="font-medium">{booking?.pnrNumber}</td>
                     <td>

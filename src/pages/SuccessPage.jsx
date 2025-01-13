@@ -51,8 +51,8 @@ const SuccessPage = () => {
         <span className="loading loading-dots loading-sm"></span>
       </div>
     )) || (
-      <div className="max-w-screen-xl flex flex-col justify-center items-center min-h-[calc(100vh-400px)] mx-auto my-10">
-        <h3 className="text-3xl font-bold text-teal-600 my-4">
+      <div className="max-w-screen-xl flex flex-col justify-center items-center min-h-[calc(100vh-400px)] mx-auto my-10 px-4">
+        <h3 className="text-3xl font-bold text-center text-teal-600 my-4">
           Your booking was successful!
         </h3>
         <p className="mt-2">
