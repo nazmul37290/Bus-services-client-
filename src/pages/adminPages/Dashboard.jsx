@@ -10,6 +10,7 @@ const dashboardLinks = [
   { text: "Units", href: "/admin/units" },
   { text: "Buses", href: "/admin/buses" },
   { text: "Bookings", href: "/admin/bookings" },
+  { text: "Payments", href: "/admin/payments" },
   { text: "Users", href: "/admin/users" },
 ];
 const Dashboard = () => {

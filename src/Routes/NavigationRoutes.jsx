@@ -27,6 +27,7 @@ import SuccessPage from "../pages/SuccessPage";
 import PaymentErrorPage from "../pages/PaymentErrorPage";
 import Gallery from "../pages/Gallery";
 import Blog from "../pages/Blog";
+import Payments from "../pages/adminPages/Payments";
 const NavigationRoutes = () => {
   return (
     <Routes>
@@ -68,6 +69,7 @@ const NavigationRoutes = () => {
         <Route path="units" element={<Units></Units>}></Route>
         <Route path="buses" element={<Buses></Buses>}></Route>
         <Route path="bookings" element={<Bookings></Bookings>}></Route>
+        <Route path="payments" element={<Payments></Payments>}></Route>
         <Route path="users" element={<Users></Users>}></Route>
         <Route
           path="users/create-user"
