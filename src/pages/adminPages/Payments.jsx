@@ -9,7 +9,6 @@ const Payments = () => {
   const fetchUnits = async () => {
     axios.get(`${import.meta.env.VITE_BASE_URL}/payment`).then((result) => {
       setPayments(result.data.data);
-      console.log(result.data.data);
     });
   };
   useEffect(() => {
@@ -19,7 +18,7 @@ const Payments = () => {
     <div>
       <div className="flex flex-col md:flex-row justify-between items-center">
         <h3 className="text-teal-600 font-semibold text-2xl mb-5 md:mb-0 uppercase">
-          All Units
+          All Payments
         </h3>
         <div className="flex flex-col sm:flex-row items-center gap-5">
           {/* <Link to={"create-unit"}>

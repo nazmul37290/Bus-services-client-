@@ -28,6 +28,7 @@ import PaymentErrorPage from "../pages/PaymentErrorPage";
 import Gallery from "../pages/Gallery";
 import Blog from "../pages/Blog";
 import Payments from "../pages/adminPages/Payments";
+import CreateBooking from "../pages/adminPages/CreateBooking";
 const NavigationRoutes = () => {
   return (
     <Routes>
@@ -102,6 +103,10 @@ const NavigationRoutes = () => {
         <Route
           path="buses/:id/update-bus"
           element={<UpdateBus></UpdateBus>}
+        ></Route>
+        <Route
+          path="bookings/create-booking"
+          element={<CreateBooking></CreateBooking>}
         ></Route>
       </Route>
     </Routes>

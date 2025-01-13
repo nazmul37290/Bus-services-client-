@@ -23,7 +23,7 @@ const Bookings = () => {
           All Bookings
         </h3>
         <div className="flex flex-col sm:flex-row items-center gap-5">
-          <Link to={""}>
+          <Link to={"create-booking"}>
             <button className="btn bg-teal-600 text-base text-white flex items-center gap-2">
               Create New{" "}
               <span>
