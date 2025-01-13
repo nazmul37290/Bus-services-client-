@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import axios from "axios";
 import { useEffect, useState } from "react";
 
@@ -5,11 +6,17 @@ import { FaMagnifyingGlass } from "react-icons/fa6";
 
 const Payments = () => {
   const [payments, setPayments] = useState([]);
-
+  const [loading, setLoading] = useState(true);
   const fetchUnits = async () => {
-    axios.get(`${import.meta.env.VITE_BASE_URL}/payment`).then((result) => {
-      setPayments(result.data.data);
-    });
+    axios
+      .get(`${import.meta.env.VITE_BASE_URL}/payment`)
+      .then((result) => {
+        setPayments(result.data.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        setLoading(false);
+      });
   };
   useEffect(() => {
     fetchUnits();
@@ -59,27 +66,36 @@ const Payments = () => {
               </tr>
             </thead>
             <tbody>
-              {payments?.map((payment, index) => {
-                return (
-                  <tr key={index}>
-                    <td>{index + 1}</td>
-                    <td className="font-semibold">
-                      {payment?.bookingId?.name}
-                    </td>
-                    <td className="font-semibold">
-                      {payment?.bookingId?.contactNumber}
-                    </td>
-                    <td className="font-semibold">{payment?.bookingId?._id}</td>
-                    <td className="font-medium uppercase">
-                      {payment?.paymentMethod}
-                    </td>
-                    <td className="font-medium">
-                      {payment?.bookingId?.totalPrice}
-                    </td>
-                    <td className="font-medium">
-                      {payment?.bookingId?.transactionId}
-                    </td>
-                    {/* <td>
+              {loading ? (
+                <tr>
+                  <td colSpan={6} className="text-center">
+                    <span className="loading loading-dots loading-md"></span>
+                  </td>
+                </tr>
+              ) : (
+                payments?.map((payment, index) => {
+                  return (
+                    <tr key={index}>
+                      <td>{index + 1}</td>
+                      <td className="font-semibold">
+                        {payment?.bookingId?.name}
+                      </td>
+                      <td className="font-semibold">
+                        {payment?.bookingId?.contactNumber}
+                      </td>
+                      <td className="font-semibold">
+                        {payment?.bookingId?._id}
+                      </td>
+                      <td className="font-medium uppercase">
+                        {payment?.paymentMethod}
+                      </td>
+                      <td className="font-medium">
+                        {payment?.bookingId?.totalPrice}
+                      </td>
+                      <td className="font-medium">
+                        {payment?.bookingId?.transactionId}
+                      </td>
+                      {/* <td>
                       <div className="flex gap-3">
                         <Link to={``}>
                           <FaRegEdit color="teal" size={20} />
@@ -93,9 +109,10 @@ const Payments = () => {
                         </button>
                       </div>
                     </td> */}
-                  </tr>
-                );
-              })}
+                    </tr>
+                  );
+                })
+              )}
             </tbody>
           </table>
         </div>

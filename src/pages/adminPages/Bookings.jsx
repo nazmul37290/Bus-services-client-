@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { CiCirclePlus } from "react-icons/ci";
@@ -8,10 +9,17 @@ import { Link } from "react-router";
 import handleDelete from "../../utils/delete";
 const Bookings = () => {
   const [bookings, setBookings] = useState([]);
+  const [loading, setLoading] = useState(true);
   const fetchBookings = async () => {
-    axios.get(`${import.meta.env.VITE_BASE_URL}/bookings`).then((result) => {
-      setBookings(result.data.data);
-    });
+    axios
+      .get(`${import.meta.env.VITE_BASE_URL}/bookings`)
+      .then((result) => {
+        setBookings(result.data.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        setLoading(false);
+      });
   };
   useEffect(() => {
     fetchBookings();
@@ -68,59 +76,71 @@ const Bookings = () => {
               </tr>
             </thead>
             <tbody>
-              {bookings?.map((booking, index) => {
-                return (
-                  <tr key={index}>
-                    <td>{index + 1}</td>
-                    <td className="font-semibold">{booking?.name}</td>
-                    <td className="font-semibold">{booking?.contactNumber}</td>
-                    <td className="font-semibold">{booking?.email}</td>
-                    <td className="font-medium">{booking?.gender}</td>
-                    <td className="font-medium">
-                      {booking?.busDetails?.tripName}
-                    </td>
-                    <td className="font-medium">
-                      {booking?.busDetails?.busName}
-                    </td>
-                    <td className="font-medium">{booking?.seats.join(",")}</td>
-                    <td className="font-medium">{booking?.totalPrice}</td>
-                    <td className="font-medium uppercase">
-                      {booking?.paymentMethod}
-                    </td>
-                    <td className="font-medium">{booking?.transactionId}</td>
-                    <td className="font-medium">{booking?.pnrNumber}</td>
-                    <td>
-                      <span
-                        className={`${
-                          booking?.status === "active"
-                            ? " bg-teal-600 font-semibold"
-                            : "bg-red-600"
-                        } badge text-white uppercase text-xs`}
-                      >
-                        {booking?.status}
-                      </span>
-                    </td>
-                    <td>
-                      <div className="flex gap-3">
-                        <Link to={""}>
-                          <FaRegEdit color="teal" size={20} />
-                        </Link>
-                        <button
-                          onClick={() =>
-                            handleDelete(
-                              "/bookings",
-                              booking?.id,
-                              fetchBookings
-                            )
-                          }
+              {loading ? (
+                <tr>
+                  <td colSpan={15} className="text-center">
+                    <span className="loading loading-dots loading-md"></span>
+                  </td>
+                </tr>
+              ) : (
+                bookings?.map((booking, index) => {
+                  return (
+                    <tr key={index}>
+                      <td>{index + 1}</td>
+                      <td className="font-semibold">{booking?.name}</td>
+                      <td className="font-semibold">
+                        {booking?.contactNumber}
+                      </td>
+                      <td className="font-semibold">{booking?.email}</td>
+                      <td className="font-medium">{booking?.gender}</td>
+                      <td className="font-medium">
+                        {booking?.busDetails?.tripName}
+                      </td>
+                      <td className="font-medium">
+                        {booking?.busDetails?.busName}
+                      </td>
+                      <td className="font-medium">
+                        {booking?.seats.join(",")}
+                      </td>
+                      <td className="font-medium">{booking?.totalPrice}</td>
+                      <td className="font-medium uppercase">
+                        {booking?.paymentMethod}
+                      </td>
+                      <td className="font-medium">{booking?.transactionId}</td>
+                      <td className="font-medium">{booking?.pnrNumber}</td>
+                      <td>
+                        <span
+                          className={`${
+                            booking?.status === "active"
+                              ? " bg-teal-600 font-semibold"
+                              : "bg-red-600"
+                          } badge text-white uppercase text-xs`}
                         >
-                          <IoTrashBin color="red" size={20} />
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                );
-              })}
+                          {booking?.status}
+                        </span>
+                      </td>
+                      <td>
+                        <div className="flex gap-3">
+                          <Link to={""}>
+                            <FaRegEdit color="teal" size={20} />
+                          </Link>
+                          <button
+                            onClick={() =>
+                              handleDelete(
+                                "/bookings",
+                                booking?.id,
+                                fetchBookings
+                              )
+                            }
+                          >
+                            <IoTrashBin color="red" size={20} />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })
+              )}
             </tbody>
           </table>
         </div>

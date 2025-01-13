@@ -10,11 +10,14 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 const Buses = () => {
   const axiosSecure = useAxiosSecure();
   const [buses, setBuses] = useState([]);
+  const [loading, setLoading] = useState(true);
   const fetchBuses = async () => {
     try {
       const result = await axiosSecure.get(`/buses`);
       setBuses(result.data.data);
+      setLoading(false);
     } catch (error) {
+      setLoading(false);
       console.error("Error fetching buses:", error);
     }
   };
@@ -74,57 +77,65 @@ const Buses = () => {
               </tr>
             </thead>
             <tbody>
-              {buses?.map((bus, index) => {
-                return (
-                  <tr key={index}>
-                    <td>{index + 1}</td>
-                    <td>{bus?.tripName}</td>
-                    <td>{bus?.busName}</td>
-                    <td>{bus?.busType}</td>
-                    <td>{bus?.totalSeats}</td>
-                    <td>
-                      {Number(bus?.totalSeats) -
-                        Number(bus?.bookedSeats?.length)}
-                    </td>
-                    <td className="font-semibold">
-                      {bus?.routeDetails?.examName}
-                    </td>
-                    <td className="font-semibold">
-                      {bus?.unitDetails?.groupName}
-                    </td>
-                    <td className="font-semibold">{bus?.startingPoint}</td>
-                    <td className="font-semibold">{bus?.endingPoint}</td>
-                    <td className="font-semibold">{bus?.departureDate}</td>
-                    <td className="font-semibold">{bus?.departureTime}</td>
-                    <td className="font-semibold">{bus?.seatPrice}</td>
-                    <td>
-                      <span
-                        className={`${
-                          bus?.status === "active"
-                            ? " bg-teal-600 font-semibold"
-                            : "bg-red-600"
-                        } badge text-white uppercase text-xs`}
-                      >
-                        {bus?.status}
-                      </span>
-                    </td>
-                    <td>
-                      <div className="flex gap-3">
-                        <Link to={`${bus?.id}/update-bus`}>
-                          <FaRegEdit color="teal" size={20} />
-                        </Link>
-                        <button
-                          onClick={() =>
-                            handleDelete("/buses", bus?.id, fetchBuses)
-                          }
+              {loading ? (
+                <tr>
+                  <td colSpan={15} className="text-center">
+                    <span className="loading loading-dots loading-md"></span>
+                  </td>
+                </tr>
+              ) : (
+                buses?.map((bus, index) => {
+                  return (
+                    <tr key={index}>
+                      <td>{index + 1}</td>
+                      <td>{bus?.tripName}</td>
+                      <td>{bus?.busName}</td>
+                      <td>{bus?.busType}</td>
+                      <td>{bus?.totalSeats}</td>
+                      <td>
+                        {Number(bus?.totalSeats) -
+                          Number(bus?.bookedSeats?.length)}
+                      </td>
+                      <td className="font-semibold">
+                        {bus?.routeDetails?.examName}
+                      </td>
+                      <td className="font-semibold">
+                        {bus?.unitDetails?.groupName}
+                      </td>
+                      <td className="font-semibold">{bus?.startingPoint}</td>
+                      <td className="font-semibold">{bus?.endingPoint}</td>
+                      <td className="font-semibold">{bus?.departureDate}</td>
+                      <td className="font-semibold">{bus?.departureTime}</td>
+                      <td className="font-semibold">{bus?.seatPrice}</td>
+                      <td>
+                        <span
+                          className={`${
+                            bus?.status === "active"
+                              ? " bg-teal-600 font-semibold"
+                              : "bg-red-600"
+                          } badge text-white uppercase text-xs`}
                         >
-                          <IoTrashBin color="red" size={20} />
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                );
-              })}
+                          {bus?.status}
+                        </span>
+                      </td>
+                      <td>
+                        <div className="flex gap-3">
+                          <Link to={`${bus?.id}/update-bus`}>
+                            <FaRegEdit color="teal" size={20} />
+                          </Link>
+                          <button
+                            onClick={() =>
+                              handleDelete("/buses", bus?.id, fetchBuses)
+                            }
+                          >
+                            <IoTrashBin color="red" size={20} />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })
+              )}
             </tbody>
           </table>
         </div>

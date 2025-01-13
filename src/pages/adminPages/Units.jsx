@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { CiCirclePlus } from "react-icons/ci";
@@ -9,11 +10,19 @@ import handleDelete from "../../utils/delete";
 
 const Units = () => {
   const [units, setUnits] = useState([]);
-
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(true);
   const fetchUnits = async () => {
-    axios.get(`${import.meta.env.VITE_BASE_URL}/units`).then((result) => {
-      setUnits(result.data.data);
-    });
+    axios
+      .get(`${import.meta.env.VITE_BASE_URL}/units`)
+      .then((result) => {
+        setUnits(result.data.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        setLoading(false);
+        setError(err.resonse.data.message);
+      });
   };
   useEffect(() => {
     fetchUnits();
@@ -64,46 +73,54 @@ const Units = () => {
               </tr>
             </thead>
             <tbody>
-              {units?.map((unit, index) => {
-                return (
-                  <tr key={index}>
-                    <td>{index + 1}</td>
-                    <td className="font-semibold">{unit?.groupName}</td>
-                    <td className="font-semibold">{unit?.dateOfExam}</td>
-                    <td className="font-semibold">
-                      {unit?.routeDetails?.examName}
-                    </td>
-                    <td className="font-medium">
-                      {unit?.routeDetails?.examCenterName}
-                    </td>
-                    <td>
-                      <span
-                        className={`${
-                          unit?.status === "active"
-                            ? " bg-teal-600 font-semibold"
-                            : "bg-red-600"
-                        } badge text-white uppercase text-xs`}
-                      >
-                        {unit?.status}
-                      </span>
-                    </td>
-                    <td>
-                      <div className="flex gap-3">
-                        <Link to={`${unit?.id}/update-unit`}>
-                          <FaRegEdit color="teal" size={20} />
-                        </Link>
-                        <button
-                          onClick={() =>
-                            handleDelete("/units", unit?.id, fetchUnits)
-                          }
+              {loading ? (
+                <tr>
+                  <td colSpan={10} className="text-center">
+                    <span className="loading loading-dots loading-md"></span>
+                  </td>
+                </tr>
+              ) : (
+                units?.map((unit, index) => {
+                  return (
+                    <tr key={index}>
+                      <td>{index + 1}</td>
+                      <td className="font-semibold">{unit?.groupName}</td>
+                      <td className="font-semibold">{unit?.dateOfExam}</td>
+                      <td className="font-semibold">
+                        {unit?.routeDetails?.examName}
+                      </td>
+                      <td className="font-medium">
+                        {unit?.routeDetails?.examCenterName}
+                      </td>
+                      <td>
+                        <span
+                          className={`${
+                            unit?.status === "active"
+                              ? " bg-teal-600 font-semibold"
+                              : "bg-red-600"
+                          } badge text-white uppercase text-xs`}
                         >
-                          <IoTrashBin color="red" size={20} />
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                );
-              })}
+                          {unit?.status}
+                        </span>
+                      </td>
+                      <td>
+                        <div className="flex gap-3">
+                          <Link to={`${unit?.id}/update-unit`}>
+                            <FaRegEdit color="teal" size={20} />
+                          </Link>
+                          <button
+                            onClick={() =>
+                              handleDelete("/units", unit?.id, fetchUnits)
+                            }
+                          >
+                            <IoTrashBin color="red" size={20} />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })
+              )}
             </tbody>
           </table>
         </div>
