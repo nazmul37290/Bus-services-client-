@@ -39,7 +39,7 @@ const CreateBus = () => {
     const routeId = form.routeId.value;
     const unitId = form.unitId.value;
     const startingPoint = form.startingPoint.value;
-    const endingPoint = form.startingPoint.value;
+    const endingPoint = form.endingPoint.value;
     const seatPrice = Number(form.seatPrice.value);
     const departureDate = formatDate(form.departureDate.value);
     const departureTime = form.departureTime.value;

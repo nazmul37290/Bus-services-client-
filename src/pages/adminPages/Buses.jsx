@@ -10,11 +10,14 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 const Buses = () => {
   const axiosSecure = useAxiosSecure();
   const [buses, setBuses] = useState([]);
+  const [searchedBuses, setSearchedBuses] = useState([]);
   const [loading, setLoading] = useState(true);
   const fetchBuses = async () => {
     try {
       const result = await axiosSecure.get(`/buses`);
       setBuses(result.data.data);
+      setSearchedBuses(result.data.data);
+
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -24,6 +27,21 @@ const Buses = () => {
   useEffect(() => {
     fetchBuses();
   }, []);
+
+  const handleSearch = () => {
+    const inputValue = document.getElementById("searchBuses").value;
+    if (!inputValue) {
+      setSearchedBuses(buses);
+    }
+    const filteredBuses = buses.filter(
+      (bus) =>
+        bus?.routeDetails?.examName
+          .toLowerCase()
+          .includes(inputValue.toLowerCase()) |
+        bus?.tripName.toLowerCase().includes(inputValue.toLowerCase())
+    );
+    setSearchedBuses(filteredBuses);
+  };
   return (
     <div>
       <div className="flex flex-col md:flex-row justify-between items-center">
@@ -45,9 +63,12 @@ const Buses = () => {
               className="border-teal-600 border rounded-md mr-1 px-4"
               name="search"
               placeholder="Search..."
-              id="search"
+              id="searchBuses"
             />
-            <button className="btn bg-teal-600 text-lg text-white ">
+            <button
+              onClick={handleSearch}
+              className="btn bg-teal-600 text-lg text-white "
+            >
               <FaMagnifyingGlass></FaMagnifyingGlass>
             </button>
           </div>
@@ -84,7 +105,7 @@ const Buses = () => {
                   </td>
                 </tr>
               ) : (
-                buses?.map((bus, index) => {
+                searchedBuses?.map((bus, index) => {
                   return (
                     <tr key={index}>
                       <td>{index + 1}</td>
