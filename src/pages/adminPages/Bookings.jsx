@@ -9,12 +9,14 @@ import { Link } from "react-router";
 import handleDelete from "../../utils/delete";
 const Bookings = () => {
   const [bookings, setBookings] = useState([]);
+  const [searchedBookings, setSearchedBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const fetchBookings = async () => {
     axios
       .get(`${import.meta.env.VITE_BASE_URL}/bookings`)
       .then((result) => {
         setBookings(result.data.data);
+        setSearchedBookings(result.data.data);
         setLoading(false);
       })
       .catch((err) => {
@@ -24,6 +26,22 @@ const Bookings = () => {
   useEffect(() => {
     fetchBookings();
   }, []);
+
+  const handleSearch = () => {
+    const inputValue = document.getElementById("searchBookings").value;
+    if (!inputValue) {
+      setSearchedBookings(bookings);
+    }
+    const filteredBookings = bookings.filter(
+      (booking) =>
+        booking?.name.toLowerCase().includes(inputValue.toLowerCase()) |
+        booking?.contactNumber
+          .toLowerCase()
+          .includes(inputValue.toLowerCase()) |
+        booking?.transactionId.toLowerCase().includes(inputValue.toLowerCase())
+    );
+    setSearchedBookings(filteredBookings);
+  };
   return (
     <div>
       <div className="flex flex-col md:flex-row justify-between items-center">
@@ -45,9 +63,12 @@ const Bookings = () => {
               className="border-teal-600 border rounded-md mr-1 px-4"
               name="search"
               placeholder="Search..."
-              id="search"
+              id="searchBookings"
             />
-            <button className="btn bg-teal-600 text-lg text-white ">
+            <button
+              onClick={handleSearch}
+              className="btn bg-teal-600 text-lg text-white "
+            >
               <FaMagnifyingGlass></FaMagnifyingGlass>
             </button>
           </div>
@@ -83,7 +104,7 @@ const Bookings = () => {
                   </td>
                 </tr>
               ) : (
-                bookings?.map((booking, index) => {
+                searchedBookings?.map((booking, index) => {
                   return (
                     <tr key={index}>
                       <td>{index + 1}</td>

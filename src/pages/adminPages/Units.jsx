@@ -10,6 +10,7 @@ import handleDelete from "../../utils/delete";
 
 const Units = () => {
   const [units, setUnits] = useState([]);
+  const [searchedUnits, setSearchedUnits] = useState([]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
   const fetchUnits = async () => {
@@ -17,6 +18,7 @@ const Units = () => {
       .get(`${import.meta.env.VITE_BASE_URL}/units`)
       .then((result) => {
         setUnits(result.data.data);
+        setSearchedUnits(result.data.data);
         setLoading(false);
       })
       .catch((err) => {
@@ -28,6 +30,22 @@ const Units = () => {
     fetchUnits();
   }, []);
 
+  const handleSearch = () => {
+    const inputValue = document.getElementById("searchUnits").value;
+    if (!inputValue) {
+      setSearchedUnits(units);
+    }
+    const filteredUnits = units?.filter(
+      (unit) =>
+        unit?.routeDetails?.examName
+          .toLowerCase()
+          .includes(inputValue.toLowerCase()) |
+        unit?.routeDetails?.examCenterName
+          .toLowerCase()
+          .includes(inputValue.toLowerCase())
+    );
+    setSearchedUnits(filteredUnits);
+  };
   return (
     <div>
       <div className="flex flex-col md:flex-row justify-between items-center">
@@ -49,9 +67,12 @@ const Units = () => {
               className="border-teal-600 border rounded-md mr-1 px-4"
               name="search"
               placeholder="Search..."
-              id="search"
+              id="searchUnits"
             />
-            <button className="btn bg-teal-600 text-lg text-white ">
+            <button
+              onClick={handleSearch}
+              className="btn bg-teal-600 text-lg text-white "
+            >
               <FaMagnifyingGlass></FaMagnifyingGlass>
             </button>
           </div>
@@ -80,7 +101,7 @@ const Units = () => {
                   </td>
                 </tr>
               ) : (
-                units?.map((unit, index) => {
+                searchedUnits?.map((unit, index) => {
                   return (
                     <tr key={index}>
                       <td>{index + 1}</td>
