@@ -6,12 +6,14 @@ import { FaMagnifyingGlass } from "react-icons/fa6";
 
 const Payments = () => {
   const [payments, setPayments] = useState([]);
+  const [searchedPayments, setSearchedPayments] = useState([]);
   const [loading, setLoading] = useState(true);
   const fetchUnits = async () => {
     axios
       .get(`${import.meta.env.VITE_BASE_URL}/payment`)
       .then((result) => {
         setPayments(result.data.data);
+        setSearchedPayments(result.data.data);
         setLoading(false);
       })
       .catch((err) => {
@@ -21,6 +23,23 @@ const Payments = () => {
   useEffect(() => {
     fetchUnits();
   }, []);
+
+  const handleSearch = () => {
+    const inputValue = document.getElementById("searchPayments").value;
+    if (!inputValue) {
+      setSearchedPayments(payments);
+    }
+    const filteredPayments = payments?.filter(
+      (payment) =>
+        payment?.bookingId?.contactNumber
+          .toLowerCase()
+          .includes(inputValue.toLowerCase()) |
+        payment?.bookingId?.paymentMethod
+          .toLowerCase()
+          .includes(inputValue.toLowerCase())
+    );
+    setSearchedPayments(filteredPayments);
+  };
   return (
     <div>
       <div className="flex flex-col md:flex-row justify-between items-center">
@@ -42,9 +61,12 @@ const Payments = () => {
               className="border-teal-600 border rounded-md mr-1 px-4"
               name="search"
               placeholder="Search..."
-              id="search"
+              id="searchPayments"
             />
-            <button className="btn bg-teal-600 text-lg text-white ">
+            <button
+              onClick={handleSearch}
+              className="btn bg-teal-600 text-lg text-white "
+            >
               <FaMagnifyingGlass></FaMagnifyingGlass>
             </button>
           </div>
@@ -73,7 +95,7 @@ const Payments = () => {
                   </td>
                 </tr>
               ) : (
-                payments?.map((payment, index) => {
+                searchedPayments?.map((payment, index) => {
                   return (
                     <tr key={index}>
                       <td>{index + 1}</td>
