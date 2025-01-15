@@ -6,6 +6,7 @@ import { generatePDF } from "../utils/generatePdf";
 const Tickets = () => {
   const [error, setError] = useState("");
   const [ticket, setTicket] = useState();
+  const [loading, setLoading] = useState(false);
   const [recentPnr, setRecentPnr] = useState("");
 
   useEffect(() => {
@@ -13,6 +14,7 @@ const Tickets = () => {
   }, []);
   const handleGetTicket = async (e) => {
     e.preventDefault();
+    setLoading(true);
     setError("");
     const pnr = e.target.pnrNumber.value;
     const phone = e.target.phone.value;
@@ -21,10 +23,12 @@ const Tickets = () => {
       .get(`${import.meta.env.VITE_BASE_URL}/ticket?pnr=${pnr}&phone=${phone}`)
       .then((res) => {
         setTicket(res.data.data);
+        setLoading(false);
         toast.success("Ticket retrieved successfully");
       })
       .catch((err) => {
         setError(err?.response?.data?.message);
+        setLoading(false);
         toast.error(err?.response?.data?.message);
       });
   };
@@ -76,7 +80,11 @@ const Tickets = () => {
           <br />
           <p className="text-red-600">{error}</p>
           <button className="btn bg-teal-600 mt-4 text-base text-white w-full">
-            Get Ticket
+            {loading ? (
+              <span className="loading loading-dots loading-sm"></span>
+            ) : (
+              " Get Ticket"
+            )}
           </button>
         </form>
         <div className=" bg-teal-50 rounded-lg w-full">
@@ -285,12 +293,20 @@ const Tickets = () => {
           )}
           <div className="w-full mt-16">
             {ticket && (
-              <button
-                onClick={generatePDF}
-                className="btn block mx-auto max-w-fit  bg-teal-600 text-white"
-              >
-                Download Ticket
-              </button>
+              <div className="flex justify-center gap-5">
+                <button
+                  onClick={generatePDF}
+                  className="btn max-w-fit  bg-teal-600 text-white"
+                >
+                  Download Ticket
+                </button>
+                {/* <button
+                  onClick={printTicket}
+                  className="btn max-w-fit  bg-teal-600 text-white"
+                >
+                  Print
+                </button> */}
+              </div>
             )}
           </div>
         </div>

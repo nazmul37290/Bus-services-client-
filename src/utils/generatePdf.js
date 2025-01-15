@@ -23,3 +23,21 @@ export const generatePDF = () => {
     pdf.save("ticket.pdf");
   });
 };
+
+export const printTicket = () => {
+  const ticketElement = document.getElementById("ticket");
+
+  html2canvas(ticketElement, {
+    scale: 2,
+    backgroundColor: "#ffffff",
+    windowWidth: 1200,
+  }).then((canvas) => {
+    const imgData = canvas.toDataURL("image/png");
+    let printWindow = window.open("", "_blank");
+    printWindow.document.write('<img src="' + imgData + '" width="100%"/>');
+    setTimeout(() => {
+      printWindow.print();
+      printWindow.close();
+    }, 500);
+  });
+};
