@@ -79,73 +79,207 @@ const Tickets = () => {
             Get Ticket
           </button>
         </form>
-        <div className=" bg-teal-50 rounded-lg  lg:h-96 w-full">
+        <div className=" bg-teal-50 rounded-lg w-full">
           {ticket && (
-            <div
-              id="ticket"
-              className="overflow-hidden p-10  ticket bg-teal-50"
-            >
-              <h3 className="text-teal-600 font-semibold text-2xl mb-4 uppercase">
-                Ticket Details
-              </h3>
-              <div className="flex gap-24">
-                <div>
-                  <p>
-                    <strong className="">Name:</strong> {ticket?.name}
-                  </p>
-                  <p>
-                    <strong className="">Contact Number:</strong>{" "}
-                    {ticket?.contactNumber}
-                  </p>
-                  <p>
-                    <strong className="">Gender:</strong> {ticket?.gender}
-                  </p>
-                  <p>
-                    <strong className="">PNR Number:</strong>{" "}
-                    {ticket?.pnrNumber}
-                  </p>
-                  <p>
-                    <strong>Departure Date:</strong>{" "}
-                    {ticket?.busId?.departureDate}
-                  </p>
-                  <p>
-                    <strong>Departure Time:</strong>{" "}
-                    {ticket?.busId?.departureTime}
-                  </p>
-                  <p>
-                    <strong>Return Date:</strong> {ticket?.busId?.returnDate}
-                  </p>
-                  <p>
-                    <strong>Return Time:</strong> {ticket?.busId?.returnTime}
-                  </p>
+            <div id="ticket" className="overflow-hidden  ticket bg-teal-50">
+              <div className=" bg-teal-600 flex items-center justify-between w-full text-white py-3 px-8">
+                <img src="/assets/logo.png" className="w-28" alt="" />
+                <h3 className=" font-semibold text-xl mb-4 font-serif uppercase">
+                  E-TICKET
+                </h3>
+              </div>
+              <div className="ticket-inner flex gap-20 py-8 px-8  bg-no-repeat">
+                <div className="">
+                  <table className="table table-xs">
+                    <tbody>
+                      <tr>
+                        <td className="pr-4">
+                          <span className="font-medium">Name</span>
+                        </td>
+                        <td>
+                          <span>:</span>
+                        </td>
+                        <td className="uppercase px-4 py-1">
+                          <span>{ticket?.name}</span>
+                        </td>
+                      </tr>
 
-                  <p>
-                    <strong>Fare: {ticket?.totalPrice}</strong> BDT
-                  </p>
+                      <tr>
+                        <td className="pr-4">
+                          <span className="font-medium">Gender:</span>
+                        </td>
+                        <td>
+                          <span>:</span>
+                        </td>
+                        <td className="uppercase px-4">
+                          <span>{ticket?.gender}</span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="pr-4">
+                          <span className="font-medium">PNR Number:</span>
+                        </td>
+                        <td>
+                          <span>:</span>
+                        </td>
+                        <td className="uppercase px-4">
+                          <span>{ticket?.pnrNumber}</span>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td className="pr-4">
+                          <span className="font-medium">Departure Date</span>
+                        </td>
+                        <td>
+                          <span>:</span>
+                        </td>
+                        <td className="uppercase px-4">
+                          <span>{ticket?.busId?.departureDate}</span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="pr-4">
+                          <span className="font-medium">Departure Time</span>
+                        </td>
+                        <td>
+                          <span>:</span>
+                        </td>
+                        <td className="uppercase px-4">
+                          <span>{ticket?.busId?.departureTime}</span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="pr-4">
+                          <span className="font-medium">Boarding Point</span>
+                        </td>
+                        <td>
+                          <span>:</span>
+                        </td>
+                        <td className="uppercase px-4">
+                          <span>{ticket?.busId?.startingPoint}</span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="pr-4">
+                          <span className="font-medium">Return Date</span>
+                        </td>
+                        <td>
+                          <span>:</span>
+                        </td>
+                        <td className="uppercase px-4">
+                          <span>{ticket?.busId?.returnDate}</span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="pr-4">
+                          <span className="font-medium">Return Time</span>
+                        </td>
+                        <td>
+                          <span>:</span>
+                        </td>
+                        <td className="uppercase px-4">
+                          <span>{ticket?.busId?.returnTime}</span>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
                 <div>
-                  <p>
-                    <strong>Trip Name:</strong> {ticket?.busId?.tripName}
-                  </p>
-                  <p>
-                    <strong>Bus Name:</strong> {ticket?.busId?.busName}
-                  </p>
-                  <p>
-                    <strong>Bus Type:</strong> {ticket?.busId?.busType}
-                  </p>
-                  <p>
-                    <strong>Seats:</strong> {ticket?.seats.join(",")}
-                  </p>
-                  <p>
-                    <strong className="mr-1">Purchased at:</strong>
-                    {new Date(ticket?.createdAt).toLocaleString("en-GB", {
-                      hour12: true,
-                    })}
-                  </p>
-                  <p className="mt-24 text-end">
-                    <strong className="overline">signature</strong>
-                  </p>
+                  <table className="table table-xs">
+                    <tbody>
+                      <tr className="">
+                        <td className="pr-4">
+                          <span className="font-medium">Trip Name</span>
+                        </td>
+                        <td>
+                          <span>:</span>
+                        </td>
+                        <td className="uppercase px-4">
+                          <span>{ticket?.busId?.tripName}</span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="pr-4">
+                          <span className="font-medium">Contact Number</span>
+                        </td>
+                        <td>
+                          <span>:</span>
+                        </td>
+                        <td className="uppercase px-4">
+                          <span>{ticket?.contactNumber}</span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="pr-4">
+                          <span className="font-medium">Bus Name</span>
+                        </td>
+                        <td>
+                          <span>:</span>
+                        </td>
+                        <td className="uppercase px-4">
+                          <span>{ticket?.busId?.busName}</span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="pr-4">
+                          <span className="font-medium">Bus Type</span>
+                        </td>
+                        <td>
+                          <span>:</span>
+                        </td>
+                        <td className="uppercase px-4">
+                          <span>{ticket?.busId?.busType}</span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="pr-4">
+                          <span className="font-medium">Seats</span>
+                        </td>
+                        <td>
+                          <span>:</span>
+                        </td>
+                        <td className="uppercase px-4">
+                          <span> {ticket?.seats.join(",")}</span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="pr-4">
+                          <span className="font-medium">Fare</span>
+                        </td>
+                        <td>
+                          <span>:</span>
+                        </td>
+                        <td className="uppercase px-4">
+                          <span>{ticket?.totalPrice} BDT</span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="pr-4">
+                          <span className="font-medium">Purchased at</span>
+                        </td>
+                        <td>
+                          <span>:</span>
+                        </td>
+                        <td className="uppercase px-4">
+                          <span>
+                            {new Date(ticket?.createdAt).toLocaleString(
+                              "en-GB",
+                              {
+                                hour12: true,
+                              }
+                            )}
+                          </span>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
+              </div>
+              <div className="bg-teal-600 w-full flex justify-center items-center ">
+                <p className="text-white font-medium text-center text-xs mb-3">
+                  Thank you for choosing us . Happy Journey
+                </p>
               </div>
             </div>
           )}

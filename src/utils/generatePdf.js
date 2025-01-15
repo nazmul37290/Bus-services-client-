@@ -2,7 +2,7 @@ import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 
 export const generatePDF = () => {
-  const ticketElement = document.getElementById("ticket"); // ID of the ticket container
+  const ticketElement = document.getElementById("ticket");
 
   html2canvas(ticketElement, {
     scale: 2,
