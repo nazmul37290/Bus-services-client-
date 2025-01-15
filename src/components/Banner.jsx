@@ -3,11 +3,10 @@ const Banner = () => {
     <div
       className="hero min-h-[400px] md:min-h-[80vh]"
       style={{
-        backgroundImage:
-          "url(https://img.daisyui.com/images/stock/photo-1507358522600-9f71e620c44e.webp)",
+        backgroundImage: "url(/assets/hero.jpg)",
       }}
     >
-      <div className="hero-overlay bg-opacity-70"></div>
+      <div className="hero-overlay bg-opacity-60"></div>
       <div className="hero-content text-neutral-content text-center">
         <div className="max-w-2xl">
           <h1 className="mb-5 text-3xl md:text-5xl text-white font-bold">
