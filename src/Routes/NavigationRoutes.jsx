@@ -29,7 +29,6 @@ import Gallery from "../pages/Gallery";
 import Blog from "../pages/Blog";
 import Payments from "../pages/adminPages/Payments";
 import CreateBooking from "../pages/adminPages/CreateBooking";
-import Upload from "../pages/Upload";
 const NavigationRoutes = () => {
   return (
     <Routes>
@@ -55,7 +54,6 @@ const NavigationRoutes = () => {
         <Route path="/tickets" element={<Tickets></Tickets>}></Route>
         <Route path="/gallery" element={<Gallery></Gallery>}></Route>
         <Route path="/blogs" element={<Blog></Blog>}></Route>
-        <Route path="upload" element={<Upload></Upload>}></Route>
         <Route path="*" element={<Error></Error>} />
       </Route>
       <Route path="/login" element={<Login></Login>}></Route>
