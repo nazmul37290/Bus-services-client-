@@ -4,7 +4,14 @@ const BusRouteCard = ({ route, setActiveRoute }) => {
   return (
     <div className="card card-compact   sm:w-72 md:w-80 lg:w-96 shadow-xl">
       <figure>
-        <img src="/assets/ru.png" alt="Shoes" />
+        <img
+          src={
+            (route?.destinationImage &&
+              `${import.meta.env.VITE_BASE_URL}/${route?.destinationImage}`) ||
+            "/assets/ru.png"
+          }
+          alt="Shoes"
+        />
       </figure>
       <div className="card-body">
         <h2 className="card-title text-2xl font-semibold">{route?.examName}</h2>

@@ -11,20 +11,19 @@ const CreateRoute = () => {
   const handleCreateRoute = (e) => {
     e.preventDefault();
     setLoading(true);
-    const form = e.target;
-    const examName = form.examName.value;
-    const examCenterName = form.examCenter.value;
-    const destinationImage = form.image.value;
-
-    const routeDetails = {
-      examName,
-      examCenterName,
-      destinationImage,
-    };
+    const formData = new FormData(e.target);
+    for (let [key, value] of formData.entries()) {
+      console.log(key, ":", value);
+    }
     axios
       .post(
         `${import.meta.env.VITE_BASE_URL}/bus-routes/create-bus-route`,
-        routeDetails
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
       )
       .then((res) => {
         toast.success("Route created successfully");
@@ -32,6 +31,7 @@ const CreateRoute = () => {
         setLoading(false);
       })
       .catch((err) => {
+        console.log(err);
         setLoading(false);
         setError(err?.response?.data?.errorSources[0].message);
       });
@@ -62,15 +62,15 @@ const CreateRoute = () => {
           <div className="flex flex-wrap items-center mt-4">
             <label
               className=" flex-1 text-base font-semibold uppercase"
-              htmlFor="examCenter"
+              htmlFor="examCenterName"
             >
               Exam center location <span className="text-red-600">*</span>
             </label>
             <input
               className="input input-bordered px-2 w-[500px]"
               type="text"
-              name="examCenter"
-              id="examCenter"
+              name="examCenterName"
+              id="examCenterName"
               placeholder="(ex. Rajshahi University, Chattogram University)"
               required
             />
