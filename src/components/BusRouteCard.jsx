@@ -3,13 +3,13 @@ import { IoLocationOutline } from "react-icons/io5";
 const BusRouteCard = ({ route, setActiveRoute }) => {
   return (
     <div className="card card-compact   sm:w-72 md:w-80 lg:w-96 shadow-xl">
-      <figure>
+      <figure className="max-h-52 overflow-hidden">
         <img
           src={
-            (route?.destinationImage &&
-              `${import.meta.env.VITE_BASE_URL}/${route?.destinationImage}`) ||
+            (route?.destinationImage && `${route?.destinationImage}`) ||
             "/assets/ru.png"
           }
+          className="w-full object-cover "
           alt="Shoes"
         />
       </figure>
