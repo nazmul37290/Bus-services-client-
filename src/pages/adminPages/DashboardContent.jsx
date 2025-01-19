@@ -38,7 +38,7 @@ const DashboardContent = () => {
         </select>
       </div>
       <StatCard stats={statistics}></StatCard>
-      <h3 className="text-teal-600 font-semibold my-5  text-2xl uppercase">
+      <h3 className="text-teal-600 font-semibold mt-10 mb-5  text-2xl uppercase">
         Detailed Chart
       </h3>
       <DetailedChart stats={statistics?.revenueByPaymentMethod}></DetailedChart>
