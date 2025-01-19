@@ -9,7 +9,7 @@ const BusRouteCard = ({ route, setActiveRoute }) => {
             (route?.destinationImage && `${route?.destinationImage}`) ||
             "/assets/ru.png"
           }
-          className="w-full object-cover "
+          className="w-full object-cover"
           alt="Shoes"
         />
       </figure>
