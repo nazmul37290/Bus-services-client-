@@ -33,7 +33,7 @@ const Dashboard = () => {
             <GiHamburgerMenu size={20} />
           </label>
           <Link to={"/"} className="btn btn-ghost text-white text-2xl">
-            Logo
+            <img src="/assets/logo.png" className="h-12" alt="" />
           </Link>
         </div>
         <div className="flex-none gap-2">
@@ -57,7 +57,7 @@ const Dashboard = () => {
               <div className="w-10 rounded-full">
                 <img
                   alt="Tailwind CSS Navbar component"
-                  src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                  src="/assets/profile.jpg"
                 />
               </div>
             </div>
