@@ -16,7 +16,6 @@ const DashboardContent = () => {
       )
       .then((res) => {
         setStatistics(res.data.data);
-        console.log(res.data.data);
       });
   }, [timePeriod]);
   return (

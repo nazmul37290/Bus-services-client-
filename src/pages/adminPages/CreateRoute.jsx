@@ -12,9 +12,6 @@ const CreateRoute = () => {
     e.preventDefault();
     setLoading(true);
     const formData = new FormData(e.target);
-    for (let [key, value] of formData.entries()) {
-      console.log(key, ":", value);
-    }
     axios
       .post(
         `${import.meta.env.VITE_BASE_URL}/bus-routes/create-bus-route`,
@@ -31,7 +28,6 @@ const CreateRoute = () => {
         setLoading(false);
       })
       .catch((err) => {
-        console.log(err);
         setLoading(false);
         setError(err?.response?.data?.errorSources[0].message);
       });

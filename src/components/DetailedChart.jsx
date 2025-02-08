@@ -11,7 +11,6 @@ import {
 } from "recharts";
 
 const DetailedChart = ({ stats }) => {
-  console.log(stats);
   return (
     <ResponsiveContainer width="100%" height={400}>
       <AreaChart
@@ -40,5 +39,5 @@ const DetailedChart = ({ stats }) => {
 export default DetailedChart;
 
 DetailedChart.propTypes = {
-  stats: PropTypes.array.isRequired,
+  stats: PropTypes.array,
 };

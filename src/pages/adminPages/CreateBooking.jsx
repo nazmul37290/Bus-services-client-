@@ -91,7 +91,6 @@ const CreateBooking = () => {
     }
     let payableAmount;
     if (paymentMethod === "bkash") {
-      console.log("bkash");
       payableAmount = totalPrice + (totalPrice * 2) / 100;
     } else {
       payableAmount = totalPrice;
@@ -108,7 +107,6 @@ const CreateBooking = () => {
       transactionId,
       paymentMethod,
     };
-    console.log(bookingData);
     axios
       .post(
         `${import.meta.env.VITE_BASE_URL}/bookings/create-booking`,

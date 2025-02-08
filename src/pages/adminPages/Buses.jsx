@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
 import { CiCirclePlus } from "react-icons/ci";
 import { FaRegEdit } from "react-icons/fa";
@@ -21,7 +22,6 @@ const Buses = () => {
       setLoading(false);
     } catch (error) {
       setLoading(false);
-      console.error("Error fetching buses:", error);
     }
   };
   useEffect(() => {
