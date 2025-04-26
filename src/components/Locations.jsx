@@ -39,7 +39,7 @@ const Locations = () => {
               <div className="skeleton h-80 w-80"></div>
             </div>
           ) : (
-            busRoutes.map((route, index) => {
+            busRoutes?.map((route, index) => {
               return (
                 <BusRouteCard
                   key={index}

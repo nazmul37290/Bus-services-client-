@@ -325,7 +325,7 @@ const CreateBooking = () => {
             </label>
             <div className="grid grid-cols-4 gap-4 mt-5 sm:mt-0">
               {seats &&
-                seats.map((seat, index) => {
+                seats?.map((seat, index) => {
                   return (
                     <div
                       onClick={(e) => selectSeats(e, seat)}

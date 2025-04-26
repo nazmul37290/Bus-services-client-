@@ -27,11 +27,12 @@ const CheckOutPage = () => {
     bookinDetails.paymentMethod = "bkash";
 
     try {
+      console.log("try block");
       const paymentRes = await axios.post(
         `${import.meta.env.VITE_BASE_URL}/payment/bkash/create`,
         { amount: totalPayableAmount }
       );
-
+      console.log(paymentRes);
       if (
         paymentRes?.data?.success === true &&
         paymentRes?.data?.data?.bkashURL
@@ -40,6 +41,7 @@ const CheckOutPage = () => {
         window.location.href = paymentRes?.data?.data?.bkashURL;
       }
     } catch (error) {
+      console.log(error);
       setError(error?.message);
     }
   };

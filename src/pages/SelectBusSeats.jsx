@@ -79,7 +79,7 @@ const SelectBusSeats = () => {
             </span>
           </div>
           <div className="grid grid-cols-4 gap-5 max-w-80 md:max-w-full  lg:w-fit md:p-10 pt-6">
-            {seats.map((seat, index) => {
+            {seats?.map((seat, index) => {
               return (
                 <div
                   key={index}

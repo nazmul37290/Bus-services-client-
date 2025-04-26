@@ -1,3 +1,4 @@
+import image from "../../public/assets/under-construction.svg";
 const Blog = () => {
   return (
     <div className="max-w-screen-xl mx-auto flex flex-col items-center justify-center min-h-[calc(100vh-380px)]">
@@ -6,7 +7,7 @@ const Blog = () => {
       </h3>
       <img
         className="max-w-screen-sm w-full px-4"
-        src="/assets/under-construction.svg"
+        src={image}
         alt="under-construction-img"
       />
     </div>

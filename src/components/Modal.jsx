@@ -43,7 +43,7 @@ const Modal = ({ route }) => {
           ) : (
             <div className="flex flex-wrap justify-center gap-4 sm:gap-10">
               {units &&
-                units.map((unit, index) => {
+                units?.map((unit, index) => {
                   return (
                     <Link to={`/bus-lists/${unit?.id}`} key={index}>
                       <UnitCard unit={unit}></UnitCard>

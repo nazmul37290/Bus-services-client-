@@ -96,7 +96,7 @@ const Dashboard = () => {
             ></label>
             <ul className="menu bg-teal-600 text-white font-medium text-base min-h-full uppercase w-80 p-4">
               {/* Sidebar content here */}
-              {dashboardLinks.map((link, index) => {
+              {dashboardLinks?.map((link, index) => {
                 return (
                   <NavLink
                     key={index}

@@ -37,7 +37,7 @@ const Navbar = () => {
               tabIndex={0}
               className="menu menu-sm dropdown-content bg-teal-100 rounded space-y-2 z-[1] mt-3 w-52 p-2 shadow"
             >
-              {navlinks.map((link) => {
+              {navlinks?.map((link) => {
                 return (
                   <NavLink
                     key={link?.href}
@@ -67,7 +67,7 @@ const Navbar = () => {
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1 text-white">
-            {navlinks.map((link) => {
+            {navlinks?.map((link) => {
               return (
                 <NavLink
                   key={link?.href}
