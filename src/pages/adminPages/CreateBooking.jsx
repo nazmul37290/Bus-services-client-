@@ -47,17 +47,16 @@ const CreateBooking = () => {
   useEffect(() => {
     axios.get(`${import.meta.env.VITE_BASE_URL}/bus-routes`).then((result) => {
       setRoutes(result.data.data);
-      setSelectedRouteId(result.data.data[0]._id);
     });
   }, []);
   useEffect(() => {
-    axios
-      .get(`${import.meta.env.VITE_BASE_URL}/units?route=${selectedRouteId}`)
-      .then((result) => {
-        setUnits(result.data.data);
-        setSelectedUnitId(result.data.data[0].id);
-      })
-      .catch((err) => setError(err.message));
+    selectedRouteId &&
+      axios
+        .get(`${import.meta.env.VITE_BASE_URL}/units?route=${selectedRouteId}`)
+        .then((result) => {
+          setUnits(result.data.data);
+        })
+        .catch((err) => setError(err.message));
   }, [selectedRouteId]);
   useEffect(() => {
     selectedUnitId &&
@@ -65,7 +64,6 @@ const CreateBooking = () => {
         .get(`${import.meta.env.VITE_BASE_URL}/buses?unit=${selectedUnitId}`)
         .then((res) => {
           setBuses(res?.data?.data);
-          setSelectedBusId(res.data.data[0]._id);
         })
         .catch((err) => {
           setBuses([]);
@@ -252,6 +250,7 @@ const CreateBooking = () => {
                 className="select select-bordered w-full  sm:w-[500px]"
                 id="routeId"
               >
+                <option value="">Select a route</option>
                 {routes?.map((route, index) => {
                   return (
                     <option key={index} value={route?._id}>
@@ -282,6 +281,7 @@ const CreateBooking = () => {
                 className="select select-bordered w-full sm:w-[500px]"
                 id="unitId"
               >
+                <option value="">Select a unit</option>
                 {units?.map((unit, index) => {
                   return (
                     <option key={index} value={unit?.id}>
@@ -306,6 +306,7 @@ const CreateBooking = () => {
                 className="select select-bordered w-full sm:w-[500px]"
                 id="busId"
               >
+                <option value="">Select a bus</option>
                 {buses?.map((bus, index) => {
                   return (
                     <option key={index} value={bus?._id}>
@@ -350,9 +351,9 @@ const CreateBooking = () => {
               Total Price:
             </label>
             <input
-              onChange={(e) => setTotalPrice(e.target.value)}
-              className="input input-bordered px-2 w-[500px]"
-              type="text"
+              onChange={(e) => setTotalPrice(Number(e.target.value))}
+              className="input input-bordered px-2 w-[500px] appearance-none m-0"
+              type="number"
               name="totalPrice"
               id="totalPrice"
               value={
