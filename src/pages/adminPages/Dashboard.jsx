@@ -84,17 +84,17 @@ const Dashboard = () => {
       <div>
         <div className="drawer  lg:drawer-open">
           <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-          <div className="drawer-content p-4 lg:p-10">
+          <div className="drawer-content h-[calc(100vh-80px)] overflow-auto p-4 lg:p-10">
             {/* Page content here */}
             <Outlet></Outlet>
           </div>
-          <div className="drawer-side">
+          <div className="drawer-side h-full">
             <label
               htmlFor="my-drawer-2"
               aria-label="close sidebar"
               className="drawer-overlay"
             ></label>
-            <ul className="menu bg-teal-600 text-white font-medium text-base min-h-full uppercase w-80 p-4">
+            <ul className="menu bg-teal-600 text-white font-medium text-base min-h-[calc(100vh-66px)]  uppercase w-80 p-4">
               {/* Sidebar content here */}
               {dashboardLinks?.map((link, index) => {
                 return (
