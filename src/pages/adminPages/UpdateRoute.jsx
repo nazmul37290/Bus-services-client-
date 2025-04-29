@@ -27,20 +27,14 @@ const UpdateRoute = () => {
   const handleUpdateRoute = (e) => {
     e.preventDefault();
     setLoading(true);
-    const form = e.target;
-    const examName = form.examName.value;
-    const examCenterName = form.examCenter.value;
-    const destinationImage = form.image.value;
-    const status = form.status.value;
 
-    const routeDetails = {
-      examName,
-      examCenterName,
-      destinationImage,
-      status,
-    };
+    const formData = new FormData(e.target);
+
+    for (let pair of formData.entries()) {
+      console.log(pair[0], pair[1]);
+    }
     axios
-      .patch(`${import.meta.env.VITE_BASE_URL}/bus-routes/${id}`, routeDetails)
+      .patch(`${import.meta.env.VITE_BASE_URL}/bus-routes/${id}`, formData)
       .then((res) => {
         toast.success("Route updated successfully");
         navigate("/admin/bus-routes");
@@ -97,13 +91,20 @@ const UpdateRoute = () => {
             >
               Image
             </label>
-            <input
-              className="file-input file-input-bordered w-[500px]"
-              defaultValue={busRoute?.destinationImage}
-              type="file"
-              name="image"
-              id="image"
-            />
+            <div className="flex  items-center gap-6">
+              <input
+                className="file-input file-input-bordered w-[370px] "
+                defaultValue={busRoute?.destinationImage}
+                type="file"
+                name="image"
+                id="image"
+              />
+              <img
+                className="h-14 aspect-video"
+                src={busRoute?.destinationImage}
+                alt=""
+              />
+            </div>
           </div>
           <div className="flex flex-wrap items-center mt-4">
             <label
