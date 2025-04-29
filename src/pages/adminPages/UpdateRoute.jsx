@@ -30,9 +30,6 @@ const UpdateRoute = () => {
 
     const formData = new FormData(e.target);
 
-    for (let pair of formData.entries()) {
-      console.log(pair[0], pair[1]);
-    }
     axios
       .patch(`${import.meta.env.VITE_BASE_URL}/bus-routes/${id}`, formData)
       .then((res) => {

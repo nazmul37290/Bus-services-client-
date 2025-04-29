@@ -21,10 +21,16 @@ const handleDelete = (url, id, func) => {
             text: "Your file has been deleted.",
             icon: "success",
           });
-
+          console.log(func, "function called");
           func();
         })
-        .catch((err) => {});
+        .catch((err) => {
+          Swal.fire({
+            title: "Opps!!",
+            text: err.message,
+            icon: "Error",
+          });
+        });
     }
   });
 };

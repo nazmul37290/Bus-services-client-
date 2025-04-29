@@ -29,6 +29,7 @@ import Gallery from "../pages/Gallery";
 import Blog from "../pages/Blog";
 import Payments from "../pages/adminPages/Payments";
 import CreateBooking from "../pages/adminPages/CreateBooking";
+import AdminGallery from "../pages/adminPages/AdminGallery";
 const NavigationRoutes = () => {
   return (
     <Routes>
@@ -71,6 +72,7 @@ const NavigationRoutes = () => {
         <Route path="buses" element={<Buses></Buses>}></Route>
         <Route path="bookings" element={<Bookings></Bookings>}></Route>
         <Route path="payments" element={<Payments></Payments>}></Route>
+        <Route path="gallery" element={<AdminGallery></AdminGallery>}></Route>
         <Route path="users" element={<Users></Users>}></Route>
 
         <Route

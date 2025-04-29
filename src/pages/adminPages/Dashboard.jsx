@@ -11,6 +11,7 @@ const dashboardLinks = [
   { text: "Buses", href: "/admin/buses" },
   { text: "Bookings", href: "/admin/bookings" },
   { text: "Payments", href: "/admin/payments" },
+  { text: "Gallery", href: "/admin/gallery" },
   { text: "Users", href: "/admin/users" },
 ];
 const Dashboard = () => {
