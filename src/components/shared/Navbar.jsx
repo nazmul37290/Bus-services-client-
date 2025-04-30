@@ -5,7 +5,6 @@ const Navbar = () => {
     { text: "Home", href: "/" },
     { text: "Get Ticket", href: "/tickets" },
     { text: "Gallery", href: "/gallery" },
-    { text: "Blogs", href: "/blogs" },
     { text: "Conditions", href: "/conditions" },
   ];
   return (

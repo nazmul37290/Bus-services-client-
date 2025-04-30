@@ -26,10 +26,10 @@ import Login from "../pages/auth/Login";
 import SuccessPage from "../pages/SuccessPage";
 import PaymentErrorPage from "../pages/PaymentErrorPage";
 import Gallery from "../pages/Gallery";
-import Blog from "../pages/Blog";
 import Payments from "../pages/adminPages/Payments";
 import CreateBooking from "../pages/adminPages/CreateBooking";
 import AdminGallery from "../pages/adminPages/AdminGallery";
+import Condititon from "../pages/Condititon";
 const NavigationRoutes = () => {
   return (
     <Routes>
@@ -54,7 +54,7 @@ const NavigationRoutes = () => {
         ></Route>
         <Route path="/tickets" element={<Tickets></Tickets>}></Route>
         <Route path="/gallery" element={<Gallery></Gallery>}></Route>
-        <Route path="/blogs" element={<Blog></Blog>}></Route>
+        <Route path="/conditions" element={<Condititon></Condititon>}></Route>
         <Route path="*" element={<Error></Error>} />
       </Route>
       <Route path="/login" element={<Login></Login>}></Route>

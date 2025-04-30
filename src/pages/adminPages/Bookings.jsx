@@ -42,6 +42,8 @@ const Bookings = () => {
     );
     setSearchedBookings(filteredBookings);
   };
+  console.log(bookings);
+
   return (
     <div>
       <div className="flex flex-col md:flex-row justify-between items-center">
