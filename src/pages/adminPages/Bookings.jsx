@@ -44,7 +44,7 @@ const Bookings = () => {
     );
     setSearchedBookings(filteredBookings);
   };
-  console.log(bookings);
+
   const generatePDF = () => {
     const doc = new jsPDF({ orientation: "landscape" });
     const tableColumn = [
@@ -62,7 +62,7 @@ const Bookings = () => {
     ];
     const tableRows = [];
 
-    bookings.forEach((booking) => {
+    searchedBookings?.forEach((booking) => {
       const row = [
         booking.id,
         booking.name,

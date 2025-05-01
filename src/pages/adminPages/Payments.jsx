@@ -1,5 +1,7 @@
 /* eslint-disable no-unused-vars */
 import axios from "axios";
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
 import { useEffect, useState } from "react";
 
 import { FaMagnifyingGlass } from "react-icons/fa6";
@@ -40,6 +42,48 @@ const Payments = () => {
     );
     setSearchedPayments(filteredPayments);
   };
+  console.log(searchedPayments);
+
+  const generatePDF = () => {
+    const doc = new jsPDF({ orientation: "landscape" });
+    const tableColumn = [
+      "Booking ID",
+      "Name",
+      "Contact Number",
+      "Payment Method",
+      "Amount",
+      "Transaction Id",
+      "Datetime of payment",
+    ];
+    const tableRows = [];
+
+    searchedPayments?.forEach((payment) => {
+      const row = [
+        payment.bookingId.id,
+        payment.bookingId.name,
+        payment.bookingId.contactNumber,
+        payment.paymentMethod,
+        payment.bookingId.totalPrice,
+        payment.bookingId.transactionId,
+        new Date(payment.createdAt).toLocaleString("en-GB", {
+          hour12: true,
+          hour: "2-digit",
+          minute: "2-digit",
+          day: "2-digit",
+          month: "short",
+          year: "numeric",
+        }),
+      ];
+      tableRows.push(row);
+    });
+
+    autoTable(doc, {
+      head: [tableColumn],
+      body: tableRows,
+    });
+
+    doc.save("payment.pdf");
+  };
   return (
     <div>
       <div className="flex flex-col md:flex-row justify-between items-center">
@@ -47,14 +91,12 @@ const Payments = () => {
           All Payments
         </h3>
         <div className="flex flex-col sm:flex-row items-center gap-5">
-          {/* <Link to={"create-unit"}>
-              <button className="btn bg-teal-600 text-base text-white flex items-center gap-2">
-                Create New{" "}
-                <span>
-                  <CiCirclePlus size={25} />
-                </span>
-              </button>
-            </Link> */}
+          <button
+            onClick={generatePDF}
+            className="btn bg-teal-600 text-base text-white flex items-center gap-2"
+          >
+            Download PDF
+          </button>
           <div className="flex">
             <input
               type="search"
@@ -85,6 +127,7 @@ const Payments = () => {
                 <th>payment method</th>
                 <th>total amount</th>
                 <th>transaction id</th>
+                <th>Datetime of Payment</th>
               </tr>
             </thead>
             <tbody>
@@ -117,20 +160,16 @@ const Payments = () => {
                       <td className="font-medium">
                         {payment?.bookingId?.transactionId}
                       </td>
-                      {/* <td>
-                      <div className="flex gap-3">
-                        <Link to={``}>
-                          <FaRegEdit color="teal" size={20} />
-                        </Link>
-                        <button
-                          onClick={() =>
-                            handleDelete("/payments", payment?.id, fetchUnits)
-                          }
-                        >
-                          <IoTrashBin color="red" size={20} />
-                        </button>
-                      </div>
-                    </td> */}
+                      <td className="font-medium">
+                        {new Date(payment.createdAt).toLocaleString("en-GB", {
+                          hour12: true,
+                          hour: "2-digit",
+                          minute: "2-digit",
+                          day: "2-digit",
+                          month: "short",
+                          year: "numeric",
+                        })}
+                      </td>
                     </tr>
                   );
                 })
