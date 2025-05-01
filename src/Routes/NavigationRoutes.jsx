@@ -29,8 +29,9 @@ import Gallery from "../pages/Gallery";
 import Payments from "../pages/adminPages/Payments";
 import CreateBooking from "../pages/adminPages/CreateBooking";
 import AdminGallery from "../pages/adminPages/AdminGallery";
-import Condititon from "../pages/Condititon";
 import Coupons from "../pages/adminPages/Coupons";
+import Contact from "../pages/Contact";
+import About from "../pages/About";
 const NavigationRoutes = () => {
   return (
     <Routes>
@@ -55,7 +56,8 @@ const NavigationRoutes = () => {
         ></Route>
         <Route path="/tickets" element={<Tickets></Tickets>}></Route>
         <Route path="/gallery" element={<Gallery></Gallery>}></Route>
-        <Route path="/conditions" element={<Condititon></Condititon>}></Route>
+        <Route path="/about" element={<About></About>}></Route>
+        <Route path="/contact" element={<Contact></Contact>}></Route>
         <Route path="*" element={<Error></Error>} />
       </Route>
       <Route path="/login" element={<Login></Login>}></Route>

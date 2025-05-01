@@ -52,13 +52,7 @@ const Footer = () => {
               </div>
             </nav>
           </aside>
-          <nav>
-            <h6 className="footer-title">Services</h6>
-            <a className="link link-hover">Branding</a>
-            <a className="link link-hover">Design</a>
-            <a className="link link-hover">Marketing</a>
-            <a className="link link-hover">Advertisement</a>
-          </nav>
+
           <nav>
             <h6 className="footer-title">Company</h6>
             <a className="link link-hover">About us</a>
@@ -72,24 +66,41 @@ const Footer = () => {
             <a className="link link-hover">Privacy policy</a>
             <a className="link link-hover">Cookie policy</a>
           </nav>
+
           <nav>
             <h6 className="footer-title">Helpline (8:00 AM to 8:00 PM)</h6>
             <p className=" font-semibold">+880 1735962859</p>
             <p className=" font-semibold">+880 1735962859</p>
-            <p className=""></p>
+          </nav>
+
+          <nav className="">
+            <div>
+              <h6 className="footer-title">Payment Methods</h6>
+              <img
+                className="w-16 rounded-md"
+                src="/assets/bkash-logo.png"
+              ></img>
+            </div>
+            <div className="mt-4">
+              <h6 className="footer-title">Design and Development </h6>
+
+              <a
+                className="bg-white p-1 block rounded"
+                href="https://digital-crop.com/"
+              >
+                <img
+                  className="w-40"
+                  src="/assets/DigitalCrop-logo.png"
+                  alt=""
+                />
+              </a>
+            </div>
           </nav>
         </div>
-        <aside className="flex items-center justify-between mt-10">
-          <p className="text-sm text-start  ">
+        <aside className="flex items-center justify-center mt-4">
+          <p className="text-sm text-center  ">
             Copyright © {new Date().getFullYear()} - All right reserved by{" "}
-            <br />
             <span className="font-medium">Admission Bus Services</span>
-          </p>
-          <p className="text-sm text-end ">
-            Design and Developed By <br />{" "}
-            <a className="font-medium" href="https://digital-crop.com/">
-              DIGITAL CROP
-            </a>
           </p>
         </aside>
       </footer>

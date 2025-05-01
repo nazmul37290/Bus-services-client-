@@ -36,11 +36,16 @@ const Bookings = () => {
     }
     const filteredBookings = bookings.filter(
       (booking) =>
-        booking?.name.toLowerCase().includes(inputValue.toLowerCase()) |
+        booking?.name.toLowerCase().includes(inputValue.toLowerCase()) ||
         booking?.contactNumber
           .toLowerCase()
-          .includes(inputValue.toLowerCase()) |
-        booking?.transactionId.toLowerCase().includes(inputValue.toLowerCase())
+          .includes(inputValue.toLowerCase()) ||
+        booking?.transactionId
+          .toLowerCase()
+          .includes(inputValue.toLowerCase()) ||
+        booking?.busDetails?.busName
+          .toLowerCase()
+          .includes(inputValue.toLowerCase())
     );
     setSearchedBookings(filteredBookings);
   };
@@ -86,6 +91,8 @@ const Bookings = () => {
 
     doc.save("bookings.pdf");
   };
+  console.log(bookings);
+
   return (
     <div>
       <div className="flex flex-col md:flex-row justify-between items-center">

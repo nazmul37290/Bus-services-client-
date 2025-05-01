@@ -4,8 +4,9 @@ const Navbar = () => {
   const navlinks = [
     { text: "Home", href: "/" },
     { text: "Get Ticket", href: "/tickets" },
+    { text: "About us", href: "/about" },
     { text: "Gallery", href: "/gallery" },
-    { text: "Conditions", href: "/conditions" },
+    { text: "Contact us", href: "/contact" },
   ];
   return (
     <div className="  bg-gradient-to-br from-teal-800 to-teal-300">
