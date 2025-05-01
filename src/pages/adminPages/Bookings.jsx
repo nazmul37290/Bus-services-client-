@@ -7,6 +7,8 @@ import { FaMagnifyingGlass } from "react-icons/fa6";
 import { IoTrashBin } from "react-icons/io5";
 import { Link } from "react-router";
 import handleDelete from "../../utils/delete";
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
 const Bookings = () => {
   const [bookings, setBookings] = useState([]);
   const [searchedBookings, setSearchedBookings] = useState([]);
@@ -43,7 +45,47 @@ const Bookings = () => {
     setSearchedBookings(filteredBookings);
   };
   console.log(bookings);
+  const generatePDF = () => {
+    const doc = new jsPDF({ orientation: "landscape" });
+    const tableColumn = [
+      "Booking ID",
+      "Name",
+      "Contact Number",
+      "Date",
+      "Trip Name",
+      "Bus Name",
+      "Seats",
+      "Payment Method",
+      "Pnr Number",
+      "Amount",
+      "Transaction Id",
+    ];
+    const tableRows = [];
 
+    bookings.forEach((booking) => {
+      const row = [
+        booking.id,
+        booking.name,
+        booking.contactNumber,
+        new Date(booking.createdAt).toLocaleDateString("en-GB"),
+        booking.busDetails.tripName,
+        booking.busDetails.busName,
+        booking.seats.join(","),
+        booking.paymentMethod,
+        booking.pnrNumber,
+        booking.totalPrice,
+        booking.transactionId,
+      ];
+      tableRows.push(row);
+    });
+
+    autoTable(doc, {
+      head: [tableColumn],
+      body: tableRows,
+    });
+
+    doc.save("bookings.pdf");
+  };
   return (
     <div>
       <div className="flex flex-col md:flex-row justify-between items-center">
@@ -51,6 +93,12 @@ const Bookings = () => {
           All Bookings
         </h3>
         <div className="flex flex-col sm:flex-row items-center gap-5">
+          <button
+            onClick={generatePDF}
+            className="btn bg-teal-600 text-base text-white flex items-center gap-2"
+          >
+            Download PDF
+          </button>
           <Link to={"create-booking"}>
             <button className="btn bg-teal-600 text-base text-white flex items-center gap-2">
               Create New{" "}
