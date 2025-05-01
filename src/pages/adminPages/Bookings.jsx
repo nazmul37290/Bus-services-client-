@@ -134,7 +134,7 @@ const Bookings = () => {
                       <td>
                         <span
                           className={`${
-                            booking?.status === "active"
+                            booking?.status === "booked"
                               ? " bg-teal-600 font-semibold"
                               : "bg-red-600"
                           } badge text-white uppercase text-xs`}

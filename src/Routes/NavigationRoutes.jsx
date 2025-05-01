@@ -30,6 +30,7 @@ import Payments from "../pages/adminPages/Payments";
 import CreateBooking from "../pages/adminPages/CreateBooking";
 import AdminGallery from "../pages/adminPages/AdminGallery";
 import Condititon from "../pages/Condititon";
+import Coupons from "../pages/adminPages/Coupons";
 const NavigationRoutes = () => {
   return (
     <Routes>
@@ -73,6 +74,7 @@ const NavigationRoutes = () => {
         <Route path="bookings" element={<Bookings></Bookings>}></Route>
         <Route path="payments" element={<Payments></Payments>}></Route>
         <Route path="gallery" element={<AdminGallery></AdminGallery>}></Route>
+        <Route path="coupons" element={<Coupons></Coupons>}></Route>
         <Route path="users" element={<Users></Users>}></Route>
 
         <Route

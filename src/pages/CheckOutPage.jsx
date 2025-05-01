@@ -1,30 +1,42 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router";
+import { toast } from "react-toastify";
 
 const CheckOutPage = () => {
   const [bus, setBus] = useState();
   const [error, setError] = useState("");
+  const [couponError, setCouponError] = useState("");
+  const [discount, setDiscount] = useState();
+  const [isCouponApplied, setIsCouponApplied] = useState(false);
+  const [couponCodes, setCouponCodes] = useState([]);
 
   const { totalPrice, bookedSeats, busId, id } = useLocation().state;
+  const [totalPayableAmount, setTotalPayableAmount] = useState(
+    Number(totalPrice) + (Number(totalPrice) * 2) / 100
+  );
   useEffect(() => {
     axios
       .get(`${import.meta.env.VITE_BASE_URL}/buses/${busId}`)
       .then((res) => setBus(res.data.data));
   }, [busId]);
-  let totalPayableAmount = Number(totalPrice) + (Number(totalPrice) * 2) / 100;
+  useEffect(() => {
+    axios
+      .get(`${import.meta.env.VITE_BASE_URL}/coupons`)
+      .then((res) => setCouponCodes(res.data.data));
+  }, [busId]);
   const handleData = async (e) => {
     e.preventDefault();
     const form = e.target;
-    let bookinDetails = {};
-    bookinDetails.name = form.name.value;
-    bookinDetails.contactNumber = form.contactNumber.value;
-    bookinDetails.email = form.email.value;
-    bookinDetails.gender = form.gender.value;
-    bookinDetails.busId = id;
-    bookinDetails.seats = bookedSeats;
-    bookinDetails.totalPrice = totalPayableAmount;
-    bookinDetails.paymentMethod = "bkash";
+    let bookingDetails = {};
+    bookingDetails.name = form.name.value;
+    bookingDetails.contactNumber = form.contactNumber.value;
+    bookingDetails.email = form.email.value;
+    bookingDetails.gender = form.gender.value;
+    bookingDetails.busId = id;
+    bookingDetails.seats = bookedSeats;
+    bookingDetails.totalPrice = totalPayableAmount;
+    bookingDetails.paymentMethod = "bkash";
 
     try {
       console.log("try block");
@@ -37,7 +49,7 @@ const CheckOutPage = () => {
         paymentRes?.data?.success === true &&
         paymentRes?.data?.data?.bkashURL
       ) {
-        localStorage.setItem("bookingData", JSON.stringify(bookinDetails));
+        localStorage.setItem("bookingData", JSON.stringify(bookingDetails));
         window.location.href = paymentRes?.data?.data?.bkashURL;
       }
     } catch (error) {
@@ -45,6 +57,48 @@ const CheckOutPage = () => {
       setError(error?.message);
     }
   };
+
+  const handleCouponCode = () => {
+    setCouponError("");
+    const inputElement = document.getElementById("couponField");
+    const enteredCode = inputElement?.value?.trim();
+
+    const basePriceWithCharge =
+      Number(totalPrice) + (Number(totalPrice) * 2) / 100;
+
+    if (!enteredCode) {
+      setIsCouponApplied(false);
+      setTotalPayableAmount(basePriceWithCharge);
+      setDiscount(null);
+      return;
+    }
+
+    if (isCouponApplied) {
+      toast.warning("Coupon already applied");
+      return;
+    }
+
+    const matchingCoupon = couponCodes.find(
+      (coupon) => coupon.code === enteredCode
+    );
+    console.log(matchingCoupon);
+
+    if (matchingCoupon) {
+      const discountPercent = Number(matchingCoupon.discountPercentage);
+      console.log(discountPercent);
+      const discountAmount = (basePriceWithCharge * discountPercent) / 100;
+      console.log(discountAmount);
+      const finalAmount = basePriceWithCharge - discountAmount;
+
+      setDiscount(discountAmount);
+      setTotalPayableAmount(finalAmount);
+      setIsCouponApplied(true);
+      toast.success("Coupon applied successfully");
+    } else {
+      setCouponError("Invalid coupon code");
+    }
+  };
+  console.log(couponCodes);
   return (
     <div className="max-w-screen-xl mx-auto">
       <div className="flex flex-col-reverse sm:flex-row justify-center items-center sm:items-start sm:justify-between mt-4 bg-teal-50">
@@ -181,12 +235,44 @@ const CheckOutPage = () => {
                   <td>{(Number(totalPrice) * 2) / 100}</td>
                 </tr>
                 <tr>
+                  <td className="font-semibold">Amount</td>
+                  <td className="text-center px-5">: </td>
+                  <td>
+                    {Number(totalPrice) + (Number(totalPrice) * 2) / 100} BDT
+                  </td>
+                </tr>
+                {discount && (
+                  <tr>
+                    <td className="font-semibold">Discount</td>
+                    <td className="text-center px-5">: </td>
+                    <td className="">{discount} BDT</td>
+                  </tr>
+                )}
+                <tr>
                   <td className="font-semibold">Total Payable Amount</td>
                   <td className="text-center px-5">: </td>
                   <td className="font-semibold">{totalPayableAmount} BDT</td>
                 </tr>
               </tbody>
             </table>
+            <div className="">
+              <div className="mx-1 my-4 space-x-4 font-semibold">
+                <input
+                  type="text"
+                  name="couponField"
+                  id="couponField"
+                  className="input input-bordered"
+                  placeholder="coupon code"
+                />
+                <button
+                  onClick={handleCouponCode}
+                  className="btn bg-teal-600 text-white"
+                >
+                  Apply
+                </button>
+              </div>
+              {couponError && <p className="text-red-600">{couponError}</p>}
+            </div>
           </div>
         </div>
       </div>

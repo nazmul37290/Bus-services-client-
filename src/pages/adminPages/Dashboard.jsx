@@ -5,6 +5,7 @@ import { UserContext } from "../../provider/AuthProvider";
 import { toast } from "react-toastify";
 
 const dashboardLinks = [
+  { text: "Home", href: "/" },
   { text: "Dashboard", href: "/admin" },
   { text: "Bus Routes", href: "/admin/bus-routes" },
   { text: "Units", href: "/admin/units" },
@@ -12,6 +13,7 @@ const dashboardLinks = [
   { text: "Bookings", href: "/admin/bookings" },
   { text: "Payments", href: "/admin/payments" },
   { text: "Gallery", href: "/admin/gallery" },
+  { text: "Coupons", href: "/admin/coupons" },
   { text: "Users", href: "/admin/users" },
 ];
 const Dashboard = () => {
