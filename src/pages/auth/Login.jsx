@@ -2,6 +2,7 @@ import axios from "axios";
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { UserContext } from "../../provider/AuthProvider";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const [error, setError] = useState("");
@@ -27,6 +28,7 @@ const Login = () => {
         navigate("/admin");
       })
       .catch((err) => {
+        console.log(err);
         if (err.code === "ECONNABORTED") {
           setError("Request timed out. Please try again.");
         } else {
@@ -38,7 +40,22 @@ const Login = () => {
         setLoading(false);
       });
   };
-  // comment check
+
+  const handleForgetPassword = () => {
+    axios
+      .post(`${import.meta.env.VITE_BASE_URL}/auth/forget-password`, {
+        email: document.querySelector("#userEmail").value,
+      })
+      .then((res) => {
+        console.log(res);
+        toast.success("Password reset link sent to your email.");
+      })
+      .catch((err) => {
+        setError(
+          err.response?.data?.message || "An error occurred. Please try again."
+        );
+      });
+  };
 
   return (
     <div>
@@ -57,6 +74,7 @@ const Login = () => {
                   type="email"
                   placeholder="email"
                   name="email"
+                  id="userEmail"
                   className="input input-bordered dark:bg-zinc-100"
                   required
                 />
@@ -72,17 +90,18 @@ const Login = () => {
                   className="input input-bordered dark:bg-zinc-100"
                   required
                 />
-                {/* <label className="label">
-                  <a
-                    href="#"
+                <label className="label">
+                  <button
+                    type="button"
+                    onClick={handleForgetPassword}
                     className="label-text-alt link link-hover text-white"
                   >
                     Forgot password?
-                  </a>
-                </label> */}
+                  </button>
+                </label>
               </div>
               <p className=" text-red-400">{error}</p>
-              <div className="form-control mt-6">
+              <div className="form-control ">
                 <button
                   type="submit"
                   className="btn bg-teal-500 border-none text-white"

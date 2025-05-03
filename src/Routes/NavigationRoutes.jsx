@@ -32,6 +32,7 @@ import AdminGallery from "../pages/adminPages/AdminGallery";
 import Coupons from "../pages/adminPages/Coupons";
 import Contact from "../pages/Contact";
 import About from "../pages/About";
+import ResetPassword from "../pages/auth/ResetPassword";
 const NavigationRoutes = () => {
   return (
     <Routes>
@@ -45,6 +46,10 @@ const NavigationRoutes = () => {
           element={<PaymentErrorPage></PaymentErrorPage>}
         ></Route>
         <Route path="/" element={<Home></Home>}></Route>
+        <Route
+          path="/reset-password"
+          element={<ResetPassword></ResetPassword>}
+        ></Route>
         <Route path="/bus-lists/:id" element={<BusLists></BusLists>}></Route>
         <Route
           path="/select-seats/:busId"
@@ -61,6 +66,7 @@ const NavigationRoutes = () => {
         <Route path="*" element={<Error></Error>} />
       </Route>
       <Route path="/login" element={<Login></Login>}></Route>
+
       <Route
         path="/admin"
         element={
