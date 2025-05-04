@@ -636,6 +636,11 @@ const Settings = () => {
           </div>
         </div>
       </div>
+      <div>
+        <button className="btn bg-teal-600 text-base text-white flex items-center gap-2 mt-5">
+          Save Changes
+        </button>
+      </div>
     </div>
   );
 };
