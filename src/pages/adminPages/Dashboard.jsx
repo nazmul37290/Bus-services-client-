@@ -15,8 +15,11 @@ const dashboardLinks = [
   { text: "Gallery", href: "/admin/gallery" },
   { text: "Coupons", href: "/admin/coupons" },
   { text: "Users", href: "/admin/users" },
+  { text: "Settings", href: "/admin/settings" },
 ];
 const Dashboard = () => {
+  const settings = JSON.parse(localStorage.getItem("settings"));
+  console.log(settings);
   const navigate = useNavigate();
   const { user, setUser } = useContext(UserContext);
   const handleLogout = () => {
@@ -36,7 +39,7 @@ const Dashboard = () => {
             <GiHamburgerMenu size={20} />
           </label>
           <Link to={"/"} className="btn btn-ghost text-white text-2xl">
-            <img src="/assets/logo.png" className="h-12" alt="" />
+            <img src={settings?.siteLogo} className="h-12" alt="" />
           </Link>
         </div>
         <div className="flex-none gap-2">

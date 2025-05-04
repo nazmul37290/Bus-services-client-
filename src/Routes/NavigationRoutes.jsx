@@ -33,6 +33,7 @@ import Coupons from "../pages/adminPages/Coupons";
 import Contact from "../pages/Contact";
 import About from "../pages/About";
 import ResetPassword from "../pages/auth/ResetPassword";
+import Settings from "../pages/adminPages/Settings";
 const NavigationRoutes = () => {
   return (
     <Routes>
@@ -84,6 +85,7 @@ const NavigationRoutes = () => {
         <Route path="gallery" element={<AdminGallery></AdminGallery>}></Route>
         <Route path="coupons" element={<Coupons></Coupons>}></Route>
         <Route path="users" element={<Users></Users>}></Route>
+        <Route path="settings" element={<Settings></Settings>}></Route>
 
         <Route
           path="users/create-user"

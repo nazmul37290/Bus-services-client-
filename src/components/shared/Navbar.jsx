@@ -1,6 +1,9 @@
 import { Link, NavLink } from "react-router";
+import PropTypes from "prop-types";
 
 const Navbar = () => {
+  const settings = JSON.parse(localStorage.getItem("settings"));
+
   const navlinks = [
     { text: "Home", href: "/" },
     { text: "Get Ticket", href: "/tickets" },
@@ -9,7 +12,7 @@ const Navbar = () => {
     { text: "Contact us", href: "/contact" },
   ];
   return (
-    <div className="  bg-gradient-to-br from-teal-800 to-teal-300">
+    <div className=" bg-gradient-to-br from-teal-800 to-teal-300">
       <div className="navbar  max-w-screen-xl mx-auto">
         <div className="navbar-start">
           <div className="dropdown">
@@ -18,20 +21,7 @@ const Navbar = () => {
               role="button"
               className="btn btn-ghost  lg:hidden"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h8m-8 6h16"
-                />
-              </svg>
+              <img src={settings?.siteLogo} alt="" />
             </div>
             <ul
               tabIndex={0}
@@ -59,8 +49,8 @@ const Navbar = () => {
             className="btn btn-ghost text-xl flex flex-col items-center justify-center text-white "
           >
             <img
-              src="/assets/logo.png"
-              className=" max-w-[160px]"
+              src={settings?.siteLogo}
+              className=" max-w-[160px] h-24"
               alt="bus-logo"
             />
           </Link>
@@ -93,6 +83,11 @@ const Navbar = () => {
       </div>
     </div>
   );
+};
+Navbar.propTypes = {
+  settings: PropTypes.shape({
+    siteLogo: PropTypes.string,
+  }),
 };
 
 export default Navbar;

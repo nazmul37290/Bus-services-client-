@@ -13,6 +13,7 @@
   "dependencies": {
     "axios": "^1.7.9",
     "html2canvas": "^1.4.1",
+    "jodit-react": "^5.2.19",
     "jspdf": "^2.5.2",
     "jspdf-autotable": "^5.0.2",
     "react": "^18.3.1",

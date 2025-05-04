@@ -1,6 +1,8 @@
 import { BiEnvelope, BiMapPin, BiPhone } from "react-icons/bi";
 
 const Contact = () => {
+  const { contactInfo } = JSON.parse(localStorage.getItem("settings"));
+
   return (
     <div className="mt-10 flex h-full w-full max-w-screen-xl mx-auto flex-1 flex-col gap-4 rounded-xl px-4 py-4">
       <div className="mb-4 grid items-center gap-5 sm:grid-cols-2 md:grid-cols-3">
@@ -11,10 +13,15 @@ const Contact = () => {
           <h4 className="my-2 mb-2 font-semibold uppercase lg:text-lg ">
             Address
           </h4>
-
-          <p className="text-center text-sm lg:text-base ">
-            Hakir More, Bogura Sadar, Bogura, Bangladesh
-          </p>
+          <div className="flex flex-col gap-2">
+            {contactInfo?.address?.map((item, index) => {
+              return (
+                <p key={index} className="text-center text-sm lg:text-base ">
+                  {item}
+                </p>
+              );
+            })}
+          </div>
         </div>
         <div className="flex h-72 w-full flex-col items-center justify-center rounded-xl bg-zinc-100 shadow md:p-10 xl:h-96 xl:w-96 ">
           <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-gradient-to-br from-green-400 to-green-700 lg:h-24 lg:w-24">
@@ -23,9 +30,15 @@ const Contact = () => {
           <h4 className="my-2 mb-2 font-semibold uppercase lg:text-lg ">
             Phone
           </h4>
-
-          <p className="text-center text-sm lg:text-base ">+880 1725879355</p>
-          <p className="text-center text-sm lg:text-base ">+880 1725879355</p>
+          <div className="flex flex-col gap-2">
+            {contactInfo?.phone?.map((item, index) => {
+              return (
+                <p key={index} className="text-center text-sm lg:text-base ">
+                  {item}
+                </p>
+              );
+            })}
+          </div>
         </div>
         <div className="flex h-72 w-full flex-col items-center justify-center rounded-xl bg-zinc-100 shadow md:p-10 xl:h-96 xl:w-96 ">
           <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-gradient-to-br from-rose-400 to-rose-700 lg:h-24 lg:w-24">
@@ -34,11 +47,15 @@ const Contact = () => {
           <h4 className="my-2 mb-2 font-semibold uppercase lg:text-lg ">
             Email
           </h4>
-
-          <p className="text-center text-sm lg:text-base ">info@digital.com</p>
-          <p className="text-center text-sm lg:text-base ">
-            support@digital.com
-          </p>
+          <div className="flex flex-col gap-2">
+            {contactInfo?.email?.map((item, index) => {
+              return (
+                <p key={index} className="text-center text-sm lg:text-base ">
+                  {item}
+                </p>
+              );
+            })}
+          </div>
         </div>
       </div>
       <div>
