@@ -28,6 +28,7 @@ const Bookings = () => {
   useEffect(() => {
     fetchBookings();
   }, []);
+  console.log(bookings);
 
   const handleSearch = () => {
     const inputValue = document.getElementById("searchBookings").value;

@@ -1,12 +1,15 @@
 /* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
 import { CiCirclePlus } from "react-icons/ci";
-import { FaRegEdit } from "react-icons/fa";
+import { FaDownload, FaRegEdit } from "react-icons/fa";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import { IoTrashBin } from "react-icons/io5";
 import { Link } from "react-router";
 import handleDelete from "../../utils/delete";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import { BiDotsVerticalRounded } from "react-icons/bi";
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
 
 const Buses = () => {
   const axiosSecure = useAxiosSecure();
@@ -42,6 +45,93 @@ const Buses = () => {
     );
     setSearchedBuses(filteredBuses);
   };
+  const handleShowOpiton = (e) => {
+    const target = e.target.closest("button").previousElementSibling;
+    const allOptions = document.querySelectorAll(".options");
+    console.log(allOptions);
+    allOptions.forEach((option) => {
+      if (option !== target) {
+        option.classList.add("hidden");
+        option.classList.remove("flex");
+      }
+    });
+    target.classList.toggle("hidden");
+    target.classList.toggle("flex");
+  };
+  const handleSeatPlanDownload = async (busId) => {
+    try {
+      const response = await axiosSecure.get(`/bookings/seat-plan/${busId}`);
+
+      if (response) {
+        const seatPlan = response.data.data;
+        console.log(seatPlan);
+        const doc = new jsPDF();
+        doc.setFontSize(14);
+        doc.setTextColor(20, 108, 108); // Teal color
+        doc.setFont("helvetica", "bold");
+        const pageWidth = doc.internal.pageSize.width;
+
+        // Calculate text width for centering
+        const tripNameText = `${seatPlan[0]?.busDetails?.tripName}`;
+        const busNameText = `Bus: ${seatPlan[0]?.busDetails?.busName}`;
+        const departureDateText = `Date: ${seatPlan[0]?.busDetails?.departureDate}`;
+        const departureTimeText = `Time: ${seatPlan[0]?.busDetails?.departureTime}`;
+
+        const tripNameWidth =
+          (doc.getStringUnitWidth(tripNameText) * 14) /
+          doc.internal.scaleFactor;
+        const busNameWidth =
+          (doc.getStringUnitWidth(busNameText) * 14) / doc.internal.scaleFactor;
+
+        // Calculate x position for center alignment
+        const tripNameX = (pageWidth - tripNameWidth) / 2;
+        const busNameX = (pageWidth - busNameWidth) / 2;
+
+        // Add centered text
+        doc.text(tripNameText, tripNameX, 10);
+        doc.text(busNameText, busNameX, 18);
+        doc.setFontSize(10);
+        doc.text(departureDateText, 20, 25);
+        doc.text(departureTimeText, pageWidth / 2 + 50, 25);
+        const tableColumn = [
+          "Name",
+          "Contact number",
+          "Seat Number",
+          "payment method",
+          "pnr number",
+        ];
+        const tableRows = [];
+        seatPlan.forEach((booking) => {
+          const row = [
+            booking.name,
+            booking.contactNumber,
+            booking.seats.join(","),
+            booking.paymentMethod,
+            booking.pnrNumber,
+          ];
+          tableRows.push(row);
+        });
+        autoTable(doc, {
+          head: [tableColumn],
+          body: tableRows,
+          startY: 30,
+          styles: {
+            fontSize: 8,
+            cellPadding: 2,
+            halign: "center",
+            valign: "middle",
+            overflow: "linebreak",
+            lineWidth: 0.1,
+            lineColor: "#000",
+          },
+          theme: "grid",
+        });
+        doc.save(`seat-plan-${seatPlan[0].busDetails.busName}.pdf`);
+      }
+    } catch (error) {
+      console.error("Error downloading PDF:", error);
+    }
+  };
   return (
     <div>
       <div className="flex flex-col md:flex-row justify-between items-center">
@@ -75,8 +165,8 @@ const Buses = () => {
         </div>
       </div>
       <div className="mt-10">
-        <div className="overflow-x-auto">
-          <table className="table table-xs table-zebra">
+        <div className="overflow-x-auto min-h-screen">
+          <table className="table table-xs  table-zebra">
             {/* head */}
             <thead>
               <tr>
@@ -140,16 +230,43 @@ const Buses = () => {
                         </span>
                       </td>
                       <td>
-                        <div className="flex gap-3">
-                          <Link to={`${bus?.id}/update-bus`}>
-                            <FaRegEdit color="teal" size={20} />
-                          </Link>
-                          <button
-                            onClick={() =>
-                              handleDelete("/buses", bus?.id, fetchBuses)
-                            }
+                        <div className="flex relative overflow-visible gap-3">
+                          <div
+                            className={`absolute hidden  options
+                             flex-col  right-full bg-white z-[990] w-32  shadow-md `}
                           >
-                            <IoTrashBin color="red" size={20} />
+                            <Link
+                              to={`${bus?.id}/update-bus`}
+                              className="flex items-center gap-2 hover:bg-zinc-300 px-5 py-3 text-sm border-b"
+                            >
+                              <FaRegEdit color="teal" size={16} />{" "}
+                              <span className="font-semibold text-xs">
+                                Edit
+                              </span>
+                            </Link>
+                            <button
+                              className="flex items-center gap-2 hover:bg-zinc-300 px-5 py-3 text-sm border-b"
+                              onClick={() =>
+                                handleDelete("/buses", bus?.id, fetchBuses)
+                              }
+                            >
+                              <IoTrashBin color="red" size={16} />{" "}
+                              <span className="font-semibold text-xs">
+                                Delete
+                              </span>
+                            </button>
+                            <button
+                              className="flex items-center gap-2 hover:bg-zinc-300 px-5 py-3 text-sm border-b"
+                              onClick={() => handleSeatPlanDownload(bus?._id)}
+                            >
+                              <FaDownload color="teal" size={16} />{" "}
+                              <span className="font-semibold text-xs">
+                                Seat Plan
+                              </span>
+                            </button>
+                          </div>
+                          <button onClick={handleShowOpiton}>
+                            <BiDotsVerticalRounded className="size-5"></BiDotsVerticalRounded>
                           </button>
                         </div>
                       </td>
