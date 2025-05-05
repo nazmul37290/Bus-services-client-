@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 
-const Footer = () => {
-  const settings = JSON.parse(localStorage.getItem("settings"));
+const Footer = ({ settings }) => {
+  // const settings = JSON.parse(localStorage.getItem("settings"));
 
   return (
     <div className="bg-teal-600 mt-24">
@@ -140,6 +140,14 @@ const Footer = () => {
 Footer.propTypes = {
   settings: PropTypes.shape({
     siteLogo: PropTypes.string,
+    siteName: PropTypes.string,
+    socialLinks: PropTypes.shape({
+      facebook: PropTypes.string,
+      twitter: PropTypes.string,
+      youtube: PropTypes.string,
+      instagram: PropTypes.string,
+    }),
+    helpLine: PropTypes.arrayOf(PropTypes.string),
   }),
 };
 

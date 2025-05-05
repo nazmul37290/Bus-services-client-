@@ -1,8 +1,8 @@
 import { Link, NavLink } from "react-router";
 import PropTypes from "prop-types";
 
-const Navbar = () => {
-  const settings = JSON.parse(localStorage.getItem("settings"));
+const Navbar = ({ settings }) => {
+  // const settings = JSON.parse(localStorage.getItem("settings"));
 
   const navlinks = [
     { text: "Home", href: "/" },
