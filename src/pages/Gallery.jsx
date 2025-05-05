@@ -37,14 +37,14 @@ const Gallery = () => {
       </h3>
       {error && <p className="text-red-600">{error}</p>}
       {loading && <span className="loading loading-dots loading-lg"></span>}
-      <div className="columns-3 ">
+      <div className="columns-3 p-5 overflow-hidden">
         {galleryItems?.map((item, i) => {
           return (
             <img
               key={i}
               onClick={() => setIndex(i)}
               src={item?.image}
-              className="block w-96 border m-6 rounded-md"
+              className="block lg:w-96 border lg:m-6 rounded-md"
               alt=""
             />
           );

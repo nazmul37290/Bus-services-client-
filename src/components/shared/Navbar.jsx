@@ -1,5 +1,6 @@
 import { Link, NavLink } from "react-router";
 import PropTypes from "prop-types";
+import { FaBars } from "react-icons/fa";
 
 const Navbar = ({ settings }) => {
   // const settings = JSON.parse(localStorage.getItem("settings"));
@@ -21,7 +22,7 @@ const Navbar = ({ settings }) => {
               role="button"
               className="btn btn-ghost  lg:hidden"
             >
-              <img src={settings?.siteLogo} alt="" />
+              <FaBars className="text-white text-2xl" />
             </div>
             <ul
               tabIndex={0}

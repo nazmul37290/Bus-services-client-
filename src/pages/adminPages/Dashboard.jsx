@@ -3,19 +3,25 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { Link, NavLink, Outlet, useNavigate } from "react-router";
 import { UserContext } from "../../provider/AuthProvider";
 import { toast } from "react-toastify";
+import { IoHome } from "react-icons/io5";
+import { MdDashboard, MdPayments, MdSettings } from "react-icons/md";
+import { FaBus, FaMoneyBill, FaRoute, FaUsers } from "react-icons/fa";
+import { BsBuildings } from "react-icons/bs";
+import { RiGalleryFill } from "react-icons/ri";
+import { BiSolidCoupon } from "react-icons/bi";
 
 const dashboardLinks = [
-  { text: "Home", href: "/" },
-  { text: "Dashboard", href: "/admin" },
-  { text: "Bus Routes", href: "/admin/bus-routes" },
-  { text: "Units", href: "/admin/units" },
-  { text: "Buses", href: "/admin/buses" },
-  { text: "Bookings", href: "/admin/bookings" },
-  { text: "Payments", href: "/admin/payments" },
-  { text: "Gallery", href: "/admin/gallery" },
-  { text: "Coupons", href: "/admin/coupons" },
-  { text: "Users", href: "/admin/users" },
-  { text: "Settings", href: "/admin/settings" },
+  { text: "Home", href: "/", icon: IoHome },
+  { text: "Dashboard", href: "/admin", icon: MdDashboard },
+  { text: "Bus Routes", href: "/admin/bus-routes", icon: FaRoute },
+  { text: "Units", href: "/admin/units", icon: BsBuildings },
+  { text: "Buses", href: "/admin/buses", icon: FaBus },
+  { text: "Bookings", href: "/admin/bookings", icon: FaMoneyBill },
+  { text: "Payments", href: "/admin/payments", icon: MdPayments },
+  { text: "Gallery", href: "/admin/gallery", icon: RiGalleryFill },
+  { text: "Coupons", href: "/admin/coupons", icon: BiSolidCoupon },
+  { text: "Users", href: "/admin/users", icon: FaUsers },
+  { text: "Settings", href: "/admin/settings", icon: MdSettings },
 ];
 const Dashboard = () => {
   const settings = JSON.parse(localStorage.getItem("settings"));
@@ -39,10 +45,10 @@ const Dashboard = () => {
             <GiHamburgerMenu size={20} />
           </label>
           <Link to={"/"} className="btn btn-ghost text-white text-2xl">
-            <img src={settings?.siteLogo} className="h-12" alt="" />
+            <img src={settings?.siteLogo} className="h-10 sm:h-12" alt="" />
           </Link>
         </div>
-        <div className="flex-none gap-2">
+        <div className="flex-none sm:gap-2">
           <div className="hidden md:block form-control">
             <input
               type="text"
@@ -51,8 +57,12 @@ const Dashboard = () => {
             />
           </div>
           <div className="text-end">
-            <p className="text-teal-900 font-semibold">{user?.userName}</p>
-            <p className="text-teal-900 font-semibold text-sm">{user?.email}</p>
+            <p className="text-teal-900 font-semibold text-sm sm:text-base">
+              {user?.userName}
+            </p>
+            <p className="text-teal-900 font-semibold text-xs sm:text-sm">
+              {user?.email}
+            </p>
           </div>
           <div className="dropdown dropdown-end">
             <div
@@ -88,19 +98,19 @@ const Dashboard = () => {
         </div>
       </div>
       <div>
-        <div className="drawer  lg:drawer-open">
+        <div className="drawer lg:drawer-open">
           <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
           <div className="drawer-content h-[calc(100vh-80px)] overflow-auto p-4 lg:p-10">
             {/* Page content here */}
             <Outlet></Outlet>
           </div>
-          <div className="drawer-side h-full">
+          <div className="drawer-side  h-full">
             <label
               htmlFor="my-drawer-2"
               aria-label="close sidebar"
               className="drawer-overlay"
             ></label>
-            <ul className="menu bg-teal-600 text-white font-medium text-base min-h-[calc(100vh-66px)]  uppercase w-80 p-4">
+            <ul className="menu bg-teal-600   text-white font-medium text-base min-h-screen   w-80 p-4">
               {/* Sidebar content here */}
               {dashboardLinks?.map((link, index) => {
                 return (
@@ -113,11 +123,12 @@ const Dashboard = () => {
                         isActive
                           ? "font-bold  text-white p-1 bg-teal-900 rounded-sm"
                           : ""
-                      } p-2
+                      } p-2 flex items-center gap-4
                     `
                     }
                   >
-                    {link?.text}
+                    {link?.icon && <link.icon className="text-lg" />}
+                    <span className="uppercase">{link?.text}</span>
                   </NavLink>
                 );
               })}
