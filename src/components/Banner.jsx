@@ -1,5 +1,5 @@
 const Banner = () => {
-  const { bannerSection } = JSON.parse(localStorage.getItem("settings"));
+  const { bannerSection } = JSON.parse(localStorage?.getItem("settings"));
   console.log(bannerSection);
   return (
     <div
