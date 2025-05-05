@@ -1,15 +1,26 @@
+import axios from "axios";
 import JoditEditor from "jodit-react";
 import { useState } from "react";
 import { FaEdit, FaTrash } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 const Settings = () => {
   const settings = JSON.parse(localStorage.getItem("settings"));
-  console.log(settings);
+
+  const [loading, setLoading] = useState(false);
+  const [siteName, setSiteName] = useState(settings?.siteName);
   const [siteLogo, setSiteLogo] = useState(settings?.siteLogo);
   const [aboutUs, setAboutUs] = useState(settings?.aboutUs);
   const [bannerImage, setBannerImage] = useState(
     settings?.bannerSection?.image
   );
+  const [bannerSection, setBannerSection] = useState({
+    image: settings?.bannerSection?.image,
+    title: settings?.bannerSection?.title,
+    description: settings?.bannerSection?.description,
+    buttonText: settings?.bannerSection?.buttonText,
+    buttonLink: settings?.bannerSection?.buttonLink,
+  });
   const [helpline, setHelpLine] = useState(settings?.helpLine);
   const [socialLinks, setSocialLinks] = useState({
     facebook: settings?.socialLinks?.facebook,
@@ -30,8 +41,6 @@ const Settings = () => {
     };
     if (file) {
       reader.readAsDataURL(file);
-    } else {
-      setBannerImage(null);
     }
   };
   const handleFileChange = () => {
@@ -43,8 +52,6 @@ const Settings = () => {
     };
     if (file) {
       reader.readAsDataURL(file);
-    } else {
-      setSiteLogo(null);
     }
   };
   //  file show on frontend ends
@@ -107,6 +114,95 @@ const Settings = () => {
     setPhones(newPhones);
   };
   //  Email related functions ends
+
+  // banner secttion related functions
+  const handleBannerSectionChange = (e) => {
+    const { name, value } = e.target;
+    setBannerSection((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleUpdateSettingsData = async () => {
+    setLoading(true);
+    // Create new FormData instance
+    const formData = new FormData();
+
+    // Append basic text data
+    formData.append("siteName", siteName);
+    formData.append("aboutUs", aboutUs);
+
+    // Append banner section data
+    Object.keys(bannerSection).forEach((key) => {
+      formData.append(`bannerSection[${key}]`, bannerSection[key]);
+    });
+
+    // Append arrays
+    helpline.forEach((item, index) => {
+      formData.append(`helpLine[${index}]`, item);
+    });
+
+    // Append nested contact info
+    address.forEach((item, index) => {
+      formData.append(`contactInfo[address][${index}]`, item);
+    });
+
+    emails.forEach((item, index) => {
+      formData.append(`contactInfo[email][${index}]`, item);
+    });
+
+    phones.forEach((item, index) => {
+      formData.append(`contactInfo[phone][${index}]`, item);
+    });
+
+    // Append social links
+    Object.keys(socialLinks).forEach((key) => {
+      formData.append(`socialLinks[${key}]`, socialLinks[key]);
+    });
+
+    // Handle file uploads
+    const siteLogo = document.getElementById("siteLogo").files;
+    const siteLogoFile = document.getElementById("siteLogo").files[0];
+    const bannerImageFile = document.getElementById("bannerImage").files[0];
+    console.log(siteLogo, bannerImageFile);
+
+    if (siteLogoFile) {
+      formData.append("siteLogo", siteLogoFile);
+    } else if (siteLogo) {
+      formData.append("siteLogo", siteLogo); // Append existing logo URL
+    }
+
+    if (bannerImageFile) {
+      formData.append("bannerImage", bannerImageFile);
+    } else if (bannerImage) {
+      formData.append("bannerImage", bannerImage); // Append existing banner URL
+    }
+
+    // Send to backend using axios
+    try {
+      const response = await axios.patch(
+        `${import.meta.env.VITE_BASE_URL}/settings/update-setting`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      if (response.data) {
+        toast.success("Settings updated successfully");
+        // Update localStorage with new settings
+        localStorage.setItem("settings", JSON.stringify(response.data.data));
+        setLoading(false);
+      }
+    } catch (error) {
+      setLoading(false);
+
+      toast.error(error?.response?.data?.message || "Something went wrong!");
+    }
+  };
   return (
     <div>
       <h3 className="text-teal-600 font-semibold text-2xl mb-5 md:mb-0 uppercase">
@@ -126,8 +222,9 @@ const Settings = () => {
                 </label>
               </h3>
               <input
+                onChange={(e) => setSiteName(e.target.value)}
                 id="siteName"
-                value={settings?.siteName}
+                value={siteName}
                 type="text"
                 className="text-zinc-800 p-2"
               />
@@ -176,14 +273,7 @@ const Settings = () => {
                     </button>
                   </form>
                   <h3 className="font-bold text-lg">Update Helpline</h3>
-                  <form
-                    // onSubmit={(e) => {
-                    //   handleAddCoupon(e);
-                    //   setLoading(true);
-                    // }}
-                    action=""
-                    className="mt-4"
-                  >
+                  <form className="mt-4">
                     <div>
                       {helpline?.map((item, index) => {
                         return (
@@ -198,11 +288,9 @@ const Settings = () => {
                               <input
                                 type="text"
                                 onChange={(e) => handleHelplineChange(e, index)}
-                                name="helpline"
                                 value={item}
                                 className="input flex-1 input-bordered mt-1 px-2"
                                 placeholder="Enter helpline here"
-                                id=""
                               />
                               <button
                                 onClick={() => handleDeleteHelpline(index)}
@@ -242,17 +330,19 @@ const Settings = () => {
           </h3>
           <div className="flex flex-col gap-2">
             <div className="flex justify-between items-center border-b py-2">
-              <h3 className="text-zinc-800 font-semibold flex items-center gap-2 text-sm">
+              <h3 className="text-zinc-800 font-semibold w-1/2 flex items-center gap-2 text-sm">
                 Banner Title{" "}
-                <label htmlFor="siteName" className="text-teal-600">
+                <label htmlFor="bannerTitle" className="text-teal-600">
                   <FaEdit></FaEdit>
                 </label>
               </h3>
-              <input
-                id="siteName"
-                value={settings?.siteName}
-                type="text"
-                className="text-zinc-800 p-2"
+
+              <textarea
+                id="bannerTitle"
+                onChange={handleBannerSectionChange}
+                name="title"
+                value={bannerSection?.title}
+                className="text-zinc-800 p-2 w-1/2 overflow-wrap-break-word whitespace-normal"
               />
             </div>
             <div className="flex justify-between items-center border-b py-2">
@@ -264,8 +354,10 @@ const Settings = () => {
               </h3>
               <textarea
                 rows={10}
+                onChange={handleBannerSectionChange}
+                name="description"
                 id="bannerDescription"
-                value={settings?.bannerSection?.description}
+                value={bannerSection?.description}
                 type="text"
                 className="text-zinc-800 text-wrap p-2 w-1/2"
               />
@@ -299,21 +391,25 @@ const Settings = () => {
               </h3>
               <input
                 id="bannerButtonText"
-                value={settings?.bannerSection?.buttonText}
+                onChange={handleBannerSectionChange}
+                name="buttonText"
+                value={bannerSection?.buttonText}
                 type="text"
                 className="text-zinc-800 p-2"
               />
             </div>
             <div className="flex justify-between items-center border-b py-2">
               <h3 className="text-zinc-800 font-semibold flex items-center gap-2 text-sm">
-                Banner Title{" "}
+                Banner button link{" "}
                 <label htmlFor="bannerButtonLink" className="text-teal-600">
                   <FaEdit></FaEdit>
                 </label>
               </h3>
               <input
                 id="bannerButtonLink"
-                value={settings?.bannerSection?.buttonLink}
+                onChange={handleBannerSectionChange}
+                name="buttonLink"
+                value={bannerSection?.buttonLink}
                 type="text"
                 className="text-zinc-800 p-2"
               />
@@ -334,7 +430,7 @@ const Settings = () => {
                       .getElementById("updateContactAddressModal")
                       .showModal()
                   }
-                  htmlFor="siteName"
+                  htmlFor="contactAddress"
                   className="text-teal-600"
                 >
                   <FaEdit></FaEdit>
@@ -637,8 +733,15 @@ const Settings = () => {
         </div>
       </div>
       <div>
-        <button className="btn bg-teal-600 text-base text-white flex items-center gap-2 mt-5">
-          Save Changes
+        <button
+          onClick={handleUpdateSettingsData}
+          className="btn bg-teal-600 text-base text-white flex items-center gap-2 mt-5"
+        >
+          {loading ? (
+            <span className="loading loading-dots loading-sm"></span>
+          ) : (
+            "Save Changes"
+          )}
         </button>
       </div>
     </div>
