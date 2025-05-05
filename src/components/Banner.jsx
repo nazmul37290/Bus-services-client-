@@ -1,5 +1,8 @@
 const Banner = () => {
-  const { bannerSection } = JSON.parse(localStorage?.getItem("settings"));
+  const settings = JSON.parse(localStorage?.getItem("settings"));
+
+  const bannerSection = settings?.bannerSection;
+
   console.log(bannerSection);
   return (
     <div
@@ -12,7 +15,7 @@ const Banner = () => {
       <div className="hero-content text-neutral-content text-center">
         <div className="max-w-2xl">
           <h1
-            dangerouslySetInnerHTML={{ __html: bannerSection.title }}
+            dangerouslySetInnerHTML={{ __html: bannerSection?.title }}
             className="mb-5 text-3xl md:text-5xl text-white font-bold"
           ></h1>
           <p className="mb-5 text-white">{bannerSection?.description}</p>
