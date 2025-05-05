@@ -115,7 +115,7 @@ const Footer = ({ settings }) => {
               <h6 className="footer-title">Design and Development </h6>
 
               <a
-                className="bg-white p-1 block rounded"
+                className="bg-white p-1 flex justify-center rounded"
                 href="https://digital-crop.com/"
               >
                 <img
