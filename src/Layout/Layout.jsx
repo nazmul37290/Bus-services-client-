@@ -7,6 +7,7 @@ import axios from "axios";
 const Layout = () => {
   const [settings, setSettings] = useState(null);
   const [loading, setLoading] = useState(true);
+  const storedSettings = JSON.parse(localStorage.getItem("settings"));
   useEffect(() => {
     const fetchSettings = async () => {
       try {
@@ -27,7 +28,7 @@ const Layout = () => {
     fetchSettings();
   }, []);
 
-  if (loading) {
+  if (loading && !storedSettings) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <span className="loading loading-dots loading-lg"></span>
@@ -36,9 +37,9 @@ const Layout = () => {
   }
   return (
     <div>
-      <Navbar settings={settings}></Navbar>
+      <Navbar settings={storedSettings ? storedSettings : settings}></Navbar>
       <Outlet></Outlet>
-      <Footer settings={settings}></Footer>
+      <Footer settings={storedSettings ? storedSettings : settings}></Footer>
     </div>
   );
 };
