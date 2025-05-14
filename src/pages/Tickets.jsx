@@ -88,6 +88,7 @@ const Tickets = () => {
           </button>
         </form>
         <div className=" bg-teal-50 rounded-lg w-full">
+          {/* error check */}
           {ticket && (
             <div id="ticket" className="overflow-hidden  ticket bg-teal-50">
               <div className=" bg-teal-600 flex items-center justify-between w-full text-white py-3 px-8">
