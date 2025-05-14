@@ -94,18 +94,26 @@ const Buses = () => {
         doc.text(departureDateText, 20, 25);
         doc.text(departureTimeText, pageWidth / 2 + 50, 25);
         const tableColumn = [
+          "SL NO",
           "Name",
           "Contact number",
           "Seat Number",
-          "payment method",
-          "pnr number",
+          "Total Amount",
+          "Paid ",
+          "Due",
+          "Payment method",
+          "PNR number",
         ];
         const tableRows = [];
-        seatPlan.forEach((booking) => {
+        seatPlan.forEach((booking, i) => {
           const row = [
+            i + 1,
             booking.name,
             booking.contactNumber,
             booking.seats.join(","),
+            booking.totalPrice,
+            booking.paidAmount,
+            booking.due,
             booking.paymentMethod,
             booking.pnrNumber,
           ];
@@ -121,7 +129,7 @@ const Buses = () => {
             halign: "center",
             valign: "middle",
             overflow: "linebreak",
-            lineWidth: 0.1,
+            lineWidth: 0.05,
             lineColor: "#000",
           },
           theme: "grid",
@@ -165,7 +173,7 @@ const Buses = () => {
         </div>
       </div>
       <div className="mt-10">
-        <div className="overflow-x-auto min-h-screen">
+        <div className="overflow-x-auto ">
           <table className="table table-xs  table-zebra">
             {/* head */}
             <thead>

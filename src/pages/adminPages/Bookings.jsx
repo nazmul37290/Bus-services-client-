@@ -55,15 +55,15 @@ const Bookings = () => {
     const doc = new jsPDF({ orientation: "landscape" });
     const tableColumn = [
       "Booking ID",
-      "Name",
-      "Contact Number",
-      "Date",
+      "Student Info",
       "Trip Name",
       "Bus Name",
       "Seats",
       "Payment Method",
       "Pnr Number",
-      "Amount",
+      "Total Amount",
+      "Paid",
+      "Due",
       "Transaction Id",
     ];
     const tableRows = [];
@@ -71,15 +71,19 @@ const Bookings = () => {
     searchedBookings?.forEach((booking) => {
       const row = [
         booking.id,
-        booking.name,
-        booking.contactNumber,
-        new Date(booking.createdAt).toLocaleDateString("en-GB"),
+        booking.name +
+          "\n" +
+          booking.contactNumber +
+          "\n" +
+          new Date(booking.createdAt).toLocaleDateString("en-GB"),
         booking.busDetails.tripName,
         booking.busDetails.busName,
         booking.seats.join(","),
         booking.paymentMethod,
         booking.pnrNumber,
         booking.totalPrice,
+        booking.paidAmount,
+        booking.due,
         booking.transactionId,
       ];
       tableRows.push(row);
@@ -88,6 +92,15 @@ const Bookings = () => {
     autoTable(doc, {
       head: [tableColumn],
       body: tableRows,
+      styles: {
+        fontSize: 8,
+        cellPadding: 2,
+        halign: "center",
+        valign: "middle",
+        overflow: "linebreak",
+        lineWidth: 0.05,
+        lineColor: "#000",
+      },
     });
 
     doc.save("bookings.pdf");
@@ -139,14 +152,14 @@ const Bookings = () => {
             <thead>
               <tr>
                 <th>SL</th>
-                <th>NAME</th>
-                <th>CONTACT NUMBER</th>
-                <th>EMAIL</th>
+                <th>STUDENT INFO</th>
                 <th>GENDER</th>
                 <th>TRIP NAME</th>
                 <th>BUS NAME</th>
                 <th>SEATS</th>
                 <th>TOTAL AMOUNT</th>
+                <th>PAID AMOUNT</th>
+                <th>DUE</th>
                 <th>PAYMENT BY</th>
                 <th>TRANSACTION ID</th>
                 <th>PNR NUMBER</th>
@@ -166,11 +179,13 @@ const Bookings = () => {
                   return (
                     <tr key={index}>
                       <td>{index + 1}</td>
-                      <td className="font-semibold">{booking?.name}</td>
-                      <td className="font-semibold">
-                        {booking?.contactNumber}
+                      <td className=" p-4">
+                        <div className="flex flex-col gap-1">
+                          <span className="font-bold">{booking?.name}</span>
+                          <span>{booking?.contactNumber}</span>
+                          <span>{booking?.email}</span>
+                        </div>
                       </td>
-                      <td className="font-semibold">{booking?.email}</td>
                       <td className="font-medium">{booking?.gender}</td>
                       <td className="font-medium">
                         {booking?.busDetails?.tripName}
@@ -182,6 +197,10 @@ const Bookings = () => {
                         {booking?.seats.join(",")}
                       </td>
                       <td className="font-medium">{booking?.totalPrice}</td>
+                      <td className="font-medium">
+                        {booking?.paidAmount || booking?.totalPrice}
+                      </td>
+                      <td className="font-medium">{booking?.due || 0}</td>
                       <td className="font-medium uppercase">
                         {booking?.paymentMethod}
                       </td>

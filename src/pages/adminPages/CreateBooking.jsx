@@ -10,6 +10,7 @@ const CreateBooking = () => {
   const [loading, setLoading] = useState(false);
   const [bookedSeats, setBookedSeats] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
+  const [paidAmount, setPaidAmount] = useState(0);
   const [error, setError] = useState("");
   const [routes, setRoutes] = useState([]);
   const [units, setUnits] = useState([]);
@@ -80,6 +81,7 @@ const CreateBooking = () => {
     const contactNumber = form.contactNumber.value;
     const email = form.email.value;
     const gender = form.gender.value;
+    const due = Number(form.due.value);
     const busId = selectedBusId;
     const seats = bookedSeats;
     if (!seats.length) {
@@ -103,7 +105,9 @@ const CreateBooking = () => {
       seats,
       totalPrice: payableAmount,
       transactionId,
+      due,
       paymentMethod,
+      paidAmount,
     };
     axios
       .post(
@@ -351,6 +355,7 @@ const CreateBooking = () => {
               Total Price:
             </label>
             <input
+              readOnly
               onChange={(e) => setTotalPrice(Number(e.target.value))}
               className="input input-bordered px-2 w-[500px] appearance-none m-0"
               type="number"
@@ -361,6 +366,38 @@ const CreateBooking = () => {
                   ? totalPrice
                   : totalPrice + (Number(totalPrice) * 2) / 100
               }
+            />
+          </div>
+          <div className="flex flex-wrap items-center mt-4">
+            <label
+              className=" flex-1 text-base font-semibold uppercase"
+              htmlFor="paidAmount"
+            >
+              Paid
+            </label>
+            <input
+              onChange={(e) => setPaidAmount(Number(e.target.value))}
+              className="input input-bordered px-2 w-[500px] appearance-none m-0"
+              type="number"
+              name="paidAmount"
+              id="paidAmount"
+              value={paidAmount}
+            />
+          </div>
+          <div className="flex flex-wrap items-center mt-4">
+            <label
+              className=" flex-1 text-base font-semibold uppercase"
+              htmlFor="due"
+            >
+              Due
+            </label>
+            <input
+              readOnly
+              className="input input-bordered px-2 w-[500px] appearance-none m-0"
+              type="number"
+              name="due"
+              id="due"
+              value={totalPrice - paidAmount}
             />
           </div>
           <p className="text-red-600 ">{error}</p>

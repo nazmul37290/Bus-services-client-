@@ -36,15 +36,14 @@ const CheckOutPage = () => {
     bookingDetails.busId = id;
     bookingDetails.seats = bookedSeats;
     bookingDetails.totalPrice = totalPayableAmount;
+    bookingDetails.paidAmount = totalPayableAmount;
     bookingDetails.paymentMethod = "bkash";
 
     try {
-      console.log("try block");
       const paymentRes = await axios.post(
         `${import.meta.env.VITE_BASE_URL}/payment/bkash/create`,
         { amount: totalPayableAmount }
       );
-      console.log(paymentRes);
       if (
         paymentRes?.data?.success === true &&
         paymentRes?.data?.data?.bkashURL
@@ -54,6 +53,7 @@ const CheckOutPage = () => {
       }
     } catch (error) {
       console.log(error);
+      toast.error(error?.message);
       setError(error?.message);
     }
   };

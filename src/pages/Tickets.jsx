@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { generatePDF } from "../utils/generatePdf";
 
 const Tickets = () => {
+  const settings = JSON.parse(localStorage.getItem("settings"));
   const [error, setError] = useState("");
   const [ticket, setTicket] = useState();
   const [loading, setLoading] = useState(false);
@@ -91,7 +92,7 @@ const Tickets = () => {
           {ticket && (
             <div id="ticket" className="overflow-hidden  ticket bg-teal-50">
               <div className=" bg-teal-600 flex items-center justify-between w-full text-white py-3 px-8">
-                <img src="/assets/logo.png" className="w-28" alt="" />
+                <img src={settings?.siteLogo} className="h-12" alt="" />
                 <h3 className=" font-semibold text-xl mb-4 font-serif uppercase">
                   E-TICKET
                 </h3>
@@ -226,20 +227,12 @@ const Tickets = () => {
                           <span>:</span>
                         </td>
                         <td className="uppercase px-4">
-                          <span>{ticket?.busId?.busName}</span>
+                          <span>
+                            {ticket?.busId?.busName} ({ticket?.busId?.busType})
+                          </span>
                         </td>
                       </tr>
-                      <tr>
-                        <td className="pr-4">
-                          <span className="font-medium">Bus Type</span>
-                        </td>
-                        <td>
-                          <span>:</span>
-                        </td>
-                        <td className="uppercase px-4">
-                          <span>{ticket?.busId?.busType}</span>
-                        </td>
-                      </tr>
+
                       <tr>
                         <td className="pr-4">
                           <span className="font-medium">Seats</span>
@@ -247,7 +240,7 @@ const Tickets = () => {
                         <td>
                           <span>:</span>
                         </td>
-                        <td className="uppercase px-4">
+                        <td className="uppercase px-4 font-semibold">
                           <span> {ticket?.seats.join(",")}</span>
                         </td>
                       </tr>
@@ -258,8 +251,36 @@ const Tickets = () => {
                         <td>
                           <span>:</span>
                         </td>
-                        <td className="uppercase px-4">
+                        <td className="uppercase px-4 font-semibold">
                           <span>{ticket?.totalPrice} BDT</span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="pr-4">
+                          <span className="font-medium">Paid</span>
+                        </td>
+                        <td>
+                          <span>:</span>
+                        </td>
+                        <td className="uppercase px-4 font-semibold">
+                          <span>{ticket?.paidAmount} BDT</span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="pr-4 py-1">
+                          <span className="font-medium">Due</span>
+                        </td>
+                        <td>
+                          <span>:</span>
+                        </td>
+                        <td className="uppercase px-4">
+                          <span
+                            className={`${
+                              ticket?.due > 0 ? "text-red-700" : ""
+                            }  font-semibold`}
+                          >
+                            {ticket?.due} BDT
+                          </span>
                         </td>
                       </tr>
                       <tr>
