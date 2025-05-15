@@ -93,14 +93,27 @@ const Tickets = () => {
           {ticket && (
             <div id="ticket" className="overflow-hidden  ticket bg-teal-50">
               <div className=" bg-teal-600 flex items-center justify-between w-full text-white py-3 px-8">
-                <img src={settings?.siteLogo} className="h-12" alt="" />
+                {/* <img
+                  src={
+                    "https://png.pngtree.com/png-clipart/20190611/original/pngtree-wolf-logo-png-image_2306634.jpg"
+                  }
+                  className="h-12"
+                  // crossOrigin="anonymous"
+                  alt=""
+                /> */}
+                <img
+                  src={settings?.siteLogo}
+                  crossOrigin="anonymous"
+                  className="h-12"
+                  alt=""
+                />
                 <h3 className=" font-semibold text-xl mb-4 font-serif uppercase">
                   E-TICKET
                 </h3>
               </div>
               <div className="ticket-inner flex gap-20 py-8 px-8  bg-no-repeat">
                 <div className="">
-                  <table className="table table-xs">
+                  <table className=" table-xs">
                     {/* check comment */}
                     <tbody>
                       <tr>
@@ -197,7 +210,7 @@ const Tickets = () => {
                   </table>
                 </div>
                 <div>
-                  <table className="table table-xs">
+                  <table className=" table-xs">
                     <tbody>
                       <tr className="">
                         <td className="pr-4">

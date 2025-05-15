@@ -6,6 +6,7 @@ export const generatePDF = () => {
 
   html2canvas(ticketElement, {
     scale: 2,
+    useCORS: true,
     backgroundColor: "#ffffff",
     windowWidth: 1200,
   }).then((canvas) => {
