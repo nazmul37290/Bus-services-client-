@@ -110,7 +110,10 @@ const Dashboard = () => {
               aria-label="close sidebar"
               className="drawer-overlay"
             ></label>
-            <ul className="menu bg-teal-600   text-white font-medium text-base min-h-screen   w-80 p-4">
+            <ul
+              style={{ minHeight: "calc(100vh - 66px)" }}
+              className="menu bg-teal-600   text-white font-medium text-base    w-80 p-4"
+            >
               {/* Sidebar content here */}
               {dashboardLinks?.map((link, index) => {
                 return (

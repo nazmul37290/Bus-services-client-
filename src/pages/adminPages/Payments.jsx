@@ -63,7 +63,7 @@ const Payments = () => {
         payment.bookingId.name,
         payment.bookingId.contactNumber,
         payment.paymentMethod,
-        payment.bookingId.totalPrice,
+        payment.bookingId.paidAmount,
         payment.bookingId.transactionId,
         new Date(payment.createdAt).toLocaleString("en-GB", {
           hour12: true,
@@ -80,6 +80,15 @@ const Payments = () => {
     autoTable(doc, {
       head: [tableColumn],
       body: tableRows,
+      styles: {
+        fontSize: 8,
+        cellPadding: 2,
+        halign: "center",
+        valign: "middle",
+        overflow: "linebreak",
+        lineWidth: 0.05,
+        lineColor: "#000",
+      },
     });
 
     doc.save("payment.pdf");
@@ -125,7 +134,7 @@ const Payments = () => {
                 <th>Contact Number</th>
                 <th>Booking id </th>
                 <th>payment method</th>
-                <th>total amount</th>
+                <th>Paid amount</th>
                 <th>transaction id</th>
                 <th>Datetime of Payment</th>
               </tr>
@@ -154,8 +163,9 @@ const Payments = () => {
                       <td className="font-medium uppercase">
                         {payment?.paymentMethod}
                       </td>
+
                       <td className="font-medium">
-                        {payment?.bookingId?.totalPrice}
+                        {payment?.bookingId?.paidAmount}
                       </td>
                       <td className="font-medium">
                         {payment?.bookingId?.transactionId}

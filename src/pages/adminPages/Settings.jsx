@@ -230,12 +230,17 @@ const Settings = () => {
               />
             </div>
             <div className="flex justify-between items-center border-b py-2">
-              <h3 className="text-zinc-800 font-semibold flex items-center gap-2 text-sm">
-                Site Logo{" "}
-                <label htmlFor="siteLogo" className="text-teal-600">
-                  <FaEdit></FaEdit>
-                </label>
-              </h3>
+              <div>
+                <h3 className="text-zinc-800 font-semibold flex items-center gap-2 text-sm">
+                  Site Logo{" "}
+                  <label htmlFor="siteLogo" className="text-teal-600">
+                    <FaEdit></FaEdit>
+                  </label>
+                </h3>
+                <span className="text-xs text-zinc-600 font-normal">
+                  Aspect-ratio ( 3 : 1 ) for best output
+                </span>
+              </div>
               <input
                 onChange={handleFileChange}
                 id="siteLogo"
