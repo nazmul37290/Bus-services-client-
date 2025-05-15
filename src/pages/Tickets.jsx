@@ -100,6 +100,7 @@ const Tickets = () => {
               <div className="ticket-inner flex gap-20 py-8 px-8  bg-no-repeat">
                 <div className="">
                   <table className="table table-xs">
+                    {/* check comment */}
                     <tbody>
                       <tr>
                         <td className="pr-4">
